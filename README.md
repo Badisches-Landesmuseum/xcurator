@@ -1,0 +1,2 @@
+# xcurator
+Main xCurator monorepo
