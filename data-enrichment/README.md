@@ -7,14 +7,14 @@ The Data Enrichment Pipeline is a queue of multiple steps. Each step is creating
 <div style="text-align:center"><img src="./doc/pipeline.png" alt="pipeline"/></div>
 
 
-### Subproject Naming Convention
+#### Subproject Naming Convention
 ```
 [SEQUENCE_NUMBER]-[SUBPROJECT_NAME]
 ```
 - **SEQUENCE_NUMBER**: Prefix sequence numbers on the folders indicates the required execution sequence. Same numbers can be executed in parallel if necessary.
 - **SUBPROJECT_NAME**: the name of the project, step of enrichment
 
-### Pipeline Steps
+## Pipeline Steps
 
 #### 0. Import ([0-artefact-core-import](./0-artefact-core-import))
 
