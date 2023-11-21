@@ -1,0 +1,36 @@
+*
+
+!lib
+
+
+# Code
+!src
+!src/**
+!tests
+!tests/**
+
+# Python Poetry
+!poetry.lock
+!pyproject.toml
+!pylintrc
+
+# Docker
+!.dockerignore
+!docker-compose*.yml
+!Dockerfile*
+
+# Deployment
+!helm
+!Jenkinsfile
+
+# Documentation
+!*.md
+!LICENCE
+
+# Helping Scripts
+!*.sh
+
+# AI model folder scripts and docus only
+!model
+!model/**.sh
+!model/**.md
