@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "named-entity.json",
+  "title": "Artefact",
+  "description": "detected and categorized important information in a text. typically persons, locations and organisations",
+  "type": "object",
+  "properties": {
+    "literal": {
+      "description": "Name of the entity and text part matched in the source text.",
+      "type": "string"
+    },
+    "property": {
+      "description": "Artefact property name inside the schema this entity was matched.",
+      "type": "string"
+    },
+    "type": {
+      "description": "The type of the Entity. e.g. PER or LOC",
+      "type": "string"
+    },
+    "startPosition": {
+      "description": "numerical start position where the literal of the entity is matched inside the source text.",
+      "type": "integer"
+    },
+    "endPosition": {
+      "description": "numerical end position where the literal of the entity is matched inside the source text.",
+      "type": "integer"
+    },
+    "continent": {
+      "description": "Continent name in uppercase, this entity relates to",
+      "type": "string"
+    },
+    "country": {
+      "description": "Country ISO 3166 Code in uppercase, this entity relates to",
+      "type": "string"
+    },
+    "linkedData": {
+      "description": "Map of external datasource's this entity is linked to",
+      "type": "object",
+      "properties": {
+        "wikidata": {
+          "description": "Wikidata Data Source",
+          "type": "object",
+          "properties": {
+            "url": {
+              "description": "HTTP URL to the linked wikidata entity",
+              "type": "string"
+            },
+            "id": {
+              "description": "Wikidata Entity Q-Identifier",
+              "type": "string"
+            },
+            "required": [
+              "url",
+              "id"
+            ]
+          }
+        },
+        "wikipedia": {
+          "description": "Wikipedia Data Source",
+          "type": "object",
+          "properties": {
+            "url": {
+              "description": "HTTP URL to the linked wikipedia entity",
+              "type": "string"
+            },
+            "id": {
+              "description": "Wikipedia Page Title",
+              "type": "string"
+            },
+            "required": [
+              "url",
+              "id"
+            ]
+          }
+        },
+        "gnd": {
+          "description": "Gemeinsame Normdatei (GND) Data Source",
+          "type": "object",
+          "properties": {
+            "url": {
+              "description": "HTTP URL to the linked GND entity",
+              "type": "string"
+            },
+            "id": {
+              "description": "GND Identifier",
+              "type": "string"
+            },
+            "required": [
+              "url",
+              "id"
+            ]
+          }
+        }
+      }
+    },
+    "required": [
+      "literal",
+      "property",
+      "type",
+      "startPosition",
+      "endPosition",
+      "linkedData"
+    ]
+  }
+}
