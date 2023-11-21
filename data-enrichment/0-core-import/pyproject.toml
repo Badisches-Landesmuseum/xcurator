@@ -24,15 +24,10 @@ tables = "3.9.1"
 httpx = "0.25.0"
 cftime = "1.6.2"
 more-itertools="10.1.0"
-3pc-py-config = { version = "1.1.1", source = "pypi-dreipc" }
+3pc-py-config = {path="./lib/3pc-py-config-1.1.1.tar.gz"}
 beautifulsoup4 = "4.12.2"
 tqdm = "4.66.1"
 requests = "2.31.0"
-
-[[tool.poetry.source]]
-name = 'pypi-dreipc'
-url = 'https://nexus.3pc.de/repository/pypi-group/simple/'
-priority = "supplemental"
 
 [[tool.poetry.source]]
 name = "PyPI"
