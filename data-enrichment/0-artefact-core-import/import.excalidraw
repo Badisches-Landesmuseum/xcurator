@@ -517,7 +517,7 @@
     {
       "id": "6O7H764I0lkingQq3IGe7",
       "type": "rectangle",
-      "x": 296,
+      "x": 300,
       "y": 331,
       "width": 79,
       "height": 66,
@@ -532,8 +532,8 @@
       "groupIds": [],
       "strokeSharpness": "sharp",
       "seed": 1137108618,
-      "version": 23,
-      "versionNonce": 1468092618,
+      "version": 24,
+      "versionNonce": 1801663515,
       "isDeleted": false,
       "boundElementIds": null
     },

@@ -2,7 +2,10 @@
 
 This [sub-folder](../data-enrichment) contains all data related and enrichment related subprojects (indicated by the number prefix) to import and prepare the data which is **required** to run the [xCurator application](../application).
 
-The Data Enrichment Pipeline is a queue of multiple steps. Each step is creating new information except the last step, which combines everything to a single dataset in the JSON Format.  
+The Data Enrichment Pipeline is a queue of multiple steps. Each step is creating new information except the last step, which combines everything to a single dataset in the JSON Format.
+
+<div style="text-align:center"><img src="./doc/pipeline.png" alt="pipeline"/></div>
+
 
 ### Subproject Naming Convention
 ```
@@ -19,6 +22,3 @@ The Data Enrichment Pipeline is a queue of multiple steps. Each step is creating
 The first step is to fetch and download the core data (artefacts). Artefacts are museum objects and represent real world objects.
 based on the given apis, this step is fetching, cleaning, filtering, normalizing the data to build a **list of artefacts**.
 Additionally, this step downloads all artefact images, fetching **width** and **height** information, and convert them as base64 images to enable faster image enrichment's for later steps.
-
-
- 
