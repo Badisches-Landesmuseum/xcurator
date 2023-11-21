@@ -9,29 +9,6 @@
 # PYTHON-BASE
 # Sets up all our shared environment variables
 ################################
-#FROM nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04 as gpu-base
-#
-## PYTHON 3.10
-#RUN apt-get -y update --no-install-recommends  \
-#    && apt-get install -y software-properties-common \
-#    && apt-get -y update \
-#    &&  add-apt-repository ppa:deadsnakes/ppa \
-#    && apt-get -y update
-#
-#RUN DEBIAN_FRONTEND=noninteractive apt-get install --yes --quiet --no-install-recommends \
-#    python3.12 \
-#    python3.12-dev \
-#    python3.12-distutils \
-#    python3.12-lib2to3 \
-#    python3.12-gdbm \
-#    python3.12-tk \
-#    pip
-#
-#RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 999 \
-#    && update-alternatives --config python3 && ln -s /usr/bin/python3 /usr/bin/python
-#
-#RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.12
-
 FROM python:3.12.0-slim-bullseye as python-base
 
     # python
