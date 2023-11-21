@@ -7,6 +7,8 @@ The Data Enrichment Pipeline is a queue of multiple steps. Each step is creating
 <div style="text-align:center"><img src="./doc/pipeline.png" alt="pipeline"/></div>
 
 
+The final JSON dataset is a list of artefacts. The Artefact Schema is described as [JSON Schema](https://json-schema.org/) here: [artefact-schema.json](./artefact-schema.json)
+
 #### Subproject Naming Convention
 ```
 [SEQUENCE_NUMBER]-[SUBPROJECT_NAME]
