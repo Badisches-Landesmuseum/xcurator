@@ -20,7 +20,23 @@ The final JSON dataset is a list of artefacts. The Artefact Schema is described 
 
 #### 0. Import ([0-artefact-core-import](./0-artefact-core-import))
 
-<div style="text-align:center"><img src="./doc/import-step.png" alt="import step"/></div>
 The first step is to fetch and download the core data (artefacts). Artefacts are museum objects and represent real world objects.
 based on the given apis, this step is fetching, cleaning, filtering, normalizing the data to build a **list of artefacts**.
 Additionally, this step downloads all artefact images, fetching **width** and **height** information, and convert them as base64 images to enable faster image enrichment's for later steps.
+
+<div style="text-align:center"><img src="./doc/import-step.png" alt="import step"/></div>
+
+
+#### 1. Translation ([1-translation](./1-translation))
+
+The target of this step is to make sure that the core textual data used by the search engine and displayed to end users is available for all languages used in the project. 
+
+<div style="text-align:center"><img src="./doc/translation-step.png" alt="import step"/></div>
+
+
+#### 1. object color ([1-artefact-object-color](./1-artefact-object-color))
+
+The target of this step is to retrieve the color information of the artefact object itself. To make this work, this step is doing ai image-segmentation to segment the object inside the image from the background.
+Having the segmented object image, the pixels are clustered to create a color palette of the artefact.
+
+For detailed info see here: [1-artefact-object-color/README](./1-artefact-object-color/README.md)
