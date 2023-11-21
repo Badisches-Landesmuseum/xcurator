@@ -1,7 +1,0 @@
-app:
-  name: color-extraction-service
-
-model:
-    u2net:
-      filename: 'u2net.pth'
-      batch_size: ${BATCH_SIZE:1}

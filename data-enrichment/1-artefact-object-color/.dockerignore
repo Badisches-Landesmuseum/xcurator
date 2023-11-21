@@ -1,0 +1,9 @@
+# Whitelist approach
+# Exclude everything: 
+*
+# Include as exceptions
+!src
+!model
+!data
+!pyproject.toml
+!poetry.lock

@@ -1,6 +1,0 @@
-services:
-  artefact-import:
-    container_name: artefact-core-import
-    image: xcurator-import
-    volumes:
-      - ../data:/data
