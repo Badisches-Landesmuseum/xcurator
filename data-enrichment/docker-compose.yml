@@ -12,6 +12,7 @@ x-service_defaults: &service_defaults
     options:
       max-size: "100m"
 
+# docker gpu settings to use gpu power. see: https://docs.docker.com/compose/gpu-support/
 x-gpu: &gpu
   deploy:
     resources:
@@ -23,6 +24,7 @@ x-gpu: &gpu
 
 
 services:
+  # Import and normalize the base data and prepare images for enrichment
   core-import:
     << : [*service_defaults]
     container_name: core-import
@@ -30,6 +32,7 @@ services:
     build:
       context: ./0-artefact-core-import
 
+  # create visual embeddings (one each artefact record) based on the base64 image
   artefact-embedding:
     << : [*service_defaults,*gpu]
     container_name: artefact-embedding
@@ -37,6 +40,7 @@ services:
     build:
       context: ./1-artefact-embedding
 
+  # segment image and extract the color palette of the foreground object based on the base64 image
   artefact-object-color:
     << : [*service_defaults,*gpu]
     container_name: artefact-object-color
@@ -44,6 +48,7 @@ services:
     build:
       context: ./1-artefact-object-color
 
+  # translate titles and descriptions of artefacts into the target languages [de, en, nl]
   translation:
     << : [*service_defaults]
     container_name: translation
@@ -51,6 +56,7 @@ services:
     build:
       context: ./1-translation
 
+  # merge all enrichment outputs into a single dataset
   finalize:
     <<: [ *service_defaults ]
     container_name: finalize
