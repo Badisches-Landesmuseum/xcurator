@@ -217,7 +217,7 @@ class AP:
                 "collection": "Beeladebank",
                 "owner": "Allard Pierson Museum",
                 "language": "nl",
-                "url": f"https://epoz.org/shmarql?e=https://api.lod.uba.uva.nl/datasets/UB-UVA/Beeldbank/services/virtuoso/sparql&s=%3C{json_data['identifier']}%3E"
+                "url": json_data['identifier']
             },
         }
 
