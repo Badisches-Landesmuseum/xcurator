@@ -1,0 +1,17 @@
+app:
+  name: entity-linking-service
+
+model:
+  rel:
+    wiki-version: wiki_2019
+    spacy-ner-model: ${SPACY_NER_MODEL:xx_ent_wiki_sm} # de_core_news_lg / xx_ent_wiki_sm / nl_core_news_lg / de_core_news_lg
+    ed-model: ed-wiki-2019
+
+kafka:
+  bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9099}
+  topic:
+    in:
+      name: mongodb.example-database.text
+      offset: latest # latest » earliest | none
+    out:
+      name: text.wikidata-entity

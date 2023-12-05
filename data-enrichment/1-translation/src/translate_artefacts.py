@@ -125,8 +125,8 @@ def main():
     data_dir().mkdir(parents=True, exist_ok=True)
     output_directory = Path(os.getenv("OUTPUT_DIRECTORY")) if os.getenv("OUTPUT_DIRECTORY") else Path('../../data')
     output_directory.mkdir(parents=True, exist_ok=True)
-    if (output_directory / Path(f'1_artefacts-translation_{date_string}.json')).exists():
-        print(f"Translated corpus exist {(output_directory / Path(f'1_artefacts-translation_{date_string}.json'))}. skip translation")
+    if (output_directory / Path(f'artefacts-translation_{date_string}.json')).exists():
+        print(f"Translated corpus exist {(output_directory / Path(f'artefacts-translation_{date_string}.json'))}. skip translation")
         sys.exit(1)
 
     api_key = os.getenv("DEEPL_API_KEY")
@@ -168,12 +168,9 @@ def main():
     print("Update language caches")
     translator.safe()
 
-
-
     translated_corpus = translated_corpus[['source_id', 'title', 'description']].copy()
-    # translated_corpus.drop(columns=["source_id", "orig_language"], inplace=True)
-    translated_corpus.to_json((output_directory / Path(f"1_artefacts-translation_{date_string}.json")), orient="records")
-    translated_corpus.head(10).to_json((output_directory / Path(f"1_artefacts-translation-small_{date_string}.json")), orient="records")
+    translated_corpus.to_json((output_directory / Path(f"artefacts-translation_{date_string}.json")), orient="records")
+    translated_corpus.head(10).to_json((output_directory / Path(f"artefacts-translation-small_{date_string}.json")), orient="records")
 
 
 if __name__ == "__main__":

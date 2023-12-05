@@ -7,6 +7,7 @@ x-service_defaults: &service_defaults
   environment:
     OUTPUT_DIRECTORY: data-out
     DEEPL_API_KEY: "[ADD_YOUR_KEY_HERE]" # https://support.deepl.com/hc/de/articles/360020695820-Authentifizierungsschl%C3%BCssel
+    ENTITY_LINKER: "REL" # [REL,SBB,FLAIR] - REL: requires specific rel-data injected, SBB: requires json provided by the sbb
   logging:
     driver: "json-file"
     options:
@@ -55,6 +56,14 @@ services:
     image: xcurator/translation:1.0.0-beta
     build:
       context: ./1-translation
+
+  # recognize named entities in the multilingual corpus and link it against wikidata,wikipedia and gnd
+  entity-linking:
+    <<: [ *service_defaults ]
+    container_name: entity-linking
+    image: xcurator/entity-linking:1.0.0-beta
+    build:
+      context: ./2_entity_linking
 
   # merge all enrichment outputs into a single dataset
   finalize:
