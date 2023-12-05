@@ -6,7 +6,7 @@ x-service_defaults: &service_defaults
     - ./data:/src/data-out
   environment:
     OUTPUT_DIRECTORY: data-out
-    DEEPL_API_KEY: [ADD_YOUR_KEY_HERE] # https://support.deepl.com/hc/de/articles/360020695820-Authentifizierungsschl%C3%BCssel
+    DEEPL_API_KEY: "[ADD_YOUR_KEY_HERE]" # https://support.deepl.com/hc/de/articles/360020695820-Authentifizierungsschl%C3%BCssel
   logging:
     driver: "json-file"
     options:
@@ -50,3 +50,10 @@ services:
     image: xcurator/translation:1.0.0-beta
     build:
       context: ./1-translation
+
+  finalize:
+    <<: [ *service_defaults ]
+    container_name: finalize
+    image: xcurator/finalize:1.0.0-beta
+    build:
+      context: ./3_finalize
