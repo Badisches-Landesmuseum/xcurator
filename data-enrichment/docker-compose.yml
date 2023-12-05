@@ -1,0 +1,50 @@
+x-service_defaults: &service_defaults
+  restart: no
+  ipc: host
+  tty: true
+  volumes:
+    - ./data:/data-out
+  environment:
+    OUTPUT_DIRECTORY: data-out
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "100m"
+
+x-gpu: &gpu
+  deploy:
+    resources:
+      reservations:
+        devices:
+          - driver: nvidia
+            count: all
+            capabilities: [ gpu ]
+
+services:
+  core-import:
+    << : [*service_defaults]
+    container_name: core-import
+    image: xcurator/core-import:1.0.0-beta
+    build:
+      context: ./0-artefact-core-import
+
+  artefact-embedding:
+    << : [*service_defaults,*gpu]
+    container_name: artefact-embedding
+    image: xcurator/artefact-embedding:1.0.0-beta
+    build:
+      context: ./1-artefact-embedding
+
+  artefact-object-color:
+    << : [*service_defaults,*gpu]
+    container_name: artefact-object-color
+    image: xcurator/artefact-object-color:1.0.0-beta
+    build:
+      context: ./1-artefact-object-color
+
+  translation:
+    << : [*gpu]
+    container_name: translation
+    image: xcurator/translation:1.0.0-beta
+    build:
+      context: ./1-translation
