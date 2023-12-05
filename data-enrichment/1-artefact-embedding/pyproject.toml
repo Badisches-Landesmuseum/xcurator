@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "clip-service"
+name = "xcurator-artefact-embedding"
 version = "0.2.2" # placeholder | version is defined in git tags | command: poetry version
 description = "extracts clip text and visual embeddings."
 authors = ["Sören Räuchle <sraeuchle@3pc.de>"]

@@ -46,7 +46,7 @@ ENV PYTHONUNBUFFERED=1 \
     # poetry
     # https://python-poetry.org/docs/configuration/#using-environment-variables
     # https://github.com/python-poetry/poetry/releases
-    POETRY_VERSION=1.6.1 \
+    POETRY_VERSION=1.7.1 \
     # make poetry install to this location
     POETRY_HOME="/opt/poetry" \
     # make poetry create the virtual environment in the project's root
@@ -91,6 +91,7 @@ RUN --mount=type=cache,target=/root/.cache \
 # copy project requirement files here to ensure they will be cached.
 WORKDIR $PYSETUP_PATH
 COPY poetry.lock pyproject.toml ./
+COPY lib ./lib
 
 # install runtime deps - uses $POETRY_VIRTUALENVS_IN_PROJECT internally
 # Bug: --no-root (https://github.com/python-poetry/poetry/issues/1132)

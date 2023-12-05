@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "xcurator-core-import"
+name = "xcurator-artefact-core-import"
 version = "0.0.0" # placeholder | version is defined in git tags | command: poetry version
 description = "Import data for the xcurator-project including image preparation for enrichment"
 authors = ["Sören Räuchle <sraeuchle@3pc.de>"]

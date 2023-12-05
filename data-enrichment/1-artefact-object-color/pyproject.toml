@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "color-extractor-service"
+name = "xcurator-artefact-object-color"
 version = "0.2.2" # placeholder | version is defined in git tags | command: poetry version
 description = "extracts fore- and background color palettes of images, including shiny colors (high satuated) "
 authors = ["Nadav Babei <nbabai@3pc.de>, Sören Räuchle <sraeuchle@3pc.de>"]
