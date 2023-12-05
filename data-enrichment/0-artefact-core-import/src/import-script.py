@@ -34,7 +34,7 @@ def import_code():
 
         print("Import the dataset of Allard Pierson")
         ap_artefacts = AP().get_data()
-        print(f"\t Got {len(blm_artefacts)} artefacts.")
+        print(f"\t Got {len(ap_artefacts)} artefacts.")
 
         artefacts = pandas.concat([blm_artefacts, ap_artefacts])
         artefacts.to_json(artefacts_file, orient="records")
