@@ -51,7 +51,7 @@ class IIIFHandler:
                 if retry < 3:
                     logging.error(f'Timeout Error: Data of not retrieved because %s\nURL: %s retry attempt: {retry +1}',  e, iiif_url)
                     sleep(5)
-                    IIIFHandler.base64(iiif_url, retry+1)
+                    return IIIFHandler.base64(iiif_url, retry+1)
                 else:
                     logging.error(f'Timeout Error: Max retries exceeded. skip')
                     print(f"[{e}] -> {iiif_url}")
