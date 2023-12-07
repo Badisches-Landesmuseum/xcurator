@@ -70,6 +70,7 @@ def import_code():
         print("\tNote: this process can be interrupted and continued later\n")
         df_base64 = IIIFHandler.get_all_base64_images(df_images)
         df_base64.to_csv(image_base64_file)
+        print("\tfinished fetching base64 images.")
     else:
         print("\tCached corpus found. skip downloading.\n")
         df_base64 = pandas.read_csv(image_base64_file)
@@ -81,6 +82,7 @@ def import_code():
         print("\tNote: this process can be interrupted and continued later")
         df_sizes = IIIFHandler.get_all_sizes(df_images)
         df_sizes.to_csv(image_sizes_file)
+        print("\tfinished fetching image sizes.")
     else:
         print("\tCached sizes found. skip fetching.")
         df_sizes = pandas.read_csv(image_sizes_file)

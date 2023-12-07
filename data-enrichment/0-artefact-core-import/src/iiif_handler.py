@@ -20,21 +20,35 @@ from tqdm import tqdm
 class IIIFHandler:
 
     @staticmethod
-    def size(iiif_url) -> Optional[Dict]:
+    def size(iiif_url, retry: int = 0) -> Optional[Dict]:
         """request the image size (width, height) as json using the iiif info.json endpoint"""
 
         full_index = iiif_url.find("/full")
         info_url = f"{iiif_url[:full_index]}/info.json"
-        response = requests.get(url=info_url)
+        try:
+            response = requests.get(url=info_url)
 
-        if response.status_code != 200:
-            return None
+            if response.status_code != 200:
+                return None
 
-        json_info = response.json()
-        return {
-            "width": json_info['width'],
-            "height": json_info['height']
-        }
+            json_info = response.json()
+            return {
+                "width": json_info['width'],
+                "height": json_info['height']
+            }
+        except URLError as e:
+            if isinstance(e.reason, timeout):
+                if retry < 3:
+                    logging.error(f'Timeout Error: Data of not retrieved because %s\nURL: %s retry attempt: {retry +1}',  e, iiif_url)
+                    sleep(5)
+                    return IIIFHandler.size(iiif_url, retry+1)
+                else:
+                    logging.error(f'Timeout Error: Max retries exceeded. skip')
+                    print(f"[{e}] -> {iiif_url}")
+                    return None
+            else:
+                print(f"[{e}] -> {iiif_url}")
+                return None
 
     @staticmethod
     def base64(iiif_url, retry: int = 0) -> Optional[str]:
