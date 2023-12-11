@@ -13,8 +13,7 @@ from py_config import data_dir
 
 class BLM:
     sources = {
-        "CUE": "https://expotest.bsz-bw.de/blm/cue/selekt?len=20000&mim=json",
-        "DK": "https://expotest.bsz-bw.de/blm/digitaler-katalog/selekt?len=20000&mim=json",
+        "CUE/DK": "https://expo.bsz-bw.de/blm/cue/selekt?len=90000&mim=json"
     }
 
     def get_data(self, continent_json: Path = None) -> DataFrame:
