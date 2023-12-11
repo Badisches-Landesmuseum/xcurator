@@ -49,6 +49,9 @@ class IIIFHandler:
             else:
                 print(f"[{e}] -> {iiif_url}")
                 return None
+        except Exception as e:
+            print(f"[{e}] -> {iiif_url}")
+            return None
 
     @staticmethod
     def base64(iiif_url, retry: int = 0) -> Optional[str]:
