@@ -1,10 +1,12 @@
 from datetime import datetime
 from typing import List
 
+import os
 import pandas
 import torch
 from py_config import print_3pc_banner, data_dir
 from tqdm import tqdm
+from pathlib import Path
 
 from embeddings.OpenCLIP import OpenCLIP
 from images.image_handler import ImageHandler
@@ -24,10 +26,14 @@ def main():
     torch.cuda.empty_cache()
     print_3pc_banner()
 
+    output_directory = Path(os.getenv("OUTPUT_DIRECTORY")) if os.getenv("OUTPUT_DIRECTORY") else data_dir()
+    output_directory.mkdir(parents=True, exist_ok=True)
+
     # Data
-    csv_file = list(data_dir().rglob("*base64*.csv"))[0]
+    csv_file = list(output_directory.rglob("*base64*.csv"))[0]
     print(f"using data from csv: {csv_file}")
     df = pandas.read_csv(csv_file)
+    df = df[df['base64'].notnull()]
 
     total = len(df.index)
     print(f"total: {total}")
@@ -36,7 +42,7 @@ def main():
 
     df['embedding'] = df['base64'].progress_apply(generate_embedding)
     df.drop(columns=['base64'], inplace=True)
-    df.to_json(data_dir(f"xcurator-clip-embeddings-640_{date_string}-2.json"), orient="records")
+    df.to_json(output_directory / Path(f"xcurator-clip-embeddings-640_{date_string}.json"), orient="records")
 
 
 if __name__ == '__main__':

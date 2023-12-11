@@ -48,23 +48,10 @@ def main():
     csv_file = list(output_directory.rglob("*base64*.csv"))[0]
     print(f"using data from csv: {csv_file}")
     df = pandas.read_csv(csv_file)
-    df = df[df['base64'] != '']
+    df = df[df['base64'].notnull()]
 
     total = len(df.index)
     print(f"total: {total}")
-
-    print("""
-    reading data table csv: /data/*.csv"
-    
-    expected structure:
-    +----------------------------------------------------------------+-----------------------------------------------------+
-    |                              image_url                         |                        base64_image                 | 
-    +----------------------------------------------------------------+-----------------------------------------------------+
-    | https://example.com/image-1.jpg?width=400                      | data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQAB...  |
-    | https://example.com/iiif/2/image-3.jpg/full/400,/0/default.jpg | data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQAB...  |
-    | ...                                                            | ...                                                 |
-    +----------------------------------------------------------------+-----------------------------------------------------+
-    """)
 
     image_dict = dict(zip(df.image, df.base64))
     id_dict = dict(zip(df.image, df.source_id))
