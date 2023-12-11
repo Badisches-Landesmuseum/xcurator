@@ -22,10 +22,10 @@ class IIIFHandler:
     @staticmethod
     def size(iiif_url, retry: int = 0) -> Optional[Dict]:
         """request the image size (width, height) as json using the iiif info.json endpoint"""
-
-        full_index = iiif_url.find("/full")
-        info_url = f"{iiif_url[:full_index]}/info.json"
         try:
+            full_index = iiif_url.find("/full")
+            info_url = f"{iiif_url[:full_index]}/info.json"
+
             response = requests.get(url=info_url)
 
             if response.status_code != 200:
