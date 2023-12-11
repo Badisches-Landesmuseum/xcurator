@@ -14,6 +14,22 @@ The final JSON dataset is a list of artefacts. The Artefact Schema is described 
 - **SEQUENCE_NUMBER**: Prefix sequence numbers on the folders indicates the required execution sequence. Same numbers can be executed in parallel if necessary.
 - **SUBPROJECT_NAME**: the name of the project, step of enrichment
 
+## Build and Run
+All pipeline projects include a Dockerfile to build a Container out of it.
+These are combined in the [docker-compose.yml](./docker-compose.yml) to build a semantically single pipeline.
+Please check the [docker-compose.yml](./docker-compose.yml) if all Environment Variables are set properly for your use case and environment.
+
+### Requirements:
+- Docker installed and configured for gpu usage ([GPU access with Docker Compose](https://docs.docker.com/compose/gpu-support/))
+- Deepl API Key ([Deepl Docs](https://support.deepl.com/hc/en-us/articles/360020695820-Authentication-Key))
+- (optional) Nvidia Graphic card | highly recommended
+- Internet access
+
+### Commands
+- Build `docker compose build`
+- Run (foreground)`docker compose run [SERVICE]`
+- Run (background) `docker compose up -d`
+- Logs: `docker compose logs -f --tail 300`
 
 ## Pipeline Steps
 
@@ -29,6 +45,7 @@ Additionally, this step downloads all artefact images, fetching **width** and **
 ### 1. Translation ([1-translation](./1-translation))
 
 The target of this step is to make sure that the core textual data used by the search engine and displayed to end users is available for all languages used in the project. 
+This step required a `[Deepl API Key]` added inside the [docker-compose.yml](./docker-compose.yml)
 
 <div style="text-align:center"><img src="./doc/translation-step.png" alt="import step"/></div>
 
