@@ -48,7 +48,7 @@ def main():
     csv_file = list(output_directory.rglob("*base64*.csv"))[0]
     print(f"using data from csv: {csv_file}")
     df = pandas.read_csv(csv_file)
-    df = df[df['base_64'] != '']
+    df = df[df['base64'] != '']
 
     total = len(df.index)
     print(f"total: {total}")
