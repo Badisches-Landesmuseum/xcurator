@@ -1,11 +1,13 @@
 import csv
 import json
+import os
 
 import pandas
 import pydantic_core
 import torch
 from py_config import read_app_config, model_dir, print_3pc_banner, data_dir
 from tqdm import tqdm
+from pathlib import Path
 
 from color.extractor import ColorExtractor
 from color.hsv_repository import HSVRepository
@@ -16,6 +18,9 @@ from segmentation.segmentor import ImageSegmentor
 def main():
     torch.cuda.empty_cache()
     print_3pc_banner()
+
+    output_directory = Path(os.getenv("OUTPUT_DIRECTORY")) if os.getenv("OUTPUT_DIRECTORY") else data_dir()
+    output_directory.mkdir(parents=True, exist_ok=True)
 
     print("""
     ###########################################################################
@@ -40,7 +45,7 @@ def main():
     color_extractor = ColorExtractor(color_repository)
 
     # Data
-    csv_file = list(data_dir().rglob("*base64*.csv"))[0]
+    csv_file = list(output_directory.rglob("*base64*.csv"))[0]
     print(f"using data from csv: {csv_file}")
     df = pandas.read_csv(csv_file)
 
@@ -65,7 +70,7 @@ def main():
 
     data = image_segmentor.extract_base64_masks(image_dict)
 
-    with open(str(data_dir("xcurator-color-info.csv")), "a") as w:
+    with open(str(output_directory / Path("xcurator-color-info.csv")), "a") as w:
         writer = csv.writer(w)
         writer.writerow(["source_id", "image", "foreground", "background", "shiny", "mask_base64"])
         with tqdm(total=total) as pbar:

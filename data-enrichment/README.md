@@ -17,7 +17,7 @@ The final JSON dataset is a list of artefacts. The Artefact Schema is described 
 
 ## Pipeline Steps
 
-#### 0. Import ([0-artefact-core-import](./0-artefact-core-import))
+### 0. Import ([0-artefact-core-import](./0-artefact-core-import))
 
 The first step is to fetch and download the core data (artefacts). Artefacts are museum objects and represent real world objects.
 based on the given apis, this step is fetching, cleaning, filtering and normalizing the data to build a **list of artefacts**.
@@ -26,16 +26,41 @@ Additionally, this step downloads all artefact images, fetching **width** and **
 <div style="text-align:center"><img src="./doc/import-step.png" alt="import step"/></div>
 
 
-#### 1. Translation ([1-translation](./1-translation))
+### 1. Translation ([1-translation](./1-translation))
 
 The target of this step is to make sure that the core textual data used by the search engine and displayed to end users is available for all languages used in the project. 
 
 <div style="text-align:center"><img src="./doc/translation-step.png" alt="import step"/></div>
 
 
-#### 1. object color ([1-artefact-object-color](./1-artefact-object-color))
+### 1. Object color ([1-artefact-object-color](./1-artefact-object-color))
 
 The target of this step is to retrieve the color information of the artefact object itself. To make this work, this step is doing Ai image-segmentation to segment the object inside the image from the background.
 Having the segmented object image, the pixels are clustered to create a color palette of the artefact.
 
 For detailed info see here: [1-artefact-object-color/README](./1-artefact-object-color/README.md)
+
+### 1. Embedding ([1-artefact-embedding](./1-artefact-embedding))
+
+The target of this step is to generate visual embeddings based on the input. Currently, we use Clip embeddings to project visual und textual information into the same dimension space.
+These visual embeddings are used for different search and explore features inside the application. 
+
+For detailed info see here: [1-artefact-embedding/README](./1-artefact-embedding/README.md)
+
+### 2. Entity Linking([2-entity-linking](./2-entity-linking))
+
+This step analyzes the multilingual textual information of artefacts (title, descriptions) to find named entities (persons, locations, organisations) and 
+link the found entities to the equivalent entities inside the data sources wikidata, wikipedia and gnd.
+The output is used for an enhanced search by additional metadata and is presented in the frontend to visitors of the application.
+
+For detailed info see here: [2-entity-linking/README](2-entity-linking/README.md)
+
+### 3. Finalize([3-finalize](./3-finalize))
+
+This step combines all enrichment parts together to a single dataset. The output is used to start or update the application.
+
+For detailed info see here: [3-finalize/README](3-finalize/README.md)
+
+
+
+

@@ -63,7 +63,7 @@ services:
     container_name: entity-linking
     image: xcurator/entity-linking:1.0.0-beta
     build:
-      context: ./2_entity_linking
+      context: 2-entity-linking
 
   # merge all enrichment outputs into a single dataset
   finalize:
@@ -71,4 +71,4 @@ services:
     container_name: finalize
     image: xcurator/finalize:1.0.0-beta
     build:
-      context: ./3_finalize
+      context: 3-finalize
