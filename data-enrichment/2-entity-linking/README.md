@@ -1,5 +1,16 @@
 # Entity Linking
 
+For the xCurator we used three algorithms to analyze the texts. 
+1. REL
+2. SBB
+3. Flair
+
+As default, this service runs the `REL` algorithm if all the data rel needs (more than 30GB!) is available, fallback is the `Flair` algorithm.
+The final used one is the output of `SBB`. Thanks to **Kai Labusch** and **Clemend Neudecker** supporting this project by running their algorithm on our data.
+The SBB Model is very hugh and currently not providable as a container or easy script. Please look at the provided GitHub Repositories if you want to run their model.  
+We got some output.json which this script normalizes into the xcurator internal named-entity data schema.
+
+
 ### Wikidata linked data-sources:
 - GND: [P227](https://www.wikidata.org/wiki/Property:P227) (GND identifier)
 - VIAF: [P214](https://www.wikidata.org/wiki/Property:P214) (VIAF identifier)
