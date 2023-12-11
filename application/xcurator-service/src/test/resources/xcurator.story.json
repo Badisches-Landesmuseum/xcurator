@@ -1,0 +1,29 @@
+[
+  {
+    "_id": {
+      "$oid": "65267c44074b1c6b907b1099"
+    },
+    "title": "Schmuck in der Antike",
+    "language": "DE",
+    "authorId": "be3ead5a-6f47-474f-956f-82523dca8a79",
+    "artefactBasket": [],
+    "modules": [
+      {
+        "_id": {
+          "$oid": "652698bc074b1c6b907b109d"
+        },
+        "artefactIds": [
+          {"$oid": "64ef09d73bdeb2f1ef97ba04"}
+        ],
+        "thought": "Stein Schmuck ist kann auch sehr edel sein.",
+        "index": 1
+      }
+    ],
+    "createdAt": "2023-10-11T10:43:16.874Z",
+    "updatedAt": "2023-10-11T10:43:16.874Z",
+    "isDeleted": false,
+    "isPublished": true,
+    "licence": "CC0",
+    "_class": "de.dreipc.xcuratorservice.data.story.Story"
+  }
+]

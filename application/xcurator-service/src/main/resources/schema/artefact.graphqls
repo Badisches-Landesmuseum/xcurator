@@ -1,0 +1,208 @@
+type Query  {
+    "get a single artefact by id"
+    artefact(where: ArtefactUniqueInput!): Artefact!
+    "similar artefacts calculated by a given artefact"
+    searchSimilarArtefacts(where: ArtefactUniqueInput!, take:Int!): [Artefact!]!
+    "fetch details information's about the entity from wikidata"
+    entitiesDetail(where: NamedEntityDetailInput!): NamedEntityDetail!
+
+    reportedArtefacts(language: Language!): [ArtefactNotification!]! @hasRole(roles: [ADMIN])
+    reportedArtefact(where: ArtefactNotificationUniqueInput!, language: Language!): ArtefactNotification! @hasRole(roles: [ADMIN])
+}
+
+extend type Mutation {
+    # Artefact related notifications
+    reportArtefact(create: ArtefactNotificationInput!): ArtefactNotification!
+    updateArtefactNotification(update: UpdateArtefactNotificationInput!): ArtefactNotification! @hasRole(roles: [ADMIN])
+    deleteArtefactNotification(delete: DeleteArtefactNotificationInput!): String @hasRole(roles: [ADMIN])
+    verifyEntity(where: VerifyEntityInput!): NamedEntity! @hasRole(roles: [USER])
+}
+
+input VerifyEntityInput {
+    "xCurator Identifier"
+    artefactId:String!
+    artefactProperty:String!
+    entityStartPosition:Int!
+    entityEndPosition:Int!
+    isCorrect:Boolean!
+    language:Language!
+}
+
+type Artefact {
+    "xCurator Identifier"
+    id:String!
+    "name and or title of the artefact (multi-lingual)"
+    title: String! #    String länge muss immer da (internal -> TextContent)
+    "description of the artefact"
+    description:String #   (internal -> TextContent)
+    "images of the artefact itself"
+    images: [Image!]!  # @length(min = 1) Attention @length is not working on Lists. please look at directives to validate list length
+
+    "Keywords related to the artefact (Schlagworte, defined by the external datasource)"
+    keywords: [String!]!
+
+    "List of materiels. e.g. the artefact is made of (paper, silver..)"
+    materials: [String!]!
+
+    "List of techniques the artefact is made with"
+    techniques: [String!]!
+
+    "List of locations. e.g. the location the artefacts current location."
+    locations: [Location!]!
+
+    "List of persons the artefact related with (creator)"
+    persons: [Person!]!
+
+    "date, e.g. of the artefact is made"
+    dateRange: DateRange
+
+    "List of entities (person, location, organisation) found in text formations (e.g. title, description)"
+    entities: [NamedEntity!]!
+
+    "Information about the external data source the artefact data is imported from"
+    sourceInfo:DataSource!
+
+    tags:[SearchTag!]!
+}
+
+type DateRange {
+    start:LocalDate
+    end:LocalDate
+    literal:String
+}
+
+type NamedEntity {
+    property: String!
+    type:String!
+    literal:String!
+    startPosition:Int!
+    endPosition:Int!
+    linkedData:[LinkedDataBySource!]!
+}
+
+type NamedEntityDetail {
+    title: String!
+    image: URL
+    description: String!
+}
+
+type LinkedDataBySource {
+    source:LinkedDataSource!
+    link:LinkedData!
+}
+
+enum LinkedDataSource {
+    WIKIDATA,
+    WIKIPEDIA,
+    GND
+}
+
+type LinkedData {
+    id:String!
+    url:URL!
+}
+
+type Licence {
+    url:URL!
+    name:String!
+}
+
+type Image {
+    "URL to request the image data. Be aware of IIIF URL's and other formats for dynamic scaling!"
+    url:URL!
+    "URL to the licence"
+    licence:Licence!
+    "person name of the photographer."
+    photographer:String
+    "height in pixels."
+    height:Int!
+    "width in pixels."
+    width:Int!
+}
+
+
+type DataSource {
+    "Source Identifier (external data source)"
+    id:String!
+    "Source Collection name"
+    collection:String!
+    "Owner of the artefact data e.g. Institute or Person (BLM | AP)"
+    owner:String!
+    "default language of the source"
+    language:Language!
+    "url linked to a detail view of the source."
+    url:URL
+}
+
+type Location {
+    "Latitude of the location"
+    lat:Float
+    "Longitude of the location"
+    lon:Float
+    "location name"
+    name:String!
+    "country name"
+    countryName: String
+}
+
+type Person {
+    "The person full name (e.g. eva mueller)"
+    name: String!
+}
+
+type ArtefactNotification {
+    id: String!
+    message: String!
+    artefact: Artefact!
+    isRead: Boolean!
+    createdAt: DateTime!
+}
+
+#### Inputs
+
+input ArtefactUniqueInput {
+    id:String
+    language: Language!
+}
+
+input NamedEntityDetailInput{
+    wikidataId: String!
+    wikipediaId: String!
+    language:Language!
+}
+
+type ArtefactConnection {
+    edges: [ArtefactEdge!]!
+    pageInfo: PageInfo!
+    totalCount: Int!
+}
+
+type ArtefactEdge {
+    node: Artefact
+    cursor: String
+}
+
+input ArtefactOrderByInput {
+    updatedAt: SortDirection
+    createdAt: SortDirection
+}
+
+input ArtefactNotificationInput {
+    message: String!
+    artefactId: String!
+}
+
+input ArtefactNotificationUniqueInput {
+    id: ID!
+}
+
+input UpdateArtefactNotificationInput {
+    id: String!
+    isRead: Boolean
+}
+
+input DeleteArtefactNotificationInput {
+    id: String!
+}
+
+

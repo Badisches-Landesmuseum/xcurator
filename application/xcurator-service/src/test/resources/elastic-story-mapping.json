@@ -1,0 +1,72 @@
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 1,
+      "blocks": {
+        "read_only_allow_delete": "false"
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "title"  : {
+        "type": "text",
+        "fields": {
+          "completion": {
+            "type": "completion",
+            "analyzer": "simple",
+            "preserve_separators": true,
+            "preserve_position_increments": true,
+            "max_input_length": 50
+          }
+        }
+      },
+      "authorId"  : {
+        "type": "keyword",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "language"  : {
+        "type": "keyword",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "licence"  : {
+        "type": "keyword",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "isPublished"  : {
+        "type": "boolean"
+      },
+      "modules": {
+        "properties": {
+          "thought": {
+            "type": "text",
+            "fields": {
+              "completion": {
+                "type": "completion",
+                "analyzer": "simple",
+                "preserve_separators": true,
+                "preserve_position_increments": true,
+                "max_input_length": 50
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

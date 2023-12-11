@@ -1,0 +1,10 @@
+         _____
+        |___ / _ __   ___
+          |_ \| '_ \ / __|
+         ___) | |_) | (__
+        |____/| .__/ \___|
+              |_| 3pc GmbH Neue Kommunikation
+
+        ${AnsiColor.RED}${spring.application.name}::${spring.application.version} (${spring.profiles.active:default})${AnsiColor.DEFAULT}
+
+        ${spring.application.description:No application description available}

@@ -1,0 +1,11 @@
+server:
+  port: 8082
+
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          mongodb:
+            core:
+              MongoTemplate: DEBUG

@@ -1,0 +1,10 @@
+
+# Enable all Systems
+spring:
+  autoconfigure:
+   exclude:
+     - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+     - org.springframework.boot.autoconfigure.session.SessionAutoConfiguration
+     - dreipc.common.graphql.GraphQLSecurityAutoConfiguration
+  main:
+    allow-bean-definition-overriding: true

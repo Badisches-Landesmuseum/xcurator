@@ -1,0 +1,39 @@
+extend type Mutation {
+    setStoryModulThoughtPrompt(where:LLMTemplateInput!): LLMTemplate! @hasRole(roles: [ADMIN])
+    setStoryIntroductionTemplate(where:LLMTemplateInput!): LLMTemplate! @hasRole(roles: [ADMIN])
+    setStoryConclusionTemplate(where:LLMTemplateInput!): LLMTemplate! @hasRole(roles: [ADMIN])
+}
+
+extend type Query {
+    generateThought(where:StoryModuleThoughtInput!): String! @hasRole(roles: [USER,ADMIN])
+    generateIntroduction(where:StoryIntroductionGenerateInput!): String! @hasRole(roles: [USER,ADMIN])
+    generateConclusion(where:StoryConclusionGenerateInput!): String! @hasRole(roles: [USER,ADMIN])
+
+    thoughtTemplate: LLMTemplate! @hasRole(roles: [ADMIN])
+    introductionTemplate: LLMTemplate! @hasRole(roles: [ADMIN])
+    conclusionTemplate: LLMTemplate! @hasRole(roles: [ADMIN])
+}
+
+type LLMTemplate{
+    userTemplate: String!
+    systemTemplate: String!
+}
+
+input LLMTemplateInput {
+    userTemplate: String!
+    systemTemplate: String!
+}
+
+input StoryModuleThoughtInput {
+    storyId: ID!
+    artefactIds: [ID!]!
+    userInput: String! = ""
+}
+
+input StoryIntroductionGenerateInput {
+    storyId: ID!
+}
+
+input StoryConclusionGenerateInput {
+    storyId: ID!
+}

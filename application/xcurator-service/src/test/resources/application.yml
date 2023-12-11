@@ -1,0 +1,10 @@
+
+# Disable external systems for integration testing (db, sessions, redis cache)
+spring:
+ autoconfigure:
+   exclude:
+     - org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
+     - org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration
+     - org.springframework.boot.autoconfigure.session.SessionAutoConfiguration
+     - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+     - dreipc.common.graphql.GraphQLSecurityAutoConfiguration

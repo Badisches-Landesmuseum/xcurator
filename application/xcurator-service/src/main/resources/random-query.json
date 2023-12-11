@@ -1,0 +1,34 @@
+{
+  "queryStrings": [
+    {
+      "de": "Revolution",
+      "en": "Revolution",
+      "nl": "Revolutie"
+    },
+    {
+      "de": "Büste einer Frau",
+      "en": "Bust of a woman",
+      "nl": "Borstbeeld van een vrouw"
+    },
+    {
+      "de": "Japan",
+      "en": "Japan",
+      "nl": "Japan"
+    },
+    {
+      "de": "Antike",
+      "en": "Ancient",
+      "nl": "Oud"
+    },
+    {
+      "de": "Osmanisches Reich",
+      "en": "Ottoman Empire",
+      "nl": "Ottomaanse Rijk"
+    },
+    {
+      "de": "Musikinstrument",
+      "en": "Music instrument",
+      "nl": "Muziekinstrument"
+    }
+  ]
+}

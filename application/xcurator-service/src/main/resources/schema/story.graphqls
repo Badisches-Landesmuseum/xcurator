@@ -1,0 +1,252 @@
+extend type Query  {
+
+    story(where: StoryUniqueInput!): Story
+    # TODO going to change this now to a list of stories, but later on I will use Story connection declared below
+    stories(where: StoriesWhereInput, language: Language!, orderBy: StoryOrderByInput): [Story!]!
+    myStories(where: StoriesWhereInput, language: Language!, orderBy: [StoryOrderByInput!]): [Story!]! @hasRole(roles: [USER])
+
+    reportedStories(language: Language!): [Notification!]! @hasRole(roles: [ADMIN])
+    reportedStory(where: StoryNotificationUniqueInput!, language: Language!): Notification! @hasRole(roles: [ADMIN])
+}
+
+extend type Mutation {
+    # Story
+    "create a empty story"
+    createStory(create: StoryInput!): Story! @hasRole(roles: [USER])
+    updateStory(update: UpdateStoryInput!): Story! @hasRole(roles: [USER])
+    deleteStory(delete: DeleteStoryInput!): String @hasRole(roles: [USER])
+
+    # Basket
+    addArtefactToBasket(create: AddArtefactInput!): Story! @hasRole(roles: [USER])
+    deleteArtefactFromBasket(delete: DeleteArtefactFromBasketInput!): Story! @hasRole(roles: [USER])
+
+    "Rate a story"
+    rateStory(where: RateStoryInput!): Float! @hasRole(roles: [USER])
+
+    "Publish a story"
+    publishStory(where: PublishStoryInput!): Story! @hasRole(roles: [USER])
+
+    "Unpublish a story"
+    unpublishStory(where: PublishStoryInput!): Story! @hasRole(roles: [USER])
+
+    # Module
+    "create a story module including 1-3 artefacts."
+    createModule(create: CreateModuleInput!, language: Language!): StoryTextModule! @hasRole(roles: [USER])
+    "update a story module (including add/remove artefacts)"
+    updateModule(update: UpdateModuleInput!): StoryTextModule! @hasRole(roles: [USER])
+    "delete a story module"
+    deleteModule(delete: DeleteModuleInput!): String @hasRole(roles: [USER])
+
+    # Story related notifications
+    reportStory(create: StoryNotificationInput!): Notification! @hasRole(roles: [USER])
+    updateStoryNotification(update: UpdateStoryNotificationInput!): Notification! @hasRole(roles: [ADMIN])
+    deleteStoryNotification(delete: DeleteStoryNotificationInput!): String @hasRole(roles: [ADMIN])
+
+    setStoryIntroduction(where: StoryIntroductionInput!): Story! @hasRole(roles: [USER])
+    setStoryConclusion(where: StoryConclusionInput!): Story! @hasRole(roles: [USER])
+}
+
+input StoryIntroductionInput{
+    storyId: ID!
+    introduction: String
+}
+
+input StoryConclusionInput{
+    storyId: ID!
+    conclusion: String
+}
+
+type Story {
+    "xCurator Identifier"
+    id:String!
+    "name and or title of the artefact (multi-lingual)"
+    title: String!   # (internal -> TextContent)
+
+    "author of the story"
+    author:User!
+
+    "shown in the story preview, the first image of the first artefact of the first story module"
+    # Erstes Bild des ersten moduls in der Story
+    previewImage: Image
+
+    artefactBasket: [Artefact]
+
+    "primary language the story is made of (implicit the prefered language of the author)"
+    language:Language!
+
+    createdAt: DateTime!
+    updatedAt: DateTime!
+
+    "Story modules, the story is made of"
+    modules:[StoryTextModule!]
+
+    "story rating with values between 1 and 5. Aggregated to a single value."
+    rating:Float # (1-5) calculated by backend
+
+    "The rating that the user has given to the story."
+    myRating: Float
+
+    isPublished: Boolean!
+
+    # Licence of the story
+    licence: LicenceType!
+
+    "(optional) introduction of a story"
+    introduction: String
+
+    "(optional) conclusion of a story"
+    conclusion: String
+}
+
+"Part of a story"
+type StoryTextModule {
+    id: String!
+    "artefact collection, minimum one artefact"
+    artefacts:[Artefact!]! #@length(min=1)
+    "user thoughts about the artefacts collection, the story part"
+    thought:String
+    "order of the module in the list"
+    index:Int!
+}
+
+enum LicenceType {
+    CC0,
+    CC_BY,
+    CC_BY_SA,
+    CC_BY_ND,
+    CC_BY_NC,
+    CC_BY_NC_SA,
+    CC_BY_NC_ND,
+}
+
+enum Language {
+    DE,
+    NL,
+    EN
+}
+
+type DataNotification{
+    "the artefact the wrong data is stored"
+    artefact:Artefact!
+
+    "descripion about the wrong data (e.g. missing or wrong date field)"
+    message:String!
+}
+
+### Inputs
+
+input AddArtefactInput {
+    storyId: ID!
+    artefactId: ID!
+}
+
+input DeleteArtefactFromBasketInput {
+    storyId: ID!
+    artefactId: ID!
+}
+
+input StoryWhereInput {
+    title: StringFilter
+    garbage: Boolean
+}
+
+input StoryInput {
+    title: String!
+    language:Language!
+    artefactId: ID
+}
+
+input UpdateStoryInput {
+    storyID: ID!
+    title: String
+    rating: Float
+    # This goes to artefact basket
+    artefactId: [ID!]
+    licence: LicenceType
+}
+
+input DeleteStoryInput {
+    storyId: ID!
+}
+
+input RateStoryInput{
+    id: ID!
+    rating:Float!
+}
+
+input PublishStoryInput{
+    id: ID!
+}
+
+input CreateModuleInput {
+    thought: String!
+    artefactIds: [ID!]
+    storyId: ID!
+}
+
+input DeleteModuleInput {
+    moduleId: ID!
+    storyId: ID!
+}
+
+input UpdateModuleInput {
+    moduleId: ID!
+    thought: String
+    artefactIds: [ID!]
+    storyId: ID!
+    index: Int
+}
+
+input DeleteArtefactInput {
+    moduleId: ID!
+    storyId: ID!
+    artefactId: ID!
+}
+
+type StoryConnection {
+    edges: [StoryEdge!]!
+    pageInfo: PageInfo!
+    totalCount: Int!
+}
+
+type StoryEdge {
+    node: Story
+    cursor: String
+}
+
+input StoriesWhereInput {
+    isDeleted: Boolean = false
+}
+
+input StoryOrderByInput {
+    createdAt: SortDirection
+    rating: SortDirection
+}
+
+input StoryUniqueInput {
+    id:String
+    language: Language!
+}
+
+input StoryNotificationUniqueInput {
+    id: ID!
+}
+
+input StoryNotificationInput {
+    storyId: ID!
+}
+
+input UpdateStoryNotificationInput {
+    id: ID!
+    isRead: Boolean
+}
+
+input DeleteStoryNotificationInput {
+    id: ID!
+}
+
+type Notification {
+    id: ID!
+    isRead: Boolean!
+    story: Story!
+}

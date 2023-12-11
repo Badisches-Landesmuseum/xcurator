@@ -1,0 +1,206 @@
+# this is bad for frontend
+union ExploreItem = Artefact | Story
+
+extend type Query{
+    "search optimized for exploring artefacts and stories, displayed on a grid."
+    searchExplore(where: ExploreSearchInput!, take:Int!): ExploreSearchResult!
+    "suggestions based on a given query string"
+    suggestExplore(where: SuggestExploreInput!): [SearchSuggest!]
+    suggestRelatedArtefacts(where: SuggestRelatedArtefactsInput!, take: Int!): [Artefact!]! @hasRole(roles: [USER])
+    "search by randomized queryString string, defined in the backend."
+    randomizedExplore(where: LanguageInput!, take: Int!): ExploreSearchResult!
+    "get a random pre-defined query string for explore search"
+    queryString(where: LanguageInput!): String!
+}
+
+type SearchSuggest{
+    text:String!
+    type:SuggestType!
+}
+
+"full search result grid."
+type ExploreSearchResult {
+    "all search result items."
+    items: [ExploreGridItem!]!
+    facette: ExploreFacette!
+    "information about the size of the grid."
+    gridInfo: GridInfo!
+    "Query string used by the search."
+    queryString:String!
+    "Element with the best scoring."
+    bestMatch: ExploreGridItem
+}
+
+"Single item on the result grid, represents a artefact or story."
+type ExploreGridItem {
+    "search result item, can be of the type artefact or story."
+    item: ExploreItem!
+    "coordinate of the item inside the grid."
+    pinning: Pinning!
+    "size of the item itself inside the grid."
+    size: ExploreItemSize!
+}
+
+type GridInfo {
+    columns: Int!
+    rows: Int!
+}
+
+type ExploreFacette {
+    colorFacette: [ColorFacette!]!
+    epochFacette: [EpochFacette!]!
+    sourceFacette: [SourceFacette!]!
+    locationFacette: [ContinentFacette!]!
+    materialFacette: [MaterialFacette!]!
+}
+
+"represents the amount of items in the database related to that color (group)."
+type ColorFacette {
+    color: ArtefactColor!
+    count: Int!
+}
+
+"represents the amount of items in the database related to that epoch."
+type EpochFacette {
+    epoch: ArtefactEpoch!
+    count: Int!
+}
+
+"represents the amount of items in the database owned by the source owner."
+type SourceFacette {
+    owner: ArtefactSourceOwner!
+    count: Int!
+}
+
+type ContinentFacette {
+    continent: Continent!
+    countries: [CountryFacette!]
+    totalCount: Int!
+}
+
+type MaterialFacette {
+    material: Material!
+    count: Int!
+}
+
+type CountryFacette {
+    name: String!
+    count: Int!
+}
+
+"Coordinate where the ExploreItem is pinned inside the grid system. (the grid is starting at position 0,0 (left, top)"
+type Pinning {
+    x: Int!
+    y: Int!
+}
+
+"Size of a ExploreItem inside the grid. e.g. width. 2 means the item spans over two boxes inside the grid."
+type ExploreItemSize {
+    width: Int!
+    height: Int!
+}
+
+type SearchTag{
+    literal: String!
+    type: SearchTagType!
+    isUsingAI: Boolean!
+}
+
+enum SuggestType{
+    Artefact,
+    Person,
+    Location
+}
+
+input SuggestRelatedArtefactsInput {
+    storyTitle: String!
+    language: Language!
+}
+
+input SuggestExploreInput{
+    queryText:String!
+    language:Language!
+    limit:Int =10
+}
+
+"Search input options to execute a search in the explore mode."
+input ExploreSearchInput{
+    query: String!
+    language: Language!
+    colors: [ArtefactColor!] = []
+    epochs: [ArtefactEpoch!] = []
+    owner: [ArtefactSourceOwner!] = []
+    tags: [SearchTagInput!] = []
+    locations: [String!] = []
+    materials: [Material!] = []
+}
+
+
+input SearchTagInput{
+    literal: String!
+    type: SearchTagType!
+}
+
+input LanguageInput{
+    language:Language!
+}
+
+enum Material {
+    PHOTO_LAYER,
+    WOOD,
+    GLASS,
+    BRONZE,
+    SILVER,
+    PHOTO_PAPER,
+    MOVIE,
+    IRON,
+    CERAMICS,
+    PORCELAIN,
+    PE_PAPER
+}
+
+enum ArtefactSourceOwner{
+    BLM,
+    AP
+}
+
+"colors used the artefacts are grouped in."
+enum ArtefactColor {
+    RED,
+    ORANGE,
+    YELLOW,
+    GREEN,
+    TURQUOISE,
+    BLUE,
+    PURPLE,
+    HOTPINK,
+    SADDLEBROWN,
+    GRAY,
+    WHITE,
+    BLACK
+}
+
+"Historical epochs represented as enums."
+enum ArtefactEpoch {
+    POSTMODERNE,
+    MODERNE,
+    ROMANTIK,
+    BAROCK,
+    RENAISSANCE,
+    GOTIK,
+    ROMANIK,
+    FRUEHES_MITTELALTER,
+    ANTIKE,
+    UR_UND_FRUEHGESCHICHTE
+}
+
+enum SearchTagType{
+    MATERIAL,
+    KEYWORD,
+    LOCATION,
+    PERSON,
+    ENTITY_LOCATION,
+    ENTITY_PERSON,
+    ENTITY_ORGANISATION,
+    TECHNIQUE
+}
