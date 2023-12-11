@@ -30,7 +30,7 @@ Default Port: `8080`
 ### Build, Run Test
 
 - Build: `gradlew clean build`
-- Run Unit `Tests: gradlew clean test`
+- Run Unit Tests: `gradlew clean test`
 - Run Integration Tests: `gradlew clean integrationTest`
 - Run End-to-End Tests: `gradlew clean e2eTest`
 - Run: `gradlew bootRun`
