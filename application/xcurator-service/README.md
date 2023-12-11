@@ -32,8 +32,9 @@ Default Port: `8080`
 - Build: `gradlew clean build`
 - Run Unit `Tests: gradlew clean test`
 - Run Integration Tests: `gradlew clean integrationTest`
-- Run End-toEnd Tests: `gradlew clean e2eTest`
+- Run End-to-End Tests: `gradlew clean e2eTest`
 - Run: `gradlew bootRun`
+- Build Docker Image:  `gradlew buildImage`
 
 ### Architecture Dependencies:
 - MongoDb, NoSQL Storage
