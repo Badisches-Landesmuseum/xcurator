@@ -15,6 +15,12 @@ class DeeplTranslator:
 
         print("Initiating language caches:")
         self.__cache = {lang: self.__load_language_dict(lang) for lang in languages}
+        for lang, texts in self.__cache.items():
+            for source, translations in texts.items():
+                for translation_lang, translation in translations.items():
+                    if not translations:
+                        pass
+
         self.__cache_update = cache_update
         self.__api_key = api_key
         self.__languages = languages
@@ -23,7 +29,17 @@ class DeeplTranslator:
         self.__cache_only = cache_only
         self.__counter = 0
         self.__char = 0
+        self.__missing = set()
         assert self.__cache
+
+    def validate_cache(self) -> bool:
+        for lang, texts in self.__cache.items():
+            for source, translations in texts.items():
+                for translation_lang, translation in translations.items():
+                    if not translations:
+                        return False
+        return True
+
 
     def translate(self, source_lang: str, target_lang: str, text: str) -> Union[str, None]:
         text = text.strip()  # every char counts at deepl
@@ -39,6 +55,7 @@ class DeeplTranslator:
             return translation
         else:
             self.__char = self.__char + len(text)
+            self.__missing.add(text)
             if self.__cache_only:
                 logging.info("Cache only: skip translation")
                 return None
@@ -115,7 +132,8 @@ class DeeplTranslator:
             raise IOError("Unable to request deepl usage api.")
 
     def missing_chars(self) -> int:
-        return self.__char
+        chars = sum([len(text) for text in self.__missing])
+        return chars
 
     def missing_texts(self) -> int:
         return self.__counter
