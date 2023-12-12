@@ -80,15 +80,15 @@ def main():
     print(f"Artefacts cleaned by color: {len(artefact_corpus)}")
 
     # ids
-    id_file = list(Path().rglob("*_ids.csv"))[0]
+    id_file = list(data_dir().rglob("*_ids.csv"))[0]
     id_corpus = pandas.read_csv(id_file)
     id_corpus['_id'] = id_corpus['_id'].apply(lambda elem: {"$oid": elem})
     artefact_corpus = artefact_corpus.merge(id_corpus, left_on="source_id", right_on="sourceInfo.id", how="left")
     artefact_corpus.drop(columns=["sourceInfo.id"], inplace=True)
 
     artefact_corpus.drop(columns=["source_id", "image"], inplace=True)
-    artefact_corpus.to_json(output_directory / Path(f"xcurator_{date_string}.json"), orient='records')
-    artefact_corpus.head(10).to_json(output_directory / Path(f"xcurator-small_{date_string}.json"), orient='records')
+    artefact_corpus.to_json(output_directory / Path(f"xcurator_artefacts-full-data-{date_string}.json"), orient='records')
+    artefact_corpus.head(10).to_json(output_directory / Path(f"xcurator-artefacts-full-data-small_{date_string}.json"), orient='records')
 
     print(f"available artefacts: {len(artefact_corpus)}")
 
