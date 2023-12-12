@@ -40,11 +40,11 @@ output_directory.mkdir(parents=True, exist_ok=True)
 print(f"Selected entity linking mode: {selected_linker}")
 
 # Data
-artefact_json_file = list(data_dir().rglob("artefacts_core_*.json"))[0]
+artefact_json_file = list(output_directory.rglob("artefacts_core_*.json"))[0]
 df_artefacts = pandas.read_json(artefact_json_file, orient='records')
 df_artefacts["source_id"] = df_artefacts['sourceInfo'].map(lambda x: x['id'])
 
-translation_json_file = list(data_dir().rglob("artefacts-translation_*.json"))[0]
+translation_json_file = list(output_directory.rglob("artefacts-translation_*.json"))[0]
 df_translations = pandas.read_json(translation_json_file, orient='records')
 df_translations = df_translations[["source_id", "title", "description"]]
 
