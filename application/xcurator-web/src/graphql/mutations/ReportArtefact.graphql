@@ -1,0 +1,5 @@
+mutation ReportArtefact($create: ArtefactNotificationInput!) {
+    reportArtefact(create: $create) {
+        id
+    }
+}

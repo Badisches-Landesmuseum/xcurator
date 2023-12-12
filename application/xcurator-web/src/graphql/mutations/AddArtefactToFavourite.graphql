@@ -1,0 +1,3 @@
+mutation addToFavourite($create: ArtefactFavouriteInput!) {
+  addArtefactToFavourite(create: $create)
+}

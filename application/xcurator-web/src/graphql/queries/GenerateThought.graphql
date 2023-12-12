@@ -1,0 +1,3 @@
+query GenerateThought($where: StoryModuleThoughtInput!) {
+	generateThought(where: $where)
+}

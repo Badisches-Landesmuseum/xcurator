@@ -1,0 +1,3 @@
+mutation deleteArtefactFromFavourite($id: ID!) {
+  deleteArtefactFromFavourite(delete: { id: $id })
+}

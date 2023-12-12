@@ -1,0 +1,5 @@
+mutation CreateModule($create: CreateModuleInput!, $language: Language!) {
+    createModule(create: $create, language: $language) {
+        ...Module
+    }
+}

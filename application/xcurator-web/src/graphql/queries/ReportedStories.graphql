@@ -1,0 +1,9 @@
+query ReportedStories($language: Language!) {
+    reportedStories(language: $language) {
+        id
+        isRead
+        story {
+            ...Story
+        }
+    }
+}

@@ -1,0 +1,3 @@
+mutation rateStory($id: ID!, $rating: Float!) {
+  rateStory(where: { id: $id, rating: $rating })
+}

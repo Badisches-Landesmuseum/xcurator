@@ -1,0 +1,5 @@
+mutation RemoveArtefactFromBasket($delete: DeleteArtefactFromBasketInput!) {
+	deleteArtefactFromBasket(delete: $delete) {
+		id
+	}
+}

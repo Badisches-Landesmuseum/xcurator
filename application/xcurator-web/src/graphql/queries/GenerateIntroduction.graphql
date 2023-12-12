@@ -1,0 +1,3 @@
+query GenerateIntroduction($where: StoryIntroductionGenerateInput!) {
+	generateIntroduction(where: $where)
+}

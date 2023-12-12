@@ -1,0 +1,8 @@
+query EntitiesDetail($where: NamedEntityDetailInput!) {
+    entitiesDetail(where: $where) {
+        description
+        image
+        title
+    }
+
+}

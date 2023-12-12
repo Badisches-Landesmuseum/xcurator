@@ -1,0 +1,6 @@
+query ThoughtTemplate {
+    thoughtTemplate {
+        systemTemplate
+        userTemplate
+    }
+}

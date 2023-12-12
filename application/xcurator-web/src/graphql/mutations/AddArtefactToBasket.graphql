@@ -1,0 +1,5 @@
+mutation AddArtefactToBasket($create: AddArtefactInput!) {
+    addArtefactToBasket(create: $create) {
+        id
+  }
+}

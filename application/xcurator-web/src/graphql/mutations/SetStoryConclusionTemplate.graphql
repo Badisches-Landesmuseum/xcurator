@@ -1,0 +1,6 @@
+mutation SetStoryConclusionTemplate($where: LLMTemplateInput!) {
+    setStoryConclusionTemplate(where: $where) {
+        userTemplate
+        systemTemplate
+    }
+}

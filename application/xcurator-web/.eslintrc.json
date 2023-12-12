@@ -1,0 +1,24 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {},
+  "ignorePatterns": ["__ENV.js"],
+  "plugins": ["@typescript-eslint", "prettier"],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "trailingComma": "es5",
+        "arrowParens": "avoid",
+        "bracketSpacing": true
+      }
+    ],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error"
+  }
+}

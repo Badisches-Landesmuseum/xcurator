@@ -1,0 +1,5 @@
+mutation ReportStory($create: StoryNotificationInput!) {
+    reportStory(create: $create) {
+        id
+    }
+}

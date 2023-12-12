@@ -1,0 +1,5 @@
+mutation UpdateStoryNotification ($update: UpdateStoryNotificationInput!) {
+    updateStoryNotification(update: $update) {
+        id
+    }
+}

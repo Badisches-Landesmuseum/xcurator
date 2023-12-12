@@ -1,0 +1,6 @@
+query SuggestExplore($where: SuggestExploreInput!) {
+  suggestExplore(where: $where) {
+    text
+    type
+  }
+}

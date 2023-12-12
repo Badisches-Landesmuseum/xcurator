@@ -1,0 +1,28 @@
+mutation updateUserProfile(
+  $preferredLanguage: Language!
+  $continents: [Continent!]
+  $epochs: [ProfileEpoch!]
+  $visitorRole: VisitorRole
+  $visitorTarget: VisitorTarget
+  $visitorWish: VisitorWish
+  $username: String
+) {
+  updateUserProfile(
+    update: {
+      preferredLanguage: $preferredLanguage
+      continents: $continents
+      epochs: $epochs
+      visitorRole: $visitorRole
+      visitorTarget: $visitorTarget
+      visitorWish: $visitorWish
+      username: $username
+    }
+  ) {
+    preferredLanguage
+    continents
+    epochs
+    visitorRole
+    visitorTarget
+    visitorWish
+  }
+}

@@ -1,0 +1,15 @@
+# Whitelist approach
+# Exclude everything:
+*
+# Include as exceptions:
+!backendData
+!package.json
+!yarn.lock
+!tsconfig.json
+!pages
+!src
+!public
+!next.config.js
+!middleware.ts
+!messages
+!@types

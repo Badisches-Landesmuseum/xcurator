@@ -1,0 +1,5 @@
+mutation UnpublishStory ($where: PublishStoryInput!) {
+    unpublishStory(where: $where) {
+        ...Story
+    }
+}
