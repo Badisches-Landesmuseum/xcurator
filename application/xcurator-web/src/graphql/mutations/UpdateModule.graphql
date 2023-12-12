@@ -1,0 +1,5 @@
+mutation UpdateModule($update: UpdateModuleInput!) {
+    updateModule(update: $update) {
+        ...Module
+    }
+}

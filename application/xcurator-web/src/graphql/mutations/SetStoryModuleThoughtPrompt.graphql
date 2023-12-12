@@ -1,0 +1,6 @@
+mutation SetModuleThoughtPrompt($where: LLMTemplateInput!) {
+    setStoryModulThoughtPrompt(where: $where) {
+        userTemplate
+        systemTemplate
+    }
+}

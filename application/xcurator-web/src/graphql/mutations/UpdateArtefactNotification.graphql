@@ -1,0 +1,5 @@
+mutation UpdateArtefactNotification ($update: UpdateArtefactNotificationInput!) {
+    updateArtefactNotification(update: $update) {
+        id
+    }
+}

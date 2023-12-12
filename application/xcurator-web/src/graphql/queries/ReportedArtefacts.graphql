@@ -1,0 +1,10 @@
+query ReportedArtefacts($language: Language!) {
+    reportedArtefacts(language: $language) {
+        artefact {
+            ...Artefact
+        }
+        id
+        message
+        isRead
+    }
+}

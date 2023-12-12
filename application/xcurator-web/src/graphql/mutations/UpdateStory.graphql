@@ -1,0 +1,5 @@
+mutation UpdateStory($update: UpdateStoryInput!) {
+updateStory(update: $update) {
+    ...Story
+}
+}

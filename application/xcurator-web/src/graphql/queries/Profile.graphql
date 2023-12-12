@@ -1,0 +1,17 @@
+query Profile {
+  profile {
+    ...Profile
+  }
+}
+
+fragment Profile on UserProfile {
+  epochs
+  continents
+  visitorRole
+  visitorWish
+  visitorTarget
+  preferredLanguage
+  favorites {
+    ...Artefact
+  }
+}

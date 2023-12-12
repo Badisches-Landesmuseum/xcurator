@@ -1,0 +1,8 @@
+query ReportedStory($where: StoryNotificationUniqueInput!, $language: Language!) {
+    reportedStory(where: $where, language: $language) {
+        id
+        story {
+            ...Story
+        }
+    }
+}

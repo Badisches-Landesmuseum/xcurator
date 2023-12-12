@@ -1,0 +1,5 @@
+query MyStories($language: Language!) {
+  myStories(language: $language) {
+    ...Story
+  }
+}

@@ -1,0 +1,3 @@
+query GenerateConclusion($where: StoryConclusionGenerateInput!) {
+	generateConclusion(where: $where)
+}

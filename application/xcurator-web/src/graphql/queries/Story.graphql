@@ -1,0 +1,39 @@
+query Story($where: StoryUniqueInput!) {
+  story(where: $where) {
+    ...Story
+  }
+}
+
+fragment Story on Story {
+  id
+  title
+  introduction
+  conclusion
+  rating
+  language
+  isPublished
+  myRating
+  author {
+    username
+    sub
+  }
+  previewImage {
+    url
+  }
+  modules {
+    ...Module
+  }
+  artefactBasket {
+    ...Artefact
+  }
+  licence
+}
+
+fragment Module on StoryTextModule {
+  id
+  thought
+  index
+  artefacts {
+    ...Artefact
+  }
+}
