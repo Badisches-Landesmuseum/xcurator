@@ -1,0 +1,109 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw-jetbrains-plugin",
+  "elements": [
+    {
+      "type": "rectangle",
+      "version": 193,
+      "versionNonce": 847709655,
+      "isDeleted": false,
+      "id": "LTApMW_zTMhBl_5172TOp",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": -37.5,
+      "y": -8.999999999999943,
+      "strokeColor": "#2b8a3e",
+      "backgroundColor": "transparent",
+      "width": 443.00000000000006,
+      "height": 471.9999999999999,
+      "seed": 619488887,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "boundElementIds": []
+    },
+    {
+      "type": "rectangle",
+      "version": 572,
+      "versionNonce": 1639327513,
+      "isDeleted": false,
+      "id": "Bdb-4Jw3kwJwRCqcXcFcb",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 327.5,
+      "y": 399.5,
+      "strokeColor": "bc9f5b",
+      "backgroundColor": "#ced4da",
+      "width": 38,
+      "height": 32,
+      "seed": 1785749625,
+      "groupIds": [
+        "UpTLDZAvrC-EyGTpkMlvZ"
+      ],
+      "strokeSharpness": "sharp",
+      "boundElementIds": []
+    },
+    {
+      "type": "rectangle",
+      "version": 572,
+      "versionNonce": 1500918519,
+      "isDeleted": false,
+      "id": "D0JpJk3I3aa-B8v_rKhyy",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 335.5,
+      "y": 403.5,
+      "strokeColor": "bc9f5b",
+      "backgroundColor": "#ced4da",
+      "width": 40,
+      "height": 37,
+      "seed": 2074001303,
+      "groupIds": [
+        "UpTLDZAvrC-EyGTpkMlvZ"
+      ],
+      "strokeSharpness": "sharp",
+      "boundElementIds": []
+    },
+    {
+      "type": "rectangle",
+      "version": 564,
+      "versionNonce": 1181998073,
+      "isDeleted": false,
+      "id": "yWAHer66xKw6VT4WaXK4V",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 344.5,
+      "y": 411.5,
+      "strokeColor": "bc9f5b",
+      "backgroundColor": "#ced4da",
+      "width": 42,
+      "height": 35,
+      "seed": 576711001,
+      "groupIds": [
+        "UpTLDZAvrC-EyGTpkMlvZ"
+      ],
+      "strokeSharpness": "sharp",
+      "boundElementIds": []
+    }
+  ],
+  "appState": {
+    "gridSize": null,
+    "viewBackgroundColor": "#ffffff"
+  }
+}

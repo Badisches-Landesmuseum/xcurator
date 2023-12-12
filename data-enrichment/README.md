@@ -47,7 +47,7 @@ Additionally, this step downloads all artefact images, fetching **width** and **
 The target of this step is to make sure that the core textual data used by the search engine and displayed to end users is available for all languages used in the project. 
 This step required a `[Deepl API Key]` added inside the [docker-compose.yml](./docker-compose.yml)
 
-<div style="text-align:center"><img src="./doc/translation-step.png" alt="import step"/></div>
+<div style="text-align:center"><img src="./doc/translation-step.png" alt="translation step"/></div>
 
 
 ### 1. Object color ([1-artefact-object-color](./1-artefact-object-color))
@@ -61,6 +61,8 @@ For detailed info see here: [1-artefact-object-color/README](./1-artefact-object
 
 The target of this step is to generate visual embeddings based on the input. Currently, we use Clip embeddings to project visual und textual information into the same dimension space.
 These visual embeddings are used for different search and explore features inside the application. 
+
+<div style="text-align:center"><img src="./1-artefact-embedding/doc/embedding-step.png" alt="embedding step"/></div>
 
 For detailed info see here: [1-artefact-embedding/README](./1-artefact-embedding/README.md)
 
