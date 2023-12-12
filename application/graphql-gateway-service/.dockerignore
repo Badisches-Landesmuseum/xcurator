@@ -1,0 +1,8 @@
+# Whitelist approach
+# Exclude everything:
+*
+# Include as exceptions:
+!yarn.lock
+!package.json
+!tsconfig.json
+!lib

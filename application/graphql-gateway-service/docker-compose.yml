@@ -1,0 +1,27 @@
+version: "3.1"
+services:
+  gateway:
+    build: "."
+    environment:
+      - GRAPHQL_ENDPOINT_LIST=base https://asset-service.q8r.3pc.de/graphql
+      - KEYCLOAK_ENABLED=false
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=password
+    ports:
+      - "80:8080"
+  redis:
+    container_name: redis
+    # https://hub.docker.com/r/bitnami/redis-cluster
+    image: bitnami/redis-cluster:7.0.5 # Downgrade in docker-compose, because of https://3pc.monday.com/boards/2669037517/pulses/3807129521/posts/1916856968
+    volumes:
+      - redis_data:/bitnami/redis
+    ports:
+      - "6379:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_PASSWORD=password
+      - REDIS_NODES=redis
+
+volumes:
+  redis_data:
