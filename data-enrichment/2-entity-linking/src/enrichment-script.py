@@ -267,4 +267,4 @@ for index, row in tqdm(df.iterrows()):
 
 pandas_list = [[key, value] for key, value in tqdm(result_entities.items()) if value]
 df_entities = pandas.DataFrame(pandas_list, columns=['source_id', 'entities'])
-df_entities.to_json(data_dir(result_file), index=False, orient="records")
+df_entities.to_json(result_file, index=False, orient="records")
