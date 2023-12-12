@@ -5,7 +5,7 @@ from datetime import datetime
 from pathlib import Path
 
 import pandas
-from py_config import print_3pc_banner
+from py_config import print_3pc_banner, data_dir
 
 
 def convert(entry):
