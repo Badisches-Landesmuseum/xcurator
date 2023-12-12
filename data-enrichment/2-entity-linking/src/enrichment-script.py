@@ -83,7 +83,7 @@ if selected_linker == "REL" and data_dir(f"rel_{wiki_version}").exists():
 elif selected_linker == "FLAIR":
     entity_linker = FlairEntityLinker()
 elif selected_linker == "SBB":
-    entity_linker = SBBLinker(df_artefacts)
+    entity_linker = SBBLinker(df_artefacts, output_directory)
 else:
     print("Missing required model. Fallback to Flair Linker.")
     entity_linker = FlairEntityLinker()
