@@ -102,7 +102,7 @@ def load_previous_corpus(languages: List[str] = ['de', 'nl', 'en']) -> Union[Dat
 
 
 def load_artefact_corpus() -> DataFrame:
-    output_directory = Path(os.getenv("OUTPUT_DIRECTORY")) if os.getenv("OUTPUT_DIRECTORY") else Path('../../data')
+    output_directory = Path(os.getenv("OUTPUT_DIRECTORY")) if os.getenv("OUTPUT_DIRECTORY") else data_dir()
     output_directory.mkdir(parents=True, exist_ok=True)
 
     corpus_files = list(output_directory.rglob("artefacts_core_*.json"))
