@@ -81,14 +81,22 @@ def main():
 
     # ids
     id_file = list(data_dir().rglob("*_ids.csv"))[0]
-    id_corpus = pandas.read_csv(id_file)
+    id_corpus = pandas.read_csv(id_file, index_col=False)
     id_corpus['_id'] = id_corpus['_id'].apply(lambda elem: {"$oid": elem})
     artefact_corpus = artefact_corpus.merge(id_corpus, left_on="source_id", right_on="sourceInfo.id", how="left")
     artefact_corpus.drop(columns=["sourceInfo.id"], inplace=True)
 
-    artefact_corpus.drop(columns=["source_id", "image"], inplace=True)
+    artefact_corpus.drop(columns=["source_id", "image", "Unnamed: 0"], inplace=True)
     artefact_corpus.to_json(output_directory / Path(f"xcurator_artefacts-full-data-{date_string}.json"), orient='records')
-    artefact_corpus.head(10).to_json(output_directory / Path(f"xcurator-artefacts-full-data-small_{date_string}.json"), orient='records')
+
+    with (output_directory / Path(f"xcurator_artefacts-full-data-{date_string}.json")).open('r', encoding='utf-8') as json_file:
+        artefacts_json = json.load(json_file)
+        for artefact in artefacts_json:
+            if not artefact['_id']:
+                del artefact['_id']
+
+        with (output_directory / Path(f"xcurator_artefacts-full-data-{date_string}.json")).open('w', encoding='utf-8') as cleaned_json_file:
+            json.dump(artefacts_json, cleaned_json_file, indent=2)
 
     print(f"available artefacts: {len(artefact_corpus)}")
 
