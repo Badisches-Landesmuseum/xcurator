@@ -15,6 +15,7 @@ from more_itertools import sliced
 from pandas import DataFrame
 from py_config import data_dir
 from tqdm import tqdm
+import dask.dataframe as dask_dataframe
 
 
 class IIIFHandler:
@@ -103,10 +104,10 @@ class IIIFHandler:
         df = pd.DataFrame()
         for file in files:
             try:
-                data = pd.read_csv(file, converters=converters)
-            except:
-                logging.warning(f"Can't read file {file}")
-                continue
+                data = pd.read_csv(file, converters=converters, index_col=False)
+            except Exception as e:
+                logging.warning(f"Can't read file {file}. error: {e}")
+                data = pd.read_csv(file, index_col=False)
             df = pd.concat([df, data], axis=0)
             if not keep_batch_files:
                 file.unlink()
@@ -136,5 +137,6 @@ class IIIFHandler:
                 continue
 
             df_slice = df.iloc[index]
-            df_slice[name] = df_slice['image'].apply(function)
+            dask_df = dask_dataframe.from_pandas(df_slice, npartitions=30)
+            df_slice[name] = dask_df['image'].apply(function).compute()
             df_slice.to_csv(batch_file, index=False)

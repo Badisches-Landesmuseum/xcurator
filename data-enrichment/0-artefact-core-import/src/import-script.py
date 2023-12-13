@@ -105,6 +105,7 @@ def import_code():
     missing_size_urls = list(set(all_urls) - set(size_urls))
     missing_urls = list(set(missing_base_urls + missing_size_urls))
 
+    df_sizes = df_sizes[df_sizes['size'].notnull()]
     df_sizes['size'] = df_sizes['size'].apply(ast.literal_eval)
     image_sizes = dict(zip(df_sizes['image'],df_sizes['size']))
     for index, row in tqdm(artefacts.iterrows(), total=len(artefacts)):
