@@ -16,7 +16,7 @@ def import_code():
     print_3pc_banner()
 
     tqdm.pandas()
-    output_directory = Path(os.getenv("OUTPUT_DIRECTORY")) if os.getenv("OUTPUT_DIRECTORY") else Path('../data')
+    output_directory = Path(os.getenv("OUTPUT_DIRECTORY")) if os.getenv("OUTPUT_DIRECTORY") else Path('../../data')
     output_directory.mkdir(parents=True, exist_ok=True)
 
     date_string = datetime.now().strftime("%Y-%m-%d")
@@ -25,7 +25,11 @@ def import_code():
         CORE DATA
     """
     print("## Fetch raw data")
-    artefacts_file = output_directory / Path(f"artefacts_core_{date_string}.json")
+    artefacts_files = list(output_directory.rglob('artefacts_core_*.json'))
+    if artefacts_files:
+        artefacts_file = artefacts_files[0]
+    else:
+        artefacts_file = output_directory / Path(f"artefacts_core_{date_string}.json")
     if not artefacts_file.exists():
         print("Import the dataset of Badisches Landesmuseum")
         continent_file = resources_dir("blm_objs_w_country.json")
@@ -39,7 +43,7 @@ def import_code():
         artefacts = pandas.concat([blm_artefacts, ap_artefacts])
         artefacts.to_json(artefacts_file, orient="records")
     else:
-        print("\tCached Import of raw artefacts found. skip requesting apis.")
+        print(f"\tCached Import of raw artefacts found ({artefacts_file}). skip requesting apis.")
         artefacts = pandas.read_json(artefacts_file)
 
     print(f"\tThe dataset contains {len(artefacts)} artefacts.\n")
@@ -69,11 +73,12 @@ def import_code():
         print("\tDownload images and store as base64. (this takes a while)")
         print("\tNote: this process can be interrupted and continued later\n")
         df_base64 = IIIFHandler.get_all_base64_images(df_images)
-        df_base64.to_csv(image_base64_file)
+        df_base64 = df_base64[df_base64['base64'].notnull()]
+        df_base64.to_csv(image_base64_file, index=False)
         print("\tfinished fetching base64 images.")
     else:
         print("\tCached corpus found. skip downloading.\n")
-        df_base64 = pandas.read_csv(image_base64_file)
+        df_base64 = pandas.read_csv(image_base64_file, index_col=False)
 
     print("## Fetch image sizes.")
     image_sizes_file = output_directory / Path(f"artefact_image_size.csv")
@@ -81,11 +86,12 @@ def import_code():
         print("\tRequest images sizes. (this takes a while)")
         print("\tNote: this process can be interrupted and continued later")
         df_sizes = IIIFHandler.get_all_sizes(df_images)
-        df_sizes.to_csv(image_sizes_file)
+        df_sizes = df_sizes[df_sizes['size'].notnull()]
+        df_sizes.to_csv(image_sizes_file, index=False)
         print("\tfinished fetching image sizes.")
     else:
         print("\tCached sizes found. skip fetching.")
-        df_sizes = pandas.read_csv(image_sizes_file)
+        df_sizes = pandas.read_csv(image_sizes_file, index_col=False)
         df_sizes = df_sizes[df_sizes['size'].notnull()]
 
     """
