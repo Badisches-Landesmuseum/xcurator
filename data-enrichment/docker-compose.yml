@@ -59,7 +59,7 @@ services:
 
   # recognize named entities in the multilingual corpus and link it against wikidata,wikipedia and gnd
   entity-linking:
-    <<: [ *service_defaults ]
+    <<: [ *service_defaults,*gpu]
     container_name: entity-linking
     image: xcurator/entity-linking:1.0.0-beta
     build:

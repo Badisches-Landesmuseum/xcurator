@@ -1,14 +1,16 @@
 import json
-import pandas
 import re
-import requests
 from json import JSONEncoder
-from pandas import DataFrame
 from pathlib import Path
-from py_config import print_3pc_banner, data_dir
-from src.models.entity import Entity
-from tqdm import tqdm
 from typing import Dict, Tuple, List, Set
+
+import pandas
+import requests
+from pandas import DataFrame
+from py_config import print_3pc_banner, data_dir
+from tqdm import tqdm
+
+from src.models.entity import Entity
 
 print_3pc_banner()
 
@@ -20,31 +22,6 @@ print("""
 Requirement:
 - `data` directory including a *output.json file containing the sbb nel output data
 """)
-
-
-# Data
-# de_json_file = list(data_dir().rglob("*-de-output.json"))[0]
-# print(f"Found german data: {de_json_file}")
-# df_german = pandas.read_json(de_json_file, orient='records')
-#
-# en_json_file = list(data_dir().rglob("*-en-output.json"))[0]
-# print(f"Found english data: {en_json_file}")
-# df_english = pandas.read_json(en_json_file, orient='records')
-#
-# nl_json_file = list(data_dir().rglob("*-nl-output.json"))[0]
-# print(f"Found dutch data: {nl_json_file}")
-# df_dutch = pandas.read_json(nl_json_file, orient='records')
-#
-# artefact_json_file = list(data_dir().rglob("artefacts_core_*.json"))[0]
-# df_artefacts = pandas.read_json(artefact_json_file, orient='records')
-# df_artefacts["source_id"] = df_artefacts['sourceInfo'].map(lambda x: x['id'])
-#
-# translation_json_file = list(data_dir().rglob("artefacts-translation_*.json"))[0]
-# df_translations = pandas.read_json(translation_json_file, orient='records')
-#
-# df_artefacts.drop(columns=["title", "description"], inplace=True)
-# df_artefacts = df_artefacts.merge(df_translations, left_on='source_id', right_on='source_id', how="left")
-
 
 class EntityEncoder(JSONEncoder):
     def default(self, o):
@@ -82,7 +59,7 @@ def fetch_wikipedia_ids(wikidata_ids: Set[str]):
             try:
                 body = response.json()
                 for id, data in body["entities"].items():
-                    if "sitelinks" in data["sitelinks"] and data['sitelinks']:
+                    if "sitelinks" in data and data['sitelinks']:
                         title = data["sitelinks"]["enwiki"]["title"]
                     else:
                         title = ""
@@ -146,7 +123,6 @@ class SBBLinker:
         self._df_dutch = pandas.read_json(nl_json_file, orient='records')
 
         self._output_dir = output_dir
-
         self._df_artefacts = df_artefacts
 
     def get_artefact(self, source_id: str) -> Dict:
@@ -283,7 +259,7 @@ class SBBLinker:
         df_en = to_df(result_json["en"], "en")
         df_nl = to_df(result_json["nl"], "nl")
         df = pandas.concat([df_de, df_en, df_nl])
-        df.to_csv(self._output_dir / Path("sbb-temp-entities.csv"), index=False)
+        df.to_json(self._output_dir / Path("sbb-temp-entities.json"), index=False, orient='records')
 
         print(f"missed entries: {unknown}")
-        return self._output_dir / Path("sbb-temp-entities.csv")
+        return self._output_dir / Path("sbb-temp-entities.json")

@@ -1,5 +1,3 @@
-import ast
-import csv
 import json
 import os
 from datetime import datetime
@@ -34,7 +32,7 @@ wiki_version = _app_config['model']['rel']['wiki-version']
 ed_model_name = _app_config['model']['rel']['ed-model']
 
 selected_linker = os.getenv("ENTITY_LINKER").upper().strip() if os.getenv("ENTITY_LINKER") else "REL"
-output_directory = Path(os.getenv("OUTPUT_DIRECTORY")) if os.getenv("OUTPUT_DIRECTORY") else Path('../data')
+output_directory = Path(os.getenv("OUTPUT_DIRECTORY")) if os.getenv("OUTPUT_DIRECTORY") else data_dir()
 output_directory.mkdir(parents=True, exist_ok=True)
 
 print(f"Selected entity linking mode: {selected_linker}")
@@ -90,95 +88,103 @@ else:
 
 print(f"Running on device: {'cuda' if torch.cuda.is_available() else 'cpu'}")
 
-temp_result_file = data_dir(f"{selected_linker.lower()}-temp-entities.csv")
+temp_result_file = data_dir(f"{selected_linker.lower()}-temp-entities.json")
 result_file = output_directory / Path(f"{selected_linker.lower()}-xcurator-entities_{date_string}.json")
 
-if selected_linker != "SBB":
-    wikimapper = WikiMapper(str(data_dir("index_enwiki-20190420.db")))
+wikimapper = WikiMapper(str(data_dir("index_enwiki-20190420.db")))
 
+if selected_linker != "SBB":
     if temp_result_file.exists():
         temp_result_file.unlink()
 
-    with open(str(temp_result_file), "a") as w:
-        writer = csv.writer(w)
-        writer.writerow(["source_id", "language", "entities"])
-        with tqdm(total=len(df_artefacts)) as pbar:
-            for index, item in df_artefacts.iterrows():
-                source_id = item['sourceInfo']['id']
-                for language in item['title']:
-                    title = item['title'][language]
-                    description = item['description'][language] if language in item['description'] else ""
+    temp_data = []
 
-                    date = item['dateRange']['literal'] if item['dateRange'] and item['dateRange'][
-                        'literal'] is not None else ""
-                    person_names = ", ".join([person['name'] for person in item['persons']])
-                    location_names = ", ".join([location['name'] for location in item['locations']])
-                    keywords = ", ".join([keyword for keyword in item['keywords']])
+    with tqdm(total=len(df_artefacts)) as pbar:
+        for index, item in df_artefacts.iterrows():
+            source_id = item['sourceInfo']['id']
+            for language in item['title']:
+                title = item['title'][language]
+                description = item['description'][language] if language in item['description'] else ""
 
-                    context = ". ".join(
-                        [context_part for context_part in [date, person_names, location_names, keywords] if
-                         context_part])
+                date = item['dateRange']['literal'] if item['dateRange'] and item['dateRange'][
+                    'literal'] is not None else ""
+                person_names = ", ".join([person['name'] for person in item['persons']])
+                location_names = ", ".join([location['name'] for location in item['locations']])
+                keywords = ", ".join([keyword for keyword in item['keywords']])
 
-                    text = f"{context}{title}{description}"
+                context = ". ".join(
+                    [context_part for context_part in [date, person_names, location_names, keywords] if
+                     context_part])
 
-                    context_len = len(context)
-                    title_len = len(title)
+                text = f"{context}{title}{description}"
 
-                    text = f"{context}{title}{description}"
+                context_len = len(context)
+                title_len = len(title)
 
-                    entities = entity_linker.extract_entity(text)
-                    entities = [entity for entity in entities if entity.literal not in literal_blacklist]
-                    entities = [entity for entity in entities if entity.literal[0].isupper()]
-                    title_entities = [entity for entity in entities if
-                                      entity.start_position > context_len and entity.end_position <= (
-                                              context_len + title_len)]
-                    description_entities = [entity for entity in entities if
-                                            entity.start_position >= (context_len + title_len)]
+                text = f"{context}{title}{description}"
 
-                    for entity in title_entities:
-                        entities_json = {language: [{
-                            "literal": entity.literal,
-                            "property": 'title',
-                            "type": entity.category,
-                            "startPosition": entity.start_position - context_len,
-                            "endPosition": entity.end_position - context_len,
-                            "linkedData": {
-                                "wikidata": {
-                                    "url": f"https://www.wikidata.org/entity/{wikimapper.title_to_id(entity.link_id)}",
-                                    "id": wikimapper.title_to_id(entity.link_id),
-                                },
-                                "wikipedia": {
-                                    "url": f"https://en.wikipedia.org/wiki/{entity.link_id}",
-                                    "id": entity.link_id, }
-                            }
-                        } for entity in title_entities]}
-                        writer.writerow([source_id, language, json.dumps(entities_json)])
+                entities = entity_linker.extract_entity(text)
+                entities = [entity for entity in entities if entity.literal not in literal_blacklist]
+                entities = [entity for entity in entities if entity.literal[0].isupper()]
+                title_entities = [entity for entity in entities if
+                                  entity.start_position > context_len and entity.end_position <= (
+                                          context_len + title_len)]
+                description_entities = [entity for entity in entities if
+                                        entity.start_position >= (context_len + title_len)]
 
-                    for entity in description_entities:
-                        entities_json = {language: [{
-                            "literal": entity.literal,
-                            "property": 'description',
-                            "type": entity.category,
-                            "startPosition": entity.start_position - title_len - context_len,
-                            "endPosition": entity.end_position - title_len - context_len,
-                            "linkedData": {
-                                "wikidata": {
-                                    "url": f"https://www.wikidata.org/entity/{wikimapper.title_to_id(entity.link_id)}",
-                                    "id": wikimapper.title_to_id(entity.link_id),
-                                },
-                                "wikipedia": {
-                                    "url": f"https://en.wikipedia.org/wiki/{entity.link_id}",
-                                    "id": entity.link_id, }
-                            }
-                        } for entity in description_entities]}
-                        writer.writerow([source_id, language, json.dumps(entities_json)])
+                for entity in title_entities:
+                    entities_json = {language: [{
+                        "literal": entity.literal,
+                        "property": 'title',
+                        "type": entity.category,
+                        "startPosition": entity.start_position - context_len,
+                        "endPosition": entity.end_position - context_len,
+                        "linkedData": {
+                            "wikidata": {
+                                "url": f"https://www.wikidata.org/entity/{wikimapper.title_to_id(entity.link_id)}",
+                                "id": wikimapper.title_to_id(entity.link_id),
+                            },
+                            "wikipedia": {
+                                "url": f"https://en.wikipedia.org/wiki/{entity.link_id}",
+                                "id": entity.link_id, }
+                        }
+                    } for entity in title_entities]}
 
-                    del entities
-                    if index % 100 == 0 and index > 0:
-                        w.flush()
-                pbar.update(1)
-        w.flush()
-        w.close()
+                    entry_title = {
+                        "source_id": source_id,
+                        "language": language,
+                        "entities": entities_json
+                    }
+                    temp_data.append(entry_title)
+
+                for entity in description_entities:
+                    entities_json = {language: [{
+                        "literal": entity.literal,
+                        "property": 'description',
+                        "type": entity.category,
+                        "startPosition": entity.start_position - title_len - context_len,
+                        "endPosition": entity.end_position - title_len - context_len,
+                        "linkedData": {
+                            "wikidata": {
+                                "url": f"https://www.wikidata.org/entity/{wikimapper.title_to_id(entity.link_id)}",
+                                "id": wikimapper.title_to_id(entity.link_id),
+                            },
+                            "wikipedia": {
+                                "url": f"https://en.wikipedia.org/wiki/{entity.link_id}",
+                                "id": entity.link_id, }
+                        }
+                    } for entity in description_entities]}
+                    entry_description = {
+                        "source_id": source_id,
+                        "language": language,
+                        "entities": entities_json
+                    }
+                    temp_data.append(entry_description)
+
+                del entities
+            pbar.update(1)
+    df_temp = pandas.DataFrame(temp_data)
+    df_temp.to_json(temp_result_file, orient='records')
 elif not temp_result_file.exists():
     temp_result_file = entity_linker.convert()
 
@@ -186,7 +192,7 @@ gnd_linker = GNDLinker()
 location_finder = LocationFinder()
 
 print("Add GND Linking")
-df = pandas.read_csv(temp_result_file)
+df = pandas.read_json(temp_result_file, orient='records')
 df['entities'] = df['entities'].apply(lambda x: json.loads(x, strict=False))
 entities_dict = df['entities'].to_list()
 wiki_ids = set()
@@ -246,11 +252,10 @@ for index, row in df.iterrows():
                 entity['continent'] = get_continent(location['continent'])
 
     assert row_entities
-df.to_csv(temp_result_file, index=False)
+df.to_json(temp_result_file, index=False, orient='records')
 
 # Merge entities of multiple properties to a single the source_id | language
-df = pandas.read_csv(temp_result_file)
-df['entities'] = df['entities'].apply(ast.literal_eval)
+df = pandas.read_json(temp_result_file, orient='records')
 result_entities = {}
 for index, row in tqdm(df.iterrows()):
     source_id = row['source_id']
