@@ -1,7 +1,15 @@
-import { Box, CSS, VariantProps } from '@3pc/layout-components-react';
+import { Box, CSS, VariantProps } from 'src/@3pc/layout-components-react';
 
 interface LineProps {
-  color?: 'blue50' | 'blue100' | 'blue200' | 'blue' | 'blueDark' | 'white';
+  color?:
+    | 'blue50'
+    | 'blue100'
+    | 'blue200'
+    | 'blue'
+    | 'blueDark'
+    | 'white'
+    | 'black'
+    | 'black300';
   width?: CSS['width'];
   mt?: VariantProps<typeof Box>['mt'];
 }

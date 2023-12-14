@@ -1,4 +1,10 @@
-import { Box, Inline, Stack, Flex, styled } from '@3pc/layout-components-react';
+import {
+  Box,
+  Inline,
+  Stack,
+  Flex,
+  styled,
+} from 'src/@3pc/layout-components-react';
 import { useEffect, useRef, useState } from 'react';
 import { ButtonTag } from 'src/components/Common/ButtonTag';
 import { Text } from 'src/components/Common/Text';
@@ -165,13 +171,10 @@ export default function Page() {
                 </Button>
               </Inline>
               <Stack space="1">
-                <Text css={{ color: 'red' }}>
-                  Diese Variante wird nirgends verwendet
-                </Text>
                 <Inline space="2">
-                  <Button variant="outline">Outline Button</Button>
-                  <Button variant="outline" disabled>
-                    Outline Button
+                  <Button variant="icon">Icon Button</Button>
+                  <Button variant="icon" disabled>
+                    Icon Button
                   </Button>
                 </Inline>
               </Stack>
@@ -285,7 +288,7 @@ const ToastDemo = () => {
   return (
     <>
       <Button
-        variant="outline"
+        variant="icon"
         onClick={() => {
           setOpen(false);
           window.clearTimeout(timerRef.current);
@@ -352,7 +355,7 @@ const FailToastDemo = () => {
   return (
     <>
       <Button
-        variant="outline"
+        variant="icon"
         onClick={() => {
           setOpen(false);
           window.clearTimeout(timerRef.current);
@@ -410,7 +413,7 @@ const DialogDemo = () => {
     <>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline">Open Dialog</Button>
+          <Button variant="icon">Open Dialog</Button>
         </DialogTrigger>
         <DialogContent>
           <DialogTitle>Edit profile</DialogTitle>
@@ -443,7 +446,7 @@ const DialogDemo = () => {
         <ToastTitle>✅ Changes saved successfully</ToastTitle>
         <ToastDescription>Description</ToastDescription>
         <ToastAction asChild altText="Close Notification">
-          <Button variant="outline">Close</Button>
+          <Button variant="icon">Close</Button>
         </ToastAction>
       </Toast>
     </>
@@ -454,7 +457,7 @@ const PopverDemo = () => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline">Open Popover</Button>
+        <Button variant="icon">Open Popover</Button>
       </PopoverTrigger>
       <PopoverContent align="start" sideOffset={2}>
         <Box
@@ -513,7 +516,7 @@ const OverlayDemo = () => {
   return (
     <Overlay>
       <OverlayTrigger asChild>
-        <Button variant="outline">Open Overlay</Button>
+        <Button variant="icon">Open Overlay</Button>
       </OverlayTrigger>
       <OverlayContent>
         <Box px="4" py="4">

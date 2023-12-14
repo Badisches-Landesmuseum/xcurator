@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Text } from 'src/components/Common/Text';
-import { Box, Flex, Grid, styled } from '@3pc/layout-components-react';
+import { Box, Flex, Grid, styled } from 'src/@3pc/layout-components-react';
 import Image from 'next/image';
 import { GetStaticPropsContext } from 'next';
 import materialImages from './materialImages.json';

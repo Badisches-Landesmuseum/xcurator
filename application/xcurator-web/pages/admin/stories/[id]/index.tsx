@@ -1,4 +1,4 @@
-import { Box, Flex, Stack, styled } from '@3pc/layout-components-react';
+import { Box, Flex, Stack, styled } from 'src/@3pc/layout-components-react';
 import * as React from 'react';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { HEADER_HEIGHT } from 'src/components/Header/Header';

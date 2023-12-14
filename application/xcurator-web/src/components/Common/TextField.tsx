@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, styled } from '@3pc/layout-components-react';
+import { Box, styled } from 'src/@3pc/layout-components-react';
 import { PlusIcon } from 'src/icons/PlusIcon';
 import { theme } from 'src/themes/theme';
 

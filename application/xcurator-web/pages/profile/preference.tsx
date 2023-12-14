@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useLayoutEffect } from 'react';
-import { Box, Flex } from '@3pc/layout-components-react';
+import { Box, Flex } from 'src/@3pc/layout-components-react';
 import { ButtonTag } from 'src/components/Common/ButtonTag';
 import { Text } from 'src/components/Common/Text';
 import { Button } from 'src/components/Common/Button';

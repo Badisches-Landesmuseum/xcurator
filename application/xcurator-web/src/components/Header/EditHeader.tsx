@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
-import { Box, Flex, styled } from '@3pc/layout-components-react';
+import { Box, Flex, styled } from 'src/@3pc/layout-components-react';
 import { Text } from 'src/components/Common/Text';
 import {
   CC0Icon,
@@ -54,20 +54,7 @@ import {
 import { localeToLanguage } from 'src/utils/useLanguage';
 import { useAuth } from '../Context/AuthContext';
 import { Toast, ToastAction, ToastDescription } from '../Common/Toast';
-import { useLayoutEffect, useState } from 'react';
-
-function useWindowSize() {
-  const [size, setSize] = useState(0);
-  useLayoutEffect(() => {
-    function updateSize() {
-      setSize(window.innerWidth);
-    }
-    window.addEventListener('resize', updateSize);
-    updateSize();
-    return () => window.removeEventListener('resize', updateSize);
-  }, []);
-  return size;
-}
+import useMatchMedia from 'src/utils/useMatchMedia';
 
 export const EditHeader = () => {
   const router = useRouter();
@@ -83,9 +70,9 @@ export const EditHeader = () => {
   const { data } = useStoryQuery({
     variables: { where: { id: id as string, language: language } },
   });
-  const screenWidth = useWindowSize();
   const [licence, setLicence] = React.useState<LicenceType | undefined>();
   const [dialogForPublic, setDialogForPublic] = React.useState(false);
+  const matching = useMatchMedia('(max-width: 1200px)');
 
   return (
     <Box
@@ -268,7 +255,7 @@ export const EditHeader = () => {
             </DropdownContent>
           </Dropdown>
           <Dialog>
-            {screenWidth < 1200 ? (
+            {matching ? (
               <Dropdown>
                 <DropdownTrigger asChild>
                   <ThreeDotsButton>
@@ -405,13 +392,8 @@ export const EditHeader = () => {
             <DialogContent>
               <Flex justifyContent="flex-end">
                 <DialogClose asChild>
-                  <Button aria-label={translate('close')} variant="ghost">
-                    <CrossIcon
-                      aria-hidden="true"
-                      color="black"
-                      width="40px"
-                      height="40px"
-                    />
+                  <Button aria-label={translate('close')} variant="icon">
+                    <CrossIcon aria-hidden="true" width="27px" height="27px" />
                   </Button>
                 </DialogClose>
               </Flex>
@@ -582,11 +564,6 @@ export const EditHeader = () => {
                         variant="ghost"
                         css={{
                           padding: '$1 $2',
-                          '&:hover': {
-                            borderColor: '$blueDark',
-                            color: '$blueDark',
-                            backgroundColor: 'transparent',
-                          },
                         }}
                       >
                         {translate('Cancel')}

@@ -1,4 +1,4 @@
-import { styled } from '@3pc/layout-components-react';
+import { styled } from 'src/@3pc/layout-components-react';
 import * as ToggleGroupPrimitive from '@radix-ui/react-toggle-group';
 
 export const ToggleGroupItem = styled(ToggleGroupPrimitive.Item, {

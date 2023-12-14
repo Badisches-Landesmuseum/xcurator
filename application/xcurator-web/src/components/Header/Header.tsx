@@ -7,7 +7,7 @@ import {
   keyframes,
   Stack,
   styled,
-} from '@3pc/layout-components-react';
+} from 'src/@3pc/layout-components-react';
 import { Text } from 'src/components/Common/Text';
 import { useTranslations } from 'next-intl';
 import { darkTheme } from 'src/themes/theme';
@@ -163,11 +163,7 @@ export const Header = ({}: HeaderProps) => {
                 </Stack>
               </PlainButton>
             </Popover.Trigger>
-            <Flex
-              gap="4"
-              justifyContent="center"
-              css={{ flexGrow: 1, pr: '22px' }}
-            >
+            <Flex gap="4" justifyContent="center" css={{ flexGrow: 1 }}>
               {!adminHeader ? (
                 <nav>
                   <Ul css={{ display: 'flex', gap: '$4' }}>
@@ -202,6 +198,17 @@ export const Header = ({}: HeaderProps) => {
                 </Box>
               )}
             </Flex>
+            <Box
+              p="1"
+              css={{
+                border: '1px solid $blue200',
+                borderRadius: '2px',
+                color: '$blue200',
+                userSelect: 'none',
+              }}
+            >
+              <Text size="xsmall">Beta</Text>
+            </Box>
           </Box>
           <Popover.Anchor asChild>
             <Box
@@ -448,7 +455,7 @@ export const Header = ({}: HeaderProps) => {
                   transform: 'translateX(-50%)',
                   display: 'none',
 
-                  '@bp3': {
+                  '@bp2': {
                     display: 'inline-flex',
                   },
 

@@ -1,5 +1,5 @@
 import * as Checkbox from '@radix-ui/react-checkbox';
-import { styled } from '@3pc/layout-components-react';
+import { styled } from 'src/@3pc/layout-components-react';
 
 export const CheckboxRoot = styled(Checkbox.Root, {
   all: 'unset',

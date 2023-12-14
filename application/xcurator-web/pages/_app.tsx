@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import type { AppProps } from 'next/app';
 import { NextIntlProvider } from 'next-intl';
 import { ApolloProvider } from '@apollo/client';
-import { Box, Flex } from '@3pc/layout-components-react';
+import { Box, Flex } from 'src/@3pc/layout-components-react';
 import client from 'src/apollo-client';
 import { globalStyles } from 'src/global-styles';
 import { EditHeader } from 'src/components/Header/EditHeader';
@@ -18,6 +18,7 @@ import { init } from '@socialgouv/matomo-next';
 import '@smastrom/react-rating/style.css';
 import { env } from 'next-runtime-env';
 import Script from 'next/script';
+import { GlobalToastsContextProvider } from 'src/components/Context/GlobalToastsContext';
 
 type PageProps = {
   messages?: IntlMessages;
@@ -40,19 +41,20 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   globalStyles();
   const router = useRouter();
   const { pathname } = router;
-  const showNavbar = ![
-    '/details',
-    '/onboarding',
-    '/presentation/[title]/[id]',
-    '/stories/[id]/newChapter',
-    '/stories/[id]/[chapter]',
-    '/admin/stories',
-    '/admin/stories/[id]',
-    '/admin/objects',
-    '/admin/objects/[id]',
-    '/admin/editTemplates',
-    '/admin/export',
-  ].includes(router.pathname);
+  const showNavbar =
+    ![
+      '/details',
+      '/onboarding',
+      '/presentation/[title]/[id]',
+      '/stories/[id]/newChapter',
+      '/stories/[id]/[chapter]',
+      '/admin/stories',
+      '/admin/stories/[id]',
+      '/admin/objects',
+      '/admin/objects/[id]',
+      '/admin/editTemplates',
+      '/admin/export',
+    ].includes(router.pathname) && !router.route.endsWith('404');
   const home = pathname === '/';
   const showEditHeader =
     pathname.endsWith('/stories/[id]') && !pathname.includes('admin');
@@ -131,51 +133,53 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
               <AuthContextProvider>
                 <MyStoriesContextProvider>
                   <ProfileContextProvider>
-                    <Box
-                      id="outer-container"
-                      css={{
-                        height: '100vh',
-                        margin: '0 auto',
-                        color: '$text',
-                        backgroundColor: '$background',
-                      }}
-                    >
-                      {showEditHeader ? (
-                        <EditHeader />
-                      ) : showNavbar ? (
-                        <Header />
-                      ) : null}
-
+                    <GlobalToastsContextProvider>
                       <Box
-                        id="inner-container"
+                        id="outer-container"
                         css={{
-                          height:
-                            showEditHeader || (showNavbar && !home)
-                              ? `calc(100svh - ${HEADER_HEIGHT})`
-                              : '100vh',
+                          height: '100vh',
                           margin: '0 auto',
                           color: '$text',
-                          overflowY: 'scroll',
-                          backgroundColor: home ? '$blue' : '$background',
-                          '&::-webkit-scrollbar': {
-                            width: '1px',
-                          },
+                          backgroundColor: '$background',
                         }}
                       >
-                        <Flex
-                          flexDirection="column"
-                          alignItems="stretch"
+                        {showEditHeader ? (
+                          <EditHeader />
+                        ) : showNavbar ? (
+                          <Header />
+                        ) : null}
+
+                        <Box
+                          id="inner-container"
                           css={{
-                            position: 'relative',
-                            height: '100%',
-                            overflowX: 'scroll',
+                            height:
+                              showEditHeader || (showNavbar && !home)
+                                ? `calc(100svh - ${HEADER_HEIGHT})`
+                                : '100vh',
+                            margin: '0 auto',
+                            color: '$text',
+                            overflowY: 'scroll',
+                            backgroundColor: home ? '$blue' : '$background',
+                            '&::-webkit-scrollbar': {
+                              width: '1px',
+                            },
                           }}
                         >
-                          {getLayout(<Component {...pageProps} />)}
-                        </Flex>
+                          <Flex
+                            flexDirection="column"
+                            alignItems="stretch"
+                            css={{
+                              position: 'relative',
+                              height: '100%',
+                              overflowX: 'scroll',
+                            }}
+                          >
+                            {getLayout(<Component {...pageProps} />)}
+                          </Flex>
+                        </Box>
+                        <ToastViewport />
                       </Box>
-                      <ToastViewport />
-                    </Box>
+                    </GlobalToastsContextProvider>
                   </ProfileContextProvider>
                 </MyStoriesContextProvider>
               </AuthContextProvider>

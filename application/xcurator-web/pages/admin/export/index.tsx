@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { GetServerSidePropsContext } from 'next';
 import { useAuth } from 'src/components/Context/AuthContext';
-import { Box, Flex, Stack } from '@3pc/layout-components-react';
+import { Box, Flex, Stack } from 'src/@3pc/layout-components-react';
 import { Text } from 'src/components/Common/Text';
 import { Button } from 'src/components/Common/Button';
 import { useTranslations } from 'next-intl';

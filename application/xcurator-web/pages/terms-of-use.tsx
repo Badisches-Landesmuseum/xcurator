@@ -1,9 +1,10 @@
-import { Box, Inline, Stack } from '@3pc/layout-components-react';
+import { Box, Inline, Stack } from 'src/@3pc/layout-components-react';
 import { GetStaticPropsContext } from 'next';
 import { Text } from 'src/components/Common/Text';
 import Head from 'next/head';
 import React from 'react';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 
 export default function Impressum() {
   const translate = useTranslations('TermsOfUse');
@@ -102,7 +103,17 @@ export default function Impressum() {
               <Text size="xxlarge" weight="bold">
                 {translate('dataPrivacy')}
               </Text>
-              <Text>{translate('dataPrivacy-1')}</Text>
+              <Stack space="3">
+                <Text>{translate('dataPrivacy-1')}</Text>
+                <Link
+                  href="https://www.landesmuseum.de/datenschutz"
+                  target="_blank"
+                >
+                  <Text css={{ textDecoration: 'underline' }}>
+                    www.landesmuseum.de/datenschutz
+                  </Text>
+                </Link>
+              </Stack>
             </Stack>
             <Stack space="6">
               <Text size="xxlarge" weight="bold">

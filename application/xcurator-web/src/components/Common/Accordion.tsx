@@ -1,5 +1,5 @@
 import React, { ReactNode, forwardRef } from 'react';
-import { Box, keyframes, styled } from '@3pc/layout-components-react';
+import { Box, keyframes, styled } from 'src/@3pc/layout-components-react';
 import { ChevronIcon } from 'src/icons';
 import * as Accordion from '@radix-ui/react-accordion';
 

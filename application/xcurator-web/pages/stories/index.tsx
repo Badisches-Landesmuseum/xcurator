@@ -1,4 +1,10 @@
-import { Box, Flex, Grid, Stack, styled } from '@3pc/layout-components-react';
+import {
+  Box,
+  Flex,
+  Grid,
+  Stack,
+  styled,
+} from 'src/@3pc/layout-components-react';
 import { Text } from 'src/components/Common/Text';
 import { GetStaticPropsContext } from 'next';
 import { NextPageWithLayout } from 'pages/_app';
@@ -10,10 +16,10 @@ import {
   ShareIcon,
   PreviewIcon,
   DeleteIcon,
-  PenIcon,
   NotPublicIcon,
   CrossIcon,
   CheckIcon,
+  EditIcon,
 } from 'src/icons';
 
 import {
@@ -48,7 +54,7 @@ import { useAuth } from 'src/components/Context/AuthContext';
 import { useMyStories } from 'src/components/Context/MyStoriesContext';
 import { localeToLanguage } from 'src/utils/useLanguage';
 import { Orbit } from '@uiball/loaders';
-import { imageLoader } from 'src/utils/formatImage';
+import { saveSizeImage } from 'src/utils/formatImage';
 import { Reference, StoreObject } from '@apollo/client';
 import Head from 'next/head';
 import { push } from '@socialgouv/matomo-next';
@@ -264,7 +270,7 @@ function StoryCard({ story, setShowClipboardToast }: StoryCardProps) {
             alt={story.title}
             fill={true}
             sizes="20vw"
-            loader={imageLoader}
+            loader={saveSizeImage(story.previewImage)}
           />
         </Box>
       ) : null}
@@ -349,7 +355,7 @@ function StoryCard({ story, setShowClipboardToast }: StoryCardProps) {
                 <DropdownItem>
                   <DropdownLink href={`/stories/${story.id}`}>
                     <Box mr="2" css={{ display: 'inline-flex' }}>
-                      <PenIcon />
+                      <EditIcon />
                     </Box>
                     <Text>{translate('edit')}</Text>
                   </DropdownLink>
@@ -415,8 +421,19 @@ function StoryCard({ story, setShowClipboardToast }: StoryCardProps) {
               <Box mt="4">
                 <Flex justifyContent="flex-end">
                   <DialogClose asChild>
-                    <Button aria-label={translate('close')} variant="ghost">
-                      <CrossIcon color="black" width="40px" height="40px" />
+                    <Button
+                      aria-label={translate('close')}
+                      variant="ghost-dark"
+                      css={{
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        '&:hover': {
+                          color: '$blueDark',
+                          backgroundColor: 'transparent',
+                        },
+                      }}
+                    >
+                      <CrossIcon width="27px" height="27px" />
                     </Button>
                   </DialogClose>
                 </Flex>
@@ -428,7 +445,7 @@ function StoryCard({ story, setShowClipboardToast }: StoryCardProps) {
                 </DialogDescription>
                 <Flex justifyContent="center" gap="5">
                   <DialogClose asChild>
-                    <Button variant="ghost-dark">{translate('Cancel')}</Button>
+                    <Button variant="ghost">{translate('Cancel')}</Button>
                   </DialogClose>
                   <DialogClose asChild>
                     <Button
@@ -530,15 +547,13 @@ const CreateStoryDialog = () => {
                 '&:hover': {
                   backgroundColor: 'transparent',
                   borderColor: 'transparent',
-                  '> svg': {
-                    color: '$blueDark',
-                  },
+                  color: '$blueDark',
                 },
               }}
               aria-label={translate('close')}
               variant="ghost-dark"
             >
-              <CrossIcon aria-hidden="true" width="40px" height="40px" />
+              <CrossIcon aria-hidden="true" width="27px" height="27px" />
             </Button>
           </DialogClose>
         </Flex>
@@ -580,7 +595,7 @@ const CreateStoryDialog = () => {
               }}
             >
               <DialogClose asChild>
-                <Button type="button" variant="ghost-dark">
+                <Button type="button" variant="ghost">
                   {translate('abort')}
                 </Button>
               </DialogClose>

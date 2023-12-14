@@ -1,5 +1,5 @@
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
-import { Flex, styled } from '@3pc/layout-components-react';
+import { Flex, styled } from 'src/@3pc/layout-components-react';
 import * as React from 'react';
 
 function Item({

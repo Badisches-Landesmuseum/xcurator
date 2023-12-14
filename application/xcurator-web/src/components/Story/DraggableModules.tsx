@@ -22,7 +22,7 @@ import {
   namedOperations,
   useUpdateModuleMutation,
 } from 'src/graphql/_generated/types';
-import { Box, Flex, styled } from '@3pc/layout-components-react';
+import { Box, Flex, styled } from 'src/@3pc/layout-components-react';
 import ModuleDropdown from 'src/components/Story/ModuleDropdown';
 import ModuleContent from './ModuleContent';
 import { DragIcon } from 'src/icons';

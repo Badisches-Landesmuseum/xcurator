@@ -1,5 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document';
-import { getCssText } from '@3pc/layout-components-react';
+import { getCssText } from 'src/@3pc/layout-components-react';
 import { theme } from 'src/themes/theme';
 
 export default function Document() {

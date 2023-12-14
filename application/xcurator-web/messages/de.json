@@ -12,13 +12,12 @@
     "impressum": "Impressum",
     "close": "Schließen",
     "termsOfUse":"Nutzungsbedingungen"
-
   },
   "Home": {
-    "title": "Tauche ein in unsere Sammlungen, entdecke Geschichten von anderen und erstelle deine eigene Story.",
+    "title": "Dein KI-Copilot. Tauche in Sammlungen ein, entdecke Verbindungen und Geschichten und gestalte Deine Erzählung.",
     "start": "Los geht's!",
     "seoTitle": "Start",
-    "description": "Mit dem xCurator kannst du in die Sammlungen des badischen Landesmuseums und dem Allard Pierson Museum eintauchen.",
+    "description": "Mit dem xCurator kannst Du in die Sammlungen des Badischen Landesmuseums Karlsruhe und  Allard Pierson Amsterdam eintauchen.",
     "keywords": "virtuellesammlung, KI, anreicherung, xCurator, Museumstool, Museumssoftware, Onlinesammlung"
   },
   "Admin" : {
@@ -47,9 +46,9 @@
     "objectFeedback": "Feedback zu diesem Objekt: ",
     "accept": "Akzeptieren",
     "noArtefacts": "Es wurden keine Objekte gemeldet",
-    "loginPlease": "Bitte log dich ein.",
+    "loginPlease": "Bitte einloggen",
     "notAdmin": "Du bist kein Admin",
-    "login": "Jetzt anmelden",
+    "login": "Anmelden",
     "date": "Datierung",
     "places": "Orte",
     "persons": "Personen",
@@ -71,8 +70,9 @@
     "systemTemplateExplanation": "Systemvorlage: Dieses Feld bestimmt, wie sich das System verhalten soll. Achten Sie darauf, dass in diesem Feld ein spezielles Schlüsselwort <important>'<LANGUAGE>'</important> oder <important>'<DATA>'</important> eingegeben werden muss.",
     "userInput": "Im Anwendungsfall der Objekte müssen wir das Schlüsselwort <important>'<USER_INPUT>'</important> in beiden Felder angeben.",
     "checkKeywordExistence": "Eines der Schlüsselwörter fehlt. Prüfen Sie, ob Sie <important>'<DATA>'</important> oder <important>'<LANGUAGE>'</important> in die Benutzervorlage und <important>'<LANGUAGE>'</important> oder <important>'<DATA>'</important> in die Systemvorlage eingefügt haben. Beide Schlüsselwörter müssen vorhanden sein.",
-    "checkKeywordExistenceObject": "Eines der Schlüsselwörter fehlt, prüfen Sie, ob Sie <important>'<LANGUAGE>'</important> oder <important>'<DATA>'</important> oder <important>'<USER_INPUT>'</important> in eines der Felder eingefügt haben. Alle Schlüsselwörter müssen vorhanden sein.",
+    "checkKeywordExistenceObject": "Eines der Schlüsselwörter fehlt, prüfen Sie, ob Sie <important>'<LANGUAGE>'</important> oder <important>'<DATA>'</important> in eines der Felder eingefügt haben. Alle Schlüsselwörter müssen vorhanden sein.",
     "templateUpdated": "Vorlage wurde erfolgreich aktualisiert.",
+    "templateUpdateError": "Vorlage konnte nicht aktualisiert werden. Bitte versuchen Sie es später erneut.",
     "example": "Beispiel : ",
     "giveUserId": "Geben Sie die Nutzer-ID ein",
     "export": "Exportieren",
@@ -98,66 +98,62 @@
     "Header": "Über xCurator",
     "ForWho": {
       "title": "Für wen ist der xCurator?",
-      "text": "<li>Für Kulturerbe-Fans und Sammlungsbegeisterte – Techies und Entwickler*innen – Mitdenker*innen und Kreative.</li><li>Für Schüler*innen, Studierende, Forscher*innen oder Personen mit kulturhistorischen Spezialinteressen..</li>"
+      "text": "<li>Für Kulturerbe-Fans und Sammlungsbegeisterte – Techies und Entwickler*innen – Mitdenker*innen und Kreative.</li><li>Für Schüler*innen, Studierende, Forscher*innen oder Personen mit kulturhistorischen Spezialinteressen.</li>"
     },
     "WhatCanIdo": {
       "title": "Was kann ich hier machen?",
-      "text": "<li>Dein Blick in die Geschichte: Du kannst in 50.000 Jahre Kulturgeschichte eintauchen, Zusammenhänge darin entdecken und eigene Geschichten entwickeln.</li><li>Du kannst für andere Geschichte(n) schreiben und sie teilen.</li><li>Du kannst hochwertige Story-Vorlagen nutzen und sie deinen Wünschen entsprechend anpassen oder weiterentwickeln.</li><li>Verschiedene Verfahren aus dem Bereich der Künstlichen Intelligenz helfen dir und überraschen dich vielleicht. Wir hoffen, du entdeckst etwas Neues!</li><li>Bitte beachte, dass maschinelle Intelligenz nicht menschliche Intelligenz ist – deine eigene Urteilskraft ist immer am wichtigsten.</li>"
+      "text": "<li>Entdecken: Dein Blick in die Geschichte: Du kannst in 50.000 Jahre Kulturgeschichte eintauchen, Zusammenhänge entdecken und eigene Geschichten entwickeln. Mit einer experimentellen neuronalen Suche findest Du spannende und überraschende Motive.</li><li>Erstellen: Du kannst für andere Geschichte(n) schreiben und sie teilen. Hier kannst Du hochwertige Story-Vorlagen nutzen und sie Deinen Wünschen entsprechend anpassen oder weiterentwickeln.</li><li>Lass Dich unterstützen durch maschinelle Intelligenz: Verschiedene Verfahren maschinellen Lernens und generativer künstlicher Intelligenz helfen Dir und überraschen Dich vielleicht mit einer neuen Perspektive?</li><li>Hilf dem Museum: Die Algorithmen müssen manchmal noch von Dir lernen. Willst Du richtige Inhalte bestätigen und andere rückmelden? Wenn Dir etwas auffällt, freuen wir uns über Dein Feedback, um das KI-Training langfristig zu verbessern!</li>"
     },
     "Data": {
       "title": "Was passiert mit meinen Daten?",
-      "text": "<li>Um eine Geschichte (Story) zu erstellen, bitten wir darum, dich anzumelden. Das hat den Grund, dass nur so Geschichten erstellt, gespeichert und geteilt werden können.</li><li>Du entscheidest selbst, ob du deine Inhalte mit anderen teilen willst.</li><li>Bitte beachte dafür die <usageLink>Nutzungsbedingungen</usageLink>, Erklärungen zur Barrierefreiheit und die <dataProtectionLink>Datenschutzbedingungen</dataProtectionLink>.</li>"
+      "text": "<li>Um eine Geschichte (Story) zu erstellen, bitten wir darum, Dich anzumelden. Deine Geschichte kannst Du für andere veröffentlichen. Aus Datenschutzgründen und für die inhaltliche Qualitätssicherung benötigen wir hier Deine Anmeldung. Deine Daten sind beiuns sicher. Bitte beachte dafür auch die <termsLink>Nutzungsbedingungen</termsLink> und die <privacyLink>Datenschutzbedingungen</privacyLink>.</li>"
     },
     "WhatIsAI": {
       "title": "Was bedeutet Künstliche Intelligenz?",
-      "text": "<li>Künstliche Intelligenz (KI) ist ein Feld der Informatik. Bei KI geht es darum, Computer dazu zu bringen, auf bestimmte Arten zu agieren, die von Menschen als intelligent empfunden werden. Das schließt unter anderem die Lösung von komplexen Problemen, das selbstständige Lernen von neuen Fähigkeiten und auch die Beherrschung der menschlichen Sprache mit ein. In der KI werden verschiedene Technologien eingesetzt: etwa künstliche neuronale Netze zur Bilderkennung oder Sprachmodelle zur Übersetzung oder Erstellung von Texten.</li><li>Du entscheidest selbst, ob du deine Inhalte mit anderen teilen willst.</li><li>Im Tool xCurator wird KI eingesetzt, um die digitalen Sammlungen besser, personalisiert und interessensgesteuert zugänglich zu machen und Nutzer*innen des Museums zu unterstützen, Zusammenhänge zu erschließen und Geschichten zu erstellen.</li>"
+      "text": "<li>Künstliche Intelligenz (KI) ist ein Feld der Informatik. Dabei geht es darum, Computer dazu zu bringen, auf bestimmte Arten zu agieren, die von Menschen als intelligent empfunden werden.<ideaLink> Die Idee ist über 100 Jahre alt</ideaLink> und die heutige Technologie in verschiedenen Anwendungen einsetzbar. Du findest künstliche Intelligenz schon lange in deinem Smartphone oder in Deinen Musikempfehlungen. Neu ist in den vergangenen Jahren die Entwicklung von generativen Technologien, die ermöglichen Bilder oder Texte automatisch zu erstellen. Deshalb wird häufig davon gesprochen, dass Künstliche Intelligenz auch „kreativ“ sein kann. Viele spannende <learningLink>Lernressourcen findest Du hier</learningLink>.</li><li>Mit Künstlicher Intelligenz werden verschiedene Technologien bezeichnet: etwa künstliche neuronale Netze zur Bilderkennung oder Sprachmodelle zur Übersetzung oder Erstellung von Texten.</li><li>Wir sprechen übrigens lieber von maschineller Intelligenz und haben dazu schon viel diskutiert.<readMore> Das kannst Du hier nachlesen.</readMore></li><li>Im xCurator wird maschinelle Intelligenz eingesetzt, um die digitalen Sammlungen weitergehend zu erschließen, personalisiert und interessensgesteuert zugänglich zu machen und Dich dabei zu unterstützen, Zusammenhänge zu erschließen und eigene Geschichten zu erstellen.</li><li>Das klappt manchmal schon ganz gut und ist hilfreich, aber manchmal nehmen wir maschinell erstellte Ergebnisse als „falsch“ wahr, weil es sich in vielen Berechnungen um Wahrscheinlichkeiten oder Näherungswerte handelt und eine 100% Trefferquote nur mit menschlicher Hilfe zu erreichen ist. Wir müssen also lernen, mit diesen Näherungswertenumzugehen, maschinell erstellte Ergebnisse kritisch zu beurteilen oder selbst richtig weiterzuverarbeiten. Das ist manchmal gar nicht so einfach zu ertragen. </li><li>Vielleicht sammelst Du gerne Fehler ein oder hilfst uns, die Algorithmen zu verbessern? Dafür kannst Du die Feedback-Funktionen nutzen und so helfen, maschinell generierte Ergebnisse zu beurteilen, zu trainieren und die Verfahren zu verbessern.</li><li>Bitte beachte, dass maschinelle Intelligenz nicht menschliche Intelligenz ist – Deine eigene Urteilskraft ist immer am wichtigsten.</li>"
     },
     "WhyAI": {
-      "title": "Warum nutzen wir Künstliche Intelligenz?",
-      "text": "<li>Künstliche Intelligenz sollte ethisch und gemeinwohlorientiert eingesetzt werden und menschliche Autor*inschaft und verantwortliches Handeln unterstützen. Dafür suchen wir mit dem xCurator konkrete Wege für digitale Museumssammlungen.</li><li>Machine Learning und Deep Learning können dazu verwendet werden, das Vorhandene neu zu betrachten. Die Fähigkeit der KI, Archive oder Exponate der Sammlungen neu zu sortieren, kann auch neue Zusammenhänge sichtbar machen.</li><li>Im Projekt Creative User Empowerment wurden verschiedenen Verfahren untersucht und entwickelt, um mit Künstlicher Intelligenz mehr Zugang zu den digitalen Sammlungen zu schaffen.</li><li><dataLabLink>Zum Datenlab</dataLabLink></li>"
+      "title": "Warum nutzen wir maschinelle Intelligenz?",
+      "text": "<li>Künstliche Intelligenz sollte ethisch und gemeinwohlorientiert eingesetzt werden und menschliche Autor*innenschaft und verantwortliches Handeln unterstützen. Mit dem xCurator haben wir gemeinsam mit der Öffentlichkeit und Expert*innen nach Wegen gesucht, das digitale Museum weiter zugänglich zu machen.</li><li>Machine Learning und Deep Learning können verwendet werden, das Vorhandene neu zubetrachten. Die Fähigkeit von Verfahren künstlicher neuronaler Netze, Archive oder Exponate der Sammlungen neu zu sortieren, kann neue Zusammenhänge sichtbar machen.</li><li>Im Projekt Creative User Empowerment wurden verschiedenen Verfahren untersucht undentwickelt, um mit maschineller Intelligenz neue Zugänge zu digitalen Sammlungen zu schaffen. Dabei stand immer die Frage im Mittelpunkt, wie die Verfahren die Nutzer*innen bestmöglich unterstützen können und welche Rolle und welches Bild wir Künstlicher Intelligenz zuschreiben wollen. Aus der Ideengeschichte wissen wir, dass sich Vorstellungen zu abstrakten Konzepten über die Zeit verändern. Welches Verständnis wir jeweils von Künstlicher Intelligenz haben, ist also immer auch historisch zu verstehen.<dataLabLink> Zur Projektdokumentation und Experimentierraum.</dataLabLink></li>"
     },
     "WhereAI": {
       "title": "Wo ist denn hier Künstliche Intelligenz?",
-      "text": "<li>Überall, wo du dieses Symbol siehst, verwenden wir Künstliche Intelligenz: bla bla</li><li>Intelligente Suche: das System schlägt dir gezielt Objekte vor, die zu deinen angegebenen Interessen und Suchen passen.</li><li>Vision AI: Die Fotos der Objekte wurden analysiert und über eine Bilder-Suche zugänglich gemacht, das heißt: Farben werden automatisch erkannt, Objekte und Themen in Bildern werden erkannt. Bilder werden vom System so in Gruppen sortiert, dass dir inhaltliche und visuelle Verbindungen angezeigt werden.</li><li>Intelligente Anreicherung: Schlagworte wurden automatisch erstellt und dadurch die inhaltliche Erschließung der Sammlung verbessert.</li><li>Durch eine personalisierte Suche findest du schneller spannendere Dinge und kannst deinen individuellen Zugang zur Vergangenheit entdecken.</li><li>Generative Texte: Das Tool hilft dir dabei, Texte zu erstellen und Zusammenhänge zwischen den Dingen zu erkennen. Du kannst mit KI als Co-Autorin neue kreative Zusammenhänge entwickeln.</li>"
+      "text": "<li>Alle maschinell erstellten Ergebnisse werden durch dieses Symbol<imageLiSmall></imageLiSmall> gekennzeichnet, damit Du erkennst, was mit Hilfe von maschineller Intelligenz erstellt wurde und es selbständig kritisch prüfen kannst. Auch die Übersetzungen wurden maschinell erstellt. Bitte sei also vorsichtig und überprüfe im Zweifel das Originaldokument.</li><li>Intelligente Suche: Wie kreativ kannst Du suchen? Das System schlägt Dir gezielt Objekte vor, die zu Deinen angegebenen Interessen und Suchen passen. Auf der Einstiegsseite werden Museumsobjekte in sogenannten Clustern (Trauben) sortiert, die helfen, die Vielfalt der Sammlungsobjekte schneller und zusammenhängend zu erschließen. Die intelligente Suche schließt eine visuelle Suche über Ähnlichkeiten und Mustererkennung mit ein und Algorithmen sortieren für Dich die Vielfalt der Inhalte vor. Einfach mal ausprobieren! </li><li>Über intelligente Filtermöglichkeiten kannst Du die Suche nach Farben, Zeiten, Materialien und Orten erweitern oder eingrenzen.</li><li>Maschinell erstellte Schlagworte und intelligente Anreicherung: Aus den Bild- und Textinformationen wurden neue Schlagworte generiert, die helfen, neue Verbindungen zwischen den Dingen herzustellen. Hilf dem Museum, indem Du die Qualität der Schlagworte und automatischen Verlinkungen beurteilst. </li><li>Ähnlichkeitssuche und Empfehlungen: Die Bilder der Objekte wurden analysiert und über eine Bilder-Suche zugänglich gemacht, das heißt: Farben, Motive, Objekte und Themen in Bildern werden erkannt. Bilder werden vom System so in Gruppen sortiert, dass Dir inhaltliche und visuelle Verbindungen angezeigt werden. Wenn Du eine neue Geschichte erstellst, erhältst Du auf Basis Deiner Such- und Titelangaben Empfehlungen, welche Objekte dazu passen könnten. </li><li>Durch personalisierte Einstellungen findest Du schneller spannendere Dinge und kannst Deinen individuellen Zugang zur Vergangenheit entdecken. Deine personenbezogenen Daten sind bei uns sicher und werden nicht von Verfahren Künstlicher Intelligenz weiterverarbeitet.</li><li>Generative Texte: Das Tool hilft Dir dabei, Texte zu erstellen und Zusammenhänge zwischen den Dingen zu erkennen. Du kannst hier mit xCurator als Copilot neue kreative und spannende Zusammenhänge entwickeln. Dafür haben wir viel an den Datengrundlagen gefeilt, damit das Sprachmodell nicht so viel halluziniert, sondern auf die Sammlungsdaten und wirklich neue und spannende Inhalte zurückgreift. Du kannst dem Sprachmodell aber Hinweise geben, was es für Dich tun soll. Aber Vorsicht, die Ergebnisse des Sprachmodells musst Du selbst beurteilen! Nimm dafür einfach die Museumstexte zur Hilfe.</li><li>Aus Sicherheitsgründen haben wir die Prompts voreingestellt. Wenn Du gute Vorschläge hast, wie die Prompts verbessert werden können oder Du Dir einen bestimmten Prompt für Deine Story wünscht, freut sich das Museum über eine Nachricht!</li>"
     },
     "WhichAI": {
       "title": "Welche KI-Verfahren und Modelle wurden genau verwendet?",
-      "text": "<li><naturalLanguageLink>Natural Language Processing</naturalLanguageLink></li><li>Entity Extraction und Entity Linking</li><li>Bilderkennung</li><li>Multimodale Verfahren</li><li>KI-Suchfunktionen</li><li>Generative Sprachmodelle</li><li>Verwendet werden aktuell Algorithmen und Foundation Models von Elastic Search, Clip, DeepL, Spacey, <relLink>Radbound Entity Linker (REL)</relLink>; <flairLink>flairNLP (Beta)</flairLink>, <elasticSearch>Elasticsearch Similarity</elasticSearch>; <elasticSearchSpring>Elasticsearch Queries with Spring Data</elasticSearchSpring>; <mappingTypes>Alternatives to mapping types</mappingTypes>; <elasticSearchRelations>Managing Relations Inside Elasticsearch</elasticSearchRelations>; <dslQuery>Query DSL</dslQuery>, <elasticSearchDoc>Py ElasticSearch Documentation</elasticSearchDoc>, <elasticSearchGithub>Py ElasticSearch GitHub</elasticSearchGithub>, <openClip>OpenClip</openClip></li>"
-    },
-    "DetectAI": {
-      "title": "Wie erkenne ich, welche Ergebnisse von einer Künstlichen Intelligenz erstellt wurden?",
-      "text": "<li>Uns ist wichtig: Alle maschinell erstellten Ergebnisse werden durch dieses Symbol  \n\n< ##> gekennzeichnet, damit du erkennst, was von KI erstellt wurde, und es selbständig kritisch prüfen kannst.</li><li>Die Übersetzungen wurden maschinell von der KI erstellt. Bitte sei also vorsichtig und überprüfe im Zweifel das Originaldokument.</li>"
+      "text": "<li>xCurator wurde als nachnutzbare und anpassbare Open Source Software Lösung entwickelt, die hier im Detail nachvollziehbar ist: <gitLink>https://github.com/Badisches-Landesmuseum/xcurator</gitLink> </li><li>xCurator verwendet verschiedene Verfahren des maschinellen Lernens, um Dich bei der Erschließung, dem Verständnis und dem eigenen Produktionsprozess zu unterstützen. Im xCurator werden Verfahren aus dem Bereich Natural Language Processing, Entity Extraction und Entity Linking, Bilderkennung, intelligente Suche, multimodale Verfahren und generative Sprachmodelle eingesetzt.</li><li>Verwendet werden aktuell Lösungen und Modelle von Elastic Search, Open Clip, DeepL, Spacey, <elasticSimilarLink>Elasticsearch Similarity</elasticSimilarLink>;<elasticSearchSpring> Elasticsearch Queries with Spring Data</elasticSearchSpring>;<mappingTypes> Alternatives to mapping types</mappingTypes>;<elasticSearchRelation> Managing Relations Inside Elasticsearch</elasticSearchRelation>; <dslQuery>Query DSL</dslQuery>, <elasticSearchDoc>Py ElasticSearch Documentation</elasticSearchDoc>, <elasticSearchDoc>Py ElasticSearch GitHub</elasticSearchDoc>,<entiyLinker> Radbound Entity Linker (REL)</entiyLinker>; <flairLink>flairNLP (Beta)</flairLink>,<openClip> OpenClip </openClip> eine Lösung von <pixSolution>https://github.com/pixolution/embeddings-grid </pixSolution></li><li>Aktuell testen wir die Qualität eines <qualityTest>Named Entity Recognition and Entity Linking Systemsgemeinsam</qualityTest> mit der Staatsbibliothek zu Berlin – Preußischer Kulturbesitz (https://staatsbibliothek-berlin.de/) aus dem Projekt QURATOR – Curation Technologies (https://qurator.ai/) und verbessern für Dich die Trefferquote.</li><li>Wir haben viel diskutiert, geforscht und getestet: Das Tool verwendet aktuell auch die Sprachmodell-Lösung von OpenAI. Warum? Weil Sprachmodelle unsere Gegenwart prägen und neben Risiken auch Chancen bieten. Weil es wichtig ist, sich aktiv mit den Auswirkungen von Formen Künstlicher Intelligenz wie Sprachmodellen zu beschäftigen – und zwar auch in geschützten Räumen und über Kultur. Hier kannst Du üben, mit einer gesicherten faktischen Grundlage Inhalte mit Hilfe des Sprachmodells zu erstellen. Dein neuer Superskill wird das Prompten und das Faktenchecken, versprochen! </li><li>In der <gitDocs>technischen Dokumentation</gitDocs> und dem <dataLabLink>Datalab </dataLabLink>findest Du mehr zu den Technologien und Hintergründen und außerdem einen experimentellen Ort, der auch für Neugierige, Forscher*innen und Entwickler*innen spannend ist. Einfach einsteigen und Teil des Kosmos werden! </li>"
     },
     "Ethic": {
-      "title": "Welche ethischen Richtlinien wurden beachtet, um Künstliche Intelligenz einzusetzen und zu entwickeln?",
-      "text": "<li>Wir richten uns nach der Stellungnahme des <germanEthic>Deutschen Ethikrates 2023</germanEthic>.</li><li>Wir wollen KI einsetzen, um die Nutzer*innen des Museums zu unterstützen und den Zugang zu Kunst und Kultur zu verbessern.</li><li>Wir achten darauf, dass Ergebnisse, die maschinell erstellt wurden, klar gekennzeichnet sind. (Symbol)</li><li>Wir achten darauf, keine übermächtigen Bilder von Künstlicher Intelligenz zu reproduzieren oder Bilder von KI als magischem Wesen zu vermitteln.</li><li>Wir achten darauf, die Vermenschlichung (Anthropomorphismus) von Künstlicher Intelligenz nicht zu unterstützen.</li><li>Wir arbeiten in einem divers aufgestellten und internationalen Team und beziehen verschiedene Nutzer*innengruppen von Anfang an in die Entwicklung ein.</li><li>Wir beachten den aktuellen Stand der Forschung und Entwicklung.</li>"
+      "title": "Welche ethischen Richtlinien wurden beachtet, um maschinelle Intelligenz einzusetzen und zu entwickeln?",
+      "text": "<li>Ethik-Leitfaden: Unsere KI-Initiative richtet sich nach den Empfehlungen des DeutschenEthikrates von 2023.</li><li>Unterstützung durch KI: Unser Ziel ist es, KI zu nutzen, um Besucher*innen zuunterstützen und einen besseren Zugang zu Kunst und Kultur zu ermöglichen.KI-Lösungen werden im Tool eingesetzt, um Handlungsfähigkeit im Rahmen des digitalenMuseumsbesuchs zu verbessern. Wir bemühen uns, ein realistisches Verständnis vonKünstlicher oder besser maschineller Intelligenz zu fördern.</li><li>Kennzeichnung maschineller Ergebnisse: Wir stellen sicher, dass alle durch KI erzeugtenInhalte klar und deutlich als solche gekennzeichnet sind, um Transparenz zugewährleisten.</li><li>Vermeidung von irreführenden KI-Bildern: Wir vermeiden es, KI als allmächtigdarzustellen, um realistische Erwartungen zu fördern.</li><li>Kein Anthropomorphismus: Wir vermeiden die Vermenschlichung von KI, um ein klaresVerständnis ihrer Funktionsweise zu fördern.</li><li>Diversität und Internationalität im Team: Unser internationales und vielfältiges Teambezieht unterschiedliche Nutzergruppen von Beginn an in die Entwicklung ein.</li><li>Forschungs- und Entwicklungsstandards: Wir orientieren uns stets am aktuellenForschungs- und Entwicklungsstand, um die Qualität und Relevanz der KI-Anwendungenzu sichern.</li>"
     },
     "HowDeveloped": {
       "title": "Wie wurde das Tool entwickelt?",
-      "text": "<li>Wilde Geschichte – frag lieber nicht. Es gab viel Pizza, Club-Mate und Online-Meetings.</li><li>Es gab verschiedene Hackathons, bei denen wilde Ideen entwickelt wurden. <dataLabLink>Zum Datalab</dataLabLink></li><li>Eine Gruppe interessierter KI-Pilot*innen hat das Projekt vom Beginn der Entwicklung an begleitet und Hinweise gegeben, welche Wünsche und Anforderungen sie an einen KI-gestützten Zugang zur Sammlung haben.</li><li>Das Team von <dreipc>3pc</dreipc> hat 2022 und 2023 an der Konzeption und Umsetzung gearbeitet.</li><li>Außerdem gab es viele Expert*innen aus der ganzen Welt, die Tipps beigesteuert haben. Die Liste der beteiligten Personen findest du hier.</li>"
+      "text": "<li>Wilde Geschichte – frag lieber nicht. Es gab Pizza, Club-Mate und Online-Meetings.</li><li>Es gab verschiedene <dataLabLink>Hackathons, bei denen wilde Ideen entwickelt wurden.</dataLabLink> </li><li>Eine Gruppe interessierter KI-Pilot*innen hat das Projekt vom Beginn der Entwicklung an begleitet und Hinweise gegeben, welche Wünsche und Anforderungen sie an einen KI-gestützten Zugang zur Sammlung haben. Nur durch viele Gespräche und digitales Ehrenamt war die Toolentwicklung möglich – vielen Dank! </li><li>Das Team von <dreipc>3pc</dreipc> hat 2022 und 2023 an der Konzeption und Umsetzung gearbeitet.</li><li>Der Bürgerbeirat des Badischen Landesmuseums hat wichtige Anregungen zur Toolentwicklung beigesteuert!</li><li>Das Team des Badischen Landesmuseums und Allard Pierson hat viel diskutiert, welcher Umgang mit maschineller Intelligenz angemessen ist. </li><li>Außerdem haben viele Expert*innen aus der ganzen Welt Wissen und Tipps beigesteuert.Die Liste der beteiligten Personen findest Du <dataLabLink>hier</dataLabLink>. </li>"
     },
     "AIStrategies": {
       "title": "Welche KI-Strategie steckt dahinter?",
-      "text": "<li>Künstliche Intelligenz ist interessant, aber kein Selbstzweck: Wir entwickeln KI für gemeinwohlorientierte Ziele.</li><li>Besucher*innen zu Nutzer*innen: Nicht nur anschauen, sondern selbständige Zugänge finden und selbst entscheiden, wie du die Sammlung weiterverwenden willst. Wir arbeiten mit einer CC-0-Lizenz, damit der freie Zugang und Nachnutzung von Kultur möglich ist.</li><li>Viele der Objekte sind nicht in Ausstellungen vor Ort zugänglich und werden digital zugänglich. Wir möchten den Nutzer*innen weltweit einen ortsunabhängigen und eigenständigen Zugang zu den Sammlungen des Museums bieten.</li><li>Jeder Mensch hat andere inhaltliche Interessen: Wir unterstützen einen individuellen Zugang zu den Sammlungen.</li><li>Häufig wissen wir wenig über den Hintergrund, wenn wir ein Objekt betrachten: Wir verbessern mit KI die Datenqualität zu den Objekten im Museum und ermöglichen es, leichter den inhaltlichen Kontext zu erschließen.</li><li>So viele Dinge – wie soll ich da einen Überblick oder Zugang bekommen? Wir verbessern die Suchbarkeit und Auffindbarkeit digitaler Museumsobjekte.</li><li>Das Tool ist nicht eine einzelne KI, „die“ Museums-KI oder ein einzelnes neuronales Netz, sondern Unterstützung von einzelnen Nutzungs-Anforderungen durch Maschine-Learning-Verfahren und KI-Modellen. Dabei stehen die Anforderungen an gewünschte Zugänge zur digitalen Sammlung der Nutzer*innen des Badischen Landesmuseums und des Allard Pierson Museums im Mittelpunkt.</li>"
+      "text": "<li>Künstliche Intelligenz ist interessant, aber kein Selbstzweck: Wir entwickeln KI für gemeinwohlorientierte Ziele, erhöhen die Datenverfügbarkeit, arbeiten interdisziplinär und suchen einen breiten gesellschaftlichen Dialog in der Entwicklung.</li><li>Besucher*innen zu Nutzer*innen: Nicht nur anschauen, sondern selbständige Zugänge finden und selbst entscheiden, wie Du die Sammlung weiterverwenden willst. Wir arbeiten mit einer CC-0-Lizenz, damit der freie Zugang zu Kultur möglich ist und eine Nachnutzung rechtssicher.</li><li>Viele der Objekte sind nicht in Ausstellungen vor Ort zugänglich und werden hier erstmalsdigital zugänglich gemacht. Wir möchten den Nutzer*innen weltweit einen ortsunabhängigen und eigenständigen Zugang zu den Sammlungen des Museums bieten.</li><li>Jeder Mensch hat andere inhaltliche Interessen: Wir unterstützen den individuellen Zugang zu den Sammlungen.</li><li>Häufig wissen wir wenig über den Hintergrund, wenn wir ein Objekt betrachten: Wir verbessern die Datenverfügbarkeit und die Datenqualität mit dem Ziel, leichter inhaltliche Kontexte zu erschließen. </li><li>So viele Dinge – wie soll ich da einen Überblick oder Zugang bekommen? Wir verbessern die Suchbarkeit und Auffindbarkeit digitaler Museumsobjekte. </li><li>Das Tool ist nicht eine einzelne KI, „die“ Museums-KI oder ein einzelnes neuronales Netz, sondern bietet Unterstützung von einzelnen Nutzungs-Anforderungen durch Maschine-Learning-Verfahren und KI-Modelle.</li><li>Dabei stehen immer die Anforderungen an gewünschte Zugänge zur digitalen Sammlung der Nutzer*innen des Badischen Landesmuseums und des Allard Pierson Museums im Mittelpunkt.</li>"
     },
     "WithoutAI": {
       "title": "Geht es auch ohne Künstliche Intelligenz?",
-      "text": "<li>Ja klar, du kannst ganz analog ins Museum gehen oder dir hier den digitalen Katalog ansehen. Dort entdeckst du sicher wieder andere Geschichten. Das Museum freut sich auf dich!</li>"
+      "text": "<li>Ja klar, Du kannst ganz analog <museumLink>ins Museum gehen</museumLink> oder <digitalLink>hier</digitalLink> andere digitale Angebote finden. Dort entdeckst Du sicher wieder andere Themen und Geschichten. Das Museum freut sich auf Dich!</li>"
     },
     "HowToUse": {
       "title":"Wie kann ich das Tool in der Schule oder der Bildungsarbeit einsetzen?",
-      "text": "Hier sollte noch eine Ergänzung rein, Lehrermaterialien sind in Arbeit."
+      "text": "<li>Empfehlungen für den Einsatz im schulischen Bildungsbereich sind <recommendation>hier</recommendation> zu finden. </li>"
     },
     "HowToHelp": {
       "title": "Wie kann ich zur Entwicklung und Verbesserung beitragen?",
-      "text": "<li>Du kannst Stories mit KI-Unterstützung erstellen und so mithelfen, die wichtigsten Geschichten auch für andere zugänglich zu machen.</li><li>Du kannst Feedback geben, wenn Ergebnisse unklar oder falsch sind. Mit dem Feedback verbessern wir die KI-Verfahren im Hintergrund.</li><li>Du kannst dir hier den Code anschauen und Vorschläge machen, wie wir das Tool verbessern können.</li>"
+      "text": "<li>Du kannst Stories mit KI-Unterstützung erstellen und so mithelfen, Deine wichtigsten Geschichten auch für andere zugänglich zu machen.</li><li>Du kannst Feedback geben, wenn Ergebnisse unklar oder falsch sind. Mit dem Feedback verbessern wir die KI-Verfahren im Hintergrund. </li><li>Du kannst dir hier den Code anschauen und Vorschläge machen, wie wir das Tool verbessern können. </li><li>Für Fragen oder Ideen wende Dich einfach an creative@landesmuseum.de </li>"
     },
     "InfoButtons": {
       "title": "Infobuttons",
       "text": "<li>Diese Inhalte wurden maschinell mit Künstlicher Intelligenz generiert. Bitte beachte, dass ein menschliches Urteil nötig ist, um letztlich die Richtigkeit zu beurteilen. Häufig sind Inhalte nicht zu 100% richtig, sondern z.B. nur zu 90% wahrscheinlich. Es ist also besonders wichtig, dass du die Ergebnisse kritisch prüfst!</li><li>Diese Übersetzung wurde maschinell generiert.</li><li>Diese Schlagworte wurden maschinell generiert durch einen Entity-Recognition-Algorithmus.</li><li>Diese Bilder werden maschinell erkannt, um dir wahrscheinlichere Suchergebnisse anzuzeigen.</li><li>Diese Zusammenhänge werden dir durch einen Bilder-Clustering-Algorithmus vorsortiert.</li><li>Dieser Text wurde automatisch durch ein Sprachmodell generiert. Bitte prüfe ihn sorgfältig, ob er für deine Zwecke geeignet und sprachlich sowie inhaltlich richtig ist.</li>"
     },
     "seoTitle": "Über den xCurator",
-    "description": "Hier findest du alle Antworten zu deinne Fragen rund um den xCurator.",
+    "description": "Hier findest Du alle Antworten zu Deinen Fragen rund um den xCurator.",
     "keywords": "about"
   },
   "Stories": {
@@ -166,7 +162,7 @@
     "save": "Speichern",
     "abort": "Abbrechen",
     "delete": "Löschen",
-    "loginPlease": "Melde dich an, um zu deinen Stories zu gelangen.",
+    "loginPlease": "Melde dich an, um zu Deinen Stories zu gelangen.",
     "login": "Anmelden",
     "myStories": "Meine Stories",
     "allStories": "Alle Stories",
@@ -174,12 +170,12 @@
     "newest": "Neueste",
     "mostLoved": "Beliebteste",
     "close": "Schließen",
-    "loading": "Läd",
+    "loading": "Lädt",
     "seoAllStoriesTitle": "Alle Stories",
-    "allStoriesDescription": "Schaue dir die Stories von anderen Nutzern des xCurator an.",
+    "allStoriesDescription": "Schaue Dir die Stories von anderen Nutzer:innen des xCurator an.",
     "allStoriesKeywords": "Storycreation, Content, xcuratorcontent, Kuration",
     "seoMyStoriesTitle": "Meine Stories",
-    "myStoriesDescription": "Erstelle deine eigene Story im xCurator und nutze dafür generative KI-Technologien wie das Large Language Modell ChatGPT. ",
+    "myStoriesDescription": "Erstelle Deine eigene Story im xCurator und nutze dafür ein generatives Sprachmodell zur Unterstützung ",
     "myStoriesKeywords": "Storycreation, Textgenerierung, KI-storytelling"
   },
   "Canvas": {
@@ -193,18 +189,27 @@
     "zoomIn": "Vergrößern",
     "zoomOut": "Verkleinern",
     "toArticle": "Zum Artikel",
-    "loading": "Läd",
+    "loading": "Lädt",
     "isFavourite": "Ist als Favorit gespeichert",
     "seoTitle": "Entdecken",
-    "description": "Nutze die neuronale Suche des xCurator und entdecke mithilfe von Filtern die digitalisierten Sammlungen des badischen Landesmuseums und des Allard Pierson Museums.",
-    "keywords": "museumssammlung, Museumsobjekte, virtuellesammlung, digitalesammlung"
+    "description": "Nutze die neuronale Suche des xCurator und entdecke mithilfe von Filtern die digitalisierten Sammlungen des Badischen Landesmuseums und Allard Pierson Amsterdam.",
+    "keywords": "museumssammlung, Museumsobjekte, virtuellesammlung, digitalesammlung",
+    "didTheLinkMatch": "War dieser Link passend?",
+    "didMatch": "passend",
+    "noMatch": "unpassend",
+    "login":"Anmelden",
+    "pleaseLogin": "Bitte melde dich an, um die Verlinkung zu bewerten.",
+    "entityRated": "Danke für dein Feedback, die Entity wurde erfolgreich bewertet",
+    "entityRatedFailed": "Deine Bewertung ist fehlgeschlagen, bitte vesuche es später erneut.",
+    "sources": "Quellen",
+    "linkInfo": "Die Verlinkung wurde von der KI generiert. Unterstütze dabei, den Service zu verbessern, indem du die Qualität der Verlinkung bewertest."
   },
   "EditStory": {
     "Preview": "Vorschau",
     "Share": "Teilen",
     "License": "Lizenz",
     "LicenseInformation": "Lizenzinformationen",
-    "LicenseDescription": "Hier kannst du Anpassungen in der Lizenzvergabe vornehmen. Standardmäßig ist die Lizenz CC-0 vorausgewählt.",
+    "LicenseDescription": "Hier kannst Du Anpassungen in der Lizenzvergabe vornehmen. Standardmäßig ist die Lizenz CC-0 vorausgewählt. Informationen zu CC-Lizenzen findest Du hier: https://de.creativecommons.net/was-ist-cc/",
     "Cancel": "Abbrechen",
     "Select": "Auswählen",
     "Public": "Öffentlich",
@@ -220,15 +225,15 @@
     "suggested": "Empfohlen",
     "youHave": "Du hast",
     "selected": "von 3 Objekte hinzugefügt.",
-    "loadingStory": "Story läd..",
+    "loadingStory": "Story lädt..",
     "loading": "Laden",
     "storyNotFound": "Diese Story konnte nicht gefunden werden.",
     "editStory": "Story bearbeiten",
     "standard": "Standard",
-    "confirmDelete": "Willst du das Modul wirklich Löschen?",
-    "storyDeleted": "Das Modul wird unwiderruflich gelöscht.",
+    "confirmDelete": "Willst du das Kapitel wirklich löschen?",
+    "storyDeleted": "Das Kapitel wird unwiderruflich gelöscht.",
     "noArtefactsInStory": "Es gibt noch keine Objekte in dieser Story. Wähle Objekte in der Sammlung aus.",
-    "noArtefactsInFavorites": "Es gibt noch keine Objekte in deinen Favoriten. Wähle Objekte in der Sammlung aus.",
+    "noArtefactsInFavorites": "Es gibt noch keine Objekte in Deinen Favoriten. Wähle Objekte in der Sammlung aus.",
     "noArtefactsInSuggested": "Wir können leider keine Objekte empfehlen. Bitte versuche es später erneut.",
     "backToCollection": "Zurück zur Sammlung",
     "couldNotSave": "Das Kapitel konnte nicht gespeichert werden.",
@@ -253,13 +258,13 @@
     "explanation": "Der Text wurde automatisch durch ein Sprachmodell generiert. Bitte prüfe sorgfältig, ob er für Deine Zwecke geeignet und sprachlich oder inhaltlich richtig ist!",
     "generate": "Text generieren",
     "generateWithKeywords": "Text mit Stichworten generieren",
-    "error": "Es ist ein Fehler aufgetreten. Der Service steht gerade nicht zur Verfügung. Es kann an einer schlechten Internetverbindung liegen. Versuchen Sie es zu einem späteren Zeitpunkt nochmal.",
+    "error": "Es ist ein Fehler aufgetreten. Der Service steht gerade nicht zur Verfügung. Es kann an einer schlechten Internetverbindung liegen. Versuche es zu einem späteren Zeitpunkt nochmal.",
     "helpTheAi": "Stichworte für die KI",
     "helpPlaceholder": "Schreib hier Stichworte, die der KI helfen, den Text nach deinen Wünschen zu erstellen.",
     "notLoggedIn": "Du bist nicht angemeldet.",
-    "login": "Jetzt anmelden",
-    "notYourStory": "Diese Story gehört nicht dir.",
-    "watchinPresenter": "Du kannst dir die Story im Präsentationsmodus ansehen.",
+    "login": "Anmelden",
+    "notYourStory": "Diese Story gehört nicht Dir.",
+    "watchinPresenter": "Du kannst Dir die Story im Präsentationsmodus ansehen.",
     "watch": "Ansehen",
     "createOwnStory": "Kein Problem, erstelle einfach deine eigene Story.",
     "chapterNotFound": "Dieses Kapitel konnte nicht gefunden werden.",
@@ -284,7 +289,8 @@
     "alternativeText": "Alternativer Text",
     "useKeywords": "Stichpunkte einbeziehen",
     "addObjectFirst": "Bitte füge erst ein Kapitel zur Story hinzu",
-    "lastModule": "Wenn du das letzte Objekt löschst, wird deine Story automatisch wieder auf privat gestellt."
+    "lastModule": "Wenn du das letzte Objekt löschst, wird deine Story automatisch wieder auf privat gestellt.",
+    "needsTwoObjects" : "Du brauchst mindestens zwei Objekte, damit die AI text für dich generieren kann."
   },
   "Details": {
     "explorer": "Ähnliche Objekte",
@@ -301,11 +307,13 @@
     "closeDetails": "Detailsfenster schließen",
     "previousDetailWIndow": "Vorherige Detailansicht",
     "shuffleTextView": "Mehr oder weniger lesen",
-    "loading": "Läd"
+    "loading": "Lädt",
+    "similarImagesInfo": "Diese Bilder wurden maschinell erkannt, um dir ähnlich aussehende Suchergebnisse anzuzeigen.",
+    "close": "Schließen"
   },
   "ArtefactDetail": {
     "noTitle":"Kein Titel",
-    "similarImages": "Visuell ähnlich:",
+    "similarImages": "Visuell ähnlich",
     "saveToStory": "In Story speichern",
     "readMore": "Weiterlesen",
     "readLess": "Weniger Lesen",
@@ -329,10 +337,10 @@
     "filterTags": "Nach Tags filtern",
     "delete": "Löschen",
     "notFound": "Das Objekt wurde nicht gefunden",
-    "loading": "Läd..",
+    "loading": "Lädt..",
     "addArtefact": "Objekt hinzufügen",
     "loginToSave": "Melde dich an, um das Objekt einer Story hinzuzufügen.",
-    "login": "Jetzt anmelden",
+    "login": "Anmelden",
     "abort": "Abbrechen",
     "save": "Speichern",
     "editStory": "Story bearbeiten",
@@ -341,13 +349,15 @@
     "couldNotAdd": "Konnte nicht zur Story",
     "notAdded": "hinzugefügt werden",
     "tryLater": "Bitte versuche es später erneut.",
-    "feedbackText": "Wenn Sie Anmerkungen oder Fragen zu diesem Objektdatensatz haben, können Sie uns eine Nachricht hinterlassen. Das Museum freut sich auf Ihre Kommentare.",
+    "feedbackText": "Hilf uns, indem Du die Qualität der Schlagworte und automatischen Verlinkungen beurteilst.",
     "feedback": "KI Feedback",
     "sendFeedback": "Feedback absenden",
     "addText": "Text hinzufügen",
     "feedbackSent": "Feedback wurde gesendet",
     "addToFavourites": "Favoriten hinzufügen oder entfernen",
     "backToFavourites": "Zurück zu den Favoriten",
+    "addedAsFavourite": "Das Objekt wurde zu Deinen Favoriten hinzugefügt.",
+    "removedFromFavourites": "Das Objekt wurde von Deinen Favoriten entfernt.",
     "SimilarArtefact": "Zum ähnlichen Objekt",
     "close": "Schließen",
     "minimize": "Minimiere Detail Fenster",
@@ -355,7 +365,10 @@
     "closeEntity": "Entitäten Fenster schließen",
     "reset": "Zurücksetzen",
     "seoTitle": "Details zum Objekt",
-    "description": "Hier findest du alle Informationen zu dem Objekt"
+    "description": "Hier findest du alle Informationen zu dem Objekt",
+    "tagsInfo": "Schlagworte mit diesem Icon (Icon) wurden maschinell generiert durch einen Entity-Recognition-Algorithmus.",
+    "similarImagesInfo": "Diese Bilder wurden maschinell erkannt, um dir ähnlich aussehende Suchergebnisse anzuzeigen.",
+    "aiGenerated": "Generiert mit künstlicher Intelligenz"
   },
   "Filter": {
     "filter": "Filter",
@@ -454,7 +467,7 @@
     "place": "Ort",
     "next": "Weiter",
     "back": "Zurück",
-    "success": "Dein Profil wurde erfolgreich gespeichert, du wirst in einer Sekunde zur Startseite weitergeleitet",
+    "success": "Dein Profil wurde erfolgreich gespeichert.",
     "error": "Tut uns Leid, ein Fehler ist aufgetreten beim Speichern von deinem Profil",
     "jump": "Zur Startseite springen",
     "close": "Schließen",
@@ -465,20 +478,20 @@
     "keywords": "Preference"
   },
   "Favourites": {
-    "loginPlease": "Bitte log dich ein um deine Favoriten zu sehen.",
-    "loginButton": "Jetzt anmelden",
+    "loginPlease": "Bitte melde Dich an um Deine Favoriten zu sehen.",
+    "loginButton": "Anmelden",
     "noFavourites": "Du hast noch keine Favoriten.",
-    "selectInCanvas": "Wähle Objekte in der Sammlung aus, um sie zu deinen Favoriten hinzuzufügen.",
+    "selectInCanvas": "Wähle Objekte in der Sammlung aus, um sie zu Deinen Favoriten hinzuzufügen.",
     "toCanvas": "Zur Sammlung",
-    "loading": "Läd..",
+    "loading": "Lädt..",
     "title": "Favoriten",
-    "objectRemoved": "Das Objekt wurde aus deinen Favoriten entfernt.",
+    "objectRemoved": "Das Objekt wurde aus Deinen Favoriten entfernt.",
     "revert": "Rückgängig",
-    "deleted": "Das Objekt wurde aus deinen Favoriten entfernt.",
+    "deleted": "Das Objekt wurde aus Deinen Favoriten entfernt.",
     "addToFavourites": "Favoriten hinzufügen oder entfernen",
     "close": "Schließen",
     "seoTitle": "Favoriten",
-    "description": "Melde dich an und speichere deine Lieblingsobjekte aus den digitalen Sammlungen des badischen Landesmuseums und des Allard Pierson Museums.",
+    "description": "Melde Dich an und speichere Deine Lieblingsobjekte aus den digitalen Sammlungen des Badischen Landesmuseums und Allard Pierson.",
     "keywords": "Favoriten, Lieblingsobjekte, Museumsobjekte, Museumssammlung"
   },
   "Profile": {
@@ -487,13 +500,13 @@
     "prefernces": "Präferenzen",
     "login": "Anmelden",
     "notLoggedIn": "Du bist noch nicht angemeldet.",
-    "logInToSave": "Melde dich an um dein Profil zu bearbeiten.",
+    "logInToSave": "Melde Dich an um dein Profil zu bearbeiten.",
     "deleteAccount": "Profil löschen",
     "save": "Speichern",
     "abort": "Abbrechen",
     "delete": " Entgültig löschen",
-    "deleteAccountText": "Möchtest du deinen Account wirklich löschen?",
-    "deleteWarningText": "Achtung: Alle deine Stories und Favoriten werden gelöscht und können nicht wiederhergestellt werden.",
+    "deleteAccountText": "Möchtest Du Deinen Account wirklich löschen?",
+    "deleteWarningText": "Achtung: Alle Deine Stories und Favoriten werden gelöscht und können nicht wiederhergestellt werden.",
     "role": "Ich bin ...",
     "wish": "Ich nutze den xCurator, weil ...",
     "target": "Meine Ziele sind ...",
@@ -516,7 +529,7 @@
     "findSomethingSpecific": "Etwas Bestimmtes finden",
     "learnSomethingNew": "Etwas Neues lernen",
     "close": "Schließen",
-    "deleteAccountInfo": "Ihr Profil kann gelöscht werden. Die Bestätigung erfolgt im nächsten Schritt.",
+    "deleteAccountInfo": "Dein Profil kann gelöscht werden. Die Bestätigung erfolgt im nächsten Schritt.",
     "seoTitle": "Profileinstellungen",
     "description": "Hier kannst du deine persönlichen Angaben wie Name und Email-adresse anpassen.",
     "keywords": "Profileinstellungen, Profil, Nutzerdaten"
@@ -525,10 +538,10 @@
     "back": "Zurück",
     "backToStories": "Zurück zu den Stories",
     "likedTheStory": "Hat dir die Story gefallen?",
-    "createStoryTitle": "Kreiere jetzt deine eigene Story mit dem xCurator oder setze diese fort!",
+    "createStoryTitle": "Kreiere jetzt Deine eigene Story mit dem xCurator oder setze diese fort!",
     "createStory": "Story erstellen",
-    "login": "Jetzt anmelden",
-    "pleaseLogin": "Bitte meld dich an.",
+    "login": "Anmelden",
+    "pleaseLogin": "Bitte meld Dich an.",
     "share": "Teilen",
     "savedToClipboard": "Link wurde in die Zwischenablage kopiert",
     "shareYourStory": "Teile deine Story",
@@ -541,11 +554,11 @@
     "previous": "Zum vorherigen Kapitel",
     "previousImage": "Vorheriges Bild",
     "nextImage": "Nächstes Bild",
-    "loading": "Läd",
+    "loading": "Lädt",
     "seoTitle": "Präsentation",
     "seoOnboardingTitle": "Präsentation",
     "seoOnboardingDescription": "Präsentation",
-    "description": "Hier kannst du dir die Story im Präsentationsmodus ansehen.",
+    "description": "Hier kannst Du Dir die Story im Präsentationsmodus ansehen.",
     "keywords": "Präsentation, Story, Storytelling, Storycreation",
     "copiedToClipboard": "Link wurde in die Zwischenablage kopiert",
     "reportStory": "Story melden",
@@ -554,7 +567,9 @@
     "notLoggedIn": "Du bist nicht angemeldet.",
     "close": "Schließen",
     "storyWasReported": "Die Story wurde gemeldet.",
-    "cannotBeViewed": "Diese Geschichte kann nicht im Präsentationsmodus betrachtet werden. Der Grund dafür könnte sein, dass diese Geschichte keine Module hat."
+    "cannotBeViewed": "Diese Geschichte kann nicht im Präsentationsmodus betrachtet werden. Der Grund dafür könnte sein, dass diese Geschichte keine Module hat.",
+    "errorPleaseTryLater": "Es ist ein Fehler aufgetreten. Bitte versuche es später erneut.",
+    "createdWithAi": "Erstellt in Zusammenarbeit mit generativer künstlicher Intelligenz"
   },
   "Impressum" : {
     "seoTitle": "Impressum",
@@ -563,20 +578,18 @@
     "responsible": "Verantwortlich im Sinne des Pressegesetzes",
     "publisher": "Herausgeber",
     "disclaimer": " Rechtliche Hinweise / Haftungsausschuss",
-    "disclaimer1": "Das Badische Landesmuseum hat sämtliche bereitgestellten Informationen nach bestem Wissen und Gewissen geprüft. Aufgrund des Einsatz von KI generierten Inhalten kann jedoch keine Gewähr für Richtigkeit in allen Fällen übernommen werden. KI generierte Inhalte sind als solche ausgewiesen und sollten im Zweifelsfall gründlich geprüft werden. Es kann keine Gewähr für Aktualität,Richtigkeit, Vollständigkeit oder Qualität und jederzeitige Verfügbarkeit der Anwednung übernommen werden.",
-    "disclaimer2": "Das Badische Landesmuseum haftet nicht für Schäden, die im Zusammenhang mit der Nutzung oder Nichtnutzung der im Internet aufgeführten Informationen entstehen. Die Haftung ist ebenfalls ausgeschlossen, wenn beim Aufruf oder Herunterladen von Daten,gleich aus welchem Grund, Schäden entstehen.",
-    "disclaimer3": "  Es wird darüber hinaus keine Haftung für die Inhalte externer Links übernommen. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber selbst verantwortlich.",
-    "disclaimer4": "Alle Rechte vorbehalten. Wenn nicht anders angegeben, unterliegen alle Texte, Bilder, Illustrationen, Dokumente und Dateien dem Urheberrecht. Sie dürfen ohne die ausdrückliche Zustimmung des Badischen Landesmuseums weder vervielfältigt noch veröffentlicht werden.",
-    "copyrightsText": "Es ist hiermit ausdrücklich gestattet – unter Maßgabe untenstehender Einschränkungen – die Texte sowie darin eingehängte Dokumente zu kopieren, zu drucken und zu verteilen. KI-generierte Inhalte sind zum aktuellen Stand gemeinfrei (12/2023) und können unter freier Lizenz weiterverwendet werden. Jede Kopie (dies gilt auch für Auszüge) muss zufolge der Lizenzen der Datensätze und Stories angegeben werden. Bildnachweise Sofern nicht anders angegeben, alle Fotos auf dieser Website Badisches Landesmuseum und Allard Pierson Amsterdam. Die Lizenz zum Bild steht im Datensatz. Weitere Informationen Datenschutzerklärung des Badischen Landesmuseums Erklärung zur Barrierefreiheit des Badischen Landesmuseums.",
+    "disclaimer1": "Das Badische Landesmuseum hat sämtliche bereitgestellten Informationen nach bestem Wissen und Gewissen geprüft. Aufgrund des Einsatzes von KI generierten Inhalten kann jedoch keine Gewähr für Richtigkeit in allen Fällen übernommen werden. KI generierte Inhalte sind als solche ausgewiesen und sollten im Zweifelsfall gründlich geprüft werden. Es kann keine Gewähr für Aktualität, Richtigkeit, Vollständigkeit oder Qualität und jederzeitige Verfügbarkeit der Anwendung übernommen werden. Wenn nicht anders angegeben, unterliegen alle Texte, Bilder, Illustrationen, Dokumente und Dateien dem Urheberrecht. Sie dürfen ohne die ausdrückliche Zustimmung des Badischen Landesmuseums weder vervielfältigt noch veröffentlicht werden.",
+    "copyrightsText": "Bei den KI-generierten Inhalten auf unserem Portal ist es in der Regel gestattet, die Texte sowie darin eingehängte Dokumente zu kopieren, zu drucken und zu verteilen. KI-generierte Inhalte ohne menschlichen Beitrag sind zum aktuellen Stand gemeinfrei (12/2023). Sofern sie doch urheberrechtlich geschützt sind, können sie unter der jeweils angegebenen freien Lizenz unter Achtung der Bedingungen genutzt und weitergegeben werden.",
     "copyrights": "Urheberrechte",
     "contracted": "Die Beauftragte der Bundesregierung für Kultur und Medien",
     "supportedBy": "Gefördert von:",
     "pictureCredits": "Bildnachweise",
-    "pictureCreditsText": "Sofern nicht anders angegeben, alle Fotos auf dieser Website Badisches Landesmuseum und Allard Pierson Amsterdam. Die Lizenz zum Bild steht im Datensatz.",
+    "pictureCreditsText": "Die Lizenz zum Bild steht im Datensatz.",
     "moreInfos": "Weitere Informationen",
-    "moreInfosText": "Datenschutzerklärung des Badischen Landesmuseums Erklärung zur Barrierefreiheit des Badischen Landesmuseums.",
+    "moreInfosText-1": "Datenschutzerklärung des Badischen Landesmuseums.",
+    "moreInfosText-2": "Erklärung zur Barrierefreiheit des Badischen Landesmuseums.",
     "dataSafty": "Datenschutzbeauftragte",
-    "responsibleProduct": "Verantwortliche Parteien",
+    "realisationTitle": "Realisierung",
     "supervision": "Projektleitung",
     "cooperation": "Eine Kooperation mit Allard Pierson Amsterdam",
     "datalab": "Projektdokumentation und Beteiligte:",
@@ -622,7 +635,7 @@
     "availability": "Verfügbarkeit von xCurator",
     "availability-1": "Das Badische Landesmuseum garantiert nicht, dass a) die Website ununterbrochen, rechtzeitig oder fehlerfrei verfügbar ist, b) die Ergebnisse, die durch die Nutzung der Website erzielt werden können, genau oder zuverlässig sind, c) die Qualität, Genauigkeit, Rechtzeitigkeit, Wahrheit, Vollständigkeit oder Zuverlässigkeit von Inhalten, von Produkten, Dienstleistungen, Informationen oder anderen Materialien, die Du über die Website erhältst, Deinen Erwartungen entspricht und d) Fehler auf der Website oder in der Software korrigiert werden.",
     "dataPrivacy": "Datenschutz",
-    "dataPrivacy-1": "Informationen darüber, welche personenbezogene Daten von Dir, zu welchen Zwecken, wie lange, von wem und wie sie verarbeitet werden sowie Deine Rechte findest Du in unserer Datenschutzerklärung. Die Datenschutzerklärung des Badischen Landesmuseums findest Du unter www.landesmuseum.de/datenschutz ",
+    "dataPrivacy-1": "Informationen darüber, welche personenbezogene Daten von Dir, zu welchen Zwecken, wie lange, von wem und wie sie verarbeitet werden sowie Deine Rechte findest Du in unserer Datenschutzerklärung. Die Datenschutzerklärung des Badischen Landesmuseums findest Du unter",
     "deleteProfil": "Löschen des Profils, Kündigung, Einstellen des Dienstes",
     "deleteProfil-1": "Du kannst dein Profil im Profilbereich des xCurators löschen. Deine Daten werden dann endgültig gelöscht. Das umfasst Name, Passwort sowie personalisierte Inhalte. Wenn Du dein Profil im xCurator löschst, werden auch Deine Stories gelöscht.  Beachte aber, dass veröffentlichte Stories, die zur Nutzung durch die Allgemeinheit freigegeben sind, möglicherweise von Dritten weitergenutzt werden können.",
     "deleteProfil-2": "Deine Registrierung im Nutzerkonte des Badischen Landesmuseums bleibt erhalten, sodass Du andere Angebote des Landesmuseums weiterhin nutzen kannst. Für die Löschung, Kündigung Deines Nutzerkontos gelten die Vorgaben der entsprechenden Datenschutzerklärung.",
@@ -630,16 +643,28 @@
     "deleteProfil-4": "Diese Vereinbarung bleibt bestehen, bis sie entweder vom Badischen Landesmuseum (etwa aus wichtigem Grund) oder von Dir gekündigt wird.",
     "deleteProfil-5": "Das Badische Landesmuseum garantiert keine bestimmte Laufzeit von xCurator, wird aber das Einstellen des Dienstes mit angemessener Frist ankündigen, damit Du Deine Inhalte sichern kannst.",
     "stand": "Stand"
-
-
-
-
-
-
-
   },
   "Extra": {
     "notFound": "404-Seite nicht gefunden",
-    "serverSideError" : "500 - Ein serverseitiger Fehler ist aufgetreten."
+    "serverSideError" : "500 - Ein serverseitiger Fehler ist aufgetreten.",
+    "backToXCurator": "Zurück zum xCurator"
+  },
+  "Tutorials": {
+    "create": "Erstellen",
+    "next": "Weiter",
+    "back": "Zurück",
+    "close": "Schließen",
+    "create-page-1": "Entdecke hier die Geschichten anderer und kreiere Deine eigenen. Probiere es einfach aus!",
+    "create-page-2-1": "Dir fehlen Ideen? Nutze die KI zur Inspiration, gehe aber mit KI-generierten Inhalten kritisch um. ",
+    "create-page-2-2": "Mehr Infos zu KI-Technologien findest Du in den",
+    "create-page-3": "Du kannst entscheiden, ob Du Deine Geschichte veröffentlichst und mit anderen teilst.",
+    "explore": "Entdecken",
+    "explore-welcome": "Willkommen beim xCurator",
+    "explore-page-1-1": "Dein KI-gestützter Copilot hilft Dir auf Deiner Entdeckungstour durch die Sammlung. Arbeite mit xCurator zusammen und finde heraus, was Ihr gemeinsam erreichen könnt.",
+    "explore-page-1-2": "Hier erhältst Du ein paar kurze Erklärungen, um mit unserem Tool zu arbeiten.",
+    "explore-page-2-1": "Überall dort, wo Du dieses Symbol",
+    "explore-page-2-2": "siehst, wurden Inhalte maschinell generiert.",
+    "explore-page-2-3": "Es kann sein, dass sich Fehler eingeschlichen haben. In diesem Fall freuen wir uns über Deine Rückmeldung. Denn die hilft dabei, die KI-Lösungen weiter zu trainieren!",
+    "explore-page-3": "Bringe Deine Suche auf ein neues Level: Nutze Filter, um Neues zu entdecken oder stelle über Schlagworte unbekannte Verbindungen her. Gestalte deine Museumstour nach Deinen Interessen."
   }
 }

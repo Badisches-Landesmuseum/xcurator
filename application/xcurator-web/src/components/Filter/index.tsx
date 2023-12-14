@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Inline, styled } from '@3pc/layout-components-react';
+import { Box, Flex, Inline, styled } from 'src/@3pc/layout-components-react';
 import { Text } from 'src/components/Common/Text';
 import { ButtonTag } from 'src/components/Common/ButtonTag';
 import { Line } from 'src/components/Common/Line';

@@ -1,4 +1,4 @@
-import { Flex, Box } from '@3pc/layout-components-react';
+import { Flex, Box } from 'src/@3pc/layout-components-react';
 import {
   Toast,
   ToastAction,

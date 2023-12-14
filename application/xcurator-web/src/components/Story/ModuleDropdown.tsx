@@ -1,4 +1,4 @@
-import { Box, Flex, styled } from '@3pc/layout-components-react';
+import { Box, Flex, styled } from 'src/@3pc/layout-components-react';
 import { Text } from 'src/components/Common/Text';
 import {
   Dialog,
@@ -22,7 +22,7 @@ import {
   useDeleteModuleMutation,
   useUnpublishStoryMutation,
 } from 'src/graphql/_generated/types';
-import { PenIcon, DeleteIcon, CrossIcon, ThreeDotsIcon } from 'src/icons';
+import { EditIcon, DeleteIcon, CrossIcon, ThreeDotsIcon } from 'src/icons';
 import { Button } from 'src/components/Common/Button';
 import { useTranslations } from 'next-intl';
 
@@ -54,7 +54,7 @@ export default function ModuleDropdown({
           <DropdownItem>
             <DropdownLink href={`/stories/${storyId}/${moduleId}`}>
               <Box mr="2" css={{ display: 'inline-flex' }}>
-                <PenIcon aria-hidden="true" />
+                <EditIcon aria-hidden="true" />
               </Box>
               <Text>{translate('edit')}</Text>
             </DropdownLink>
@@ -75,13 +75,8 @@ export default function ModuleDropdown({
         <Box mt="4">
           <Flex justifyContent="flex-end">
             <DialogClose asChild>
-              <Button aria-label="Close" variant="ghost">
-                <CrossIcon
-                  aria-hidden="true"
-                  color="black"
-                  width="40px"
-                  height="40px"
-                />
+              <Button aria-label="Close" variant="icon">
+                <CrossIcon aria-hidden="true" width="27px" height="27px" />
               </Button>
             </DialogClose>
           </Flex>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Link, { LinkProps } from 'next/link';
 import { Text } from 'src/components/Common/Text';
-import { Box, Flex } from '@3pc/layout-components-react';
+import { Box, Flex } from 'src/@3pc/layout-components-react';
 import { useRouter } from 'next/router';
 import { useAuth } from 'src/components/Context/AuthContext';
 import { useTranslations } from 'next-intl';

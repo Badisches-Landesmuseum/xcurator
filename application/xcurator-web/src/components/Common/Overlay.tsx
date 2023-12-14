@@ -1,4 +1,4 @@
-import { keyframes, styled } from '@3pc/layout-components-react';
+import { keyframes, styled } from 'src/@3pc/layout-components-react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import React from 'react';
 

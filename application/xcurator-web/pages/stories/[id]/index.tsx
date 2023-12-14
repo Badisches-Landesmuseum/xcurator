@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Flex, styled } from '@3pc/layout-components-react';
+import { Box, Flex, styled } from 'src/@3pc/layout-components-react';
 import { Text } from 'src/components/Common/Text';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import DraggableModules from 'src/components/Story/DraggableModules';
@@ -13,7 +13,7 @@ import {
   useUpdateStoryMutation,
 } from 'src/graphql/_generated/types';
 import { localeToLanguage } from 'src/utils/useLanguage';
-import { CrossIcon, EditIcon, KiIcon } from 'src/icons';
+import { CrossIcon, EditIcon, KiIcon, QuestionMarkIcon } from 'src/icons';
 import {
   Dialog,
   DialogClose,
@@ -31,6 +31,12 @@ import { theme } from 'src/themes/theme';
 import { Orbit } from '@uiball/loaders';
 import { useAuth } from 'src/components/Context/AuthContext';
 import Head from 'next/head';
+import {
+  Popover,
+  PopoverClose,
+  PopoverContent,
+  PopoverTrigger,
+} from 'src/components/Common/Popover';
 
 export default function Page({
   locale,
@@ -222,82 +228,148 @@ function Story({ story }: { story: StoryFragment }) {
           >
             <Flex
               justifyContent="space-between"
-              alignItems="flex-start"
+              alignItems="center"
               css={{ my: '$2' }}
             >
               <Box as="label" htmlFor="introduction">
-                <Text>{translate('introduction')}</Text>
+                <Flex gap="1" alignItems="center">
+                  <Text>{translate('introduction')}</Text>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="icon"
+                        css={{
+                          p: '0',
+                          '&[data-state="open"]': { color: '$blueDark' },
+                        }}
+                      >
+                        <QuestionMarkIcon width="16px" height="16px" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent
+                      asChild
+                      align="center"
+                      alignOffset={0}
+                      sideOffset={4}
+                    >
+                      <Box
+                        css={{
+                          pl: '$3',
+                          pr: '$8',
+                          py: '$5',
+                          backgroundColor: '$blue50',
+                          mx: '$3',
+                          maxWidth: 'calc(100vw - 24px)',
+
+                          '@bp2': {
+                            mx: '$10',
+                            maxWidth: 'calc(100vw - 80px)',
+                          },
+
+                          '@media(min-width: 968px)': {
+                            maxWidth: '389px',
+                            mx: '$10',
+                          },
+                        }}
+                      >
+                        <Box
+                          css={{ position: 'absolute', top: '0', right: '0' }}
+                        >
+                          <PopoverClose asChild>
+                            <Button
+                              aria-label={translate('close')}
+                              variant="icon"
+                            >
+                              <CrossIcon aria-hidden="true" />
+                            </Button>
+                          </PopoverClose>
+                        </Box>
+
+                        <Text size="small">{translate('needsTwoObjects')}</Text>
+                      </Box>
+                    </PopoverContent>
+                  </Popover>
+                </Flex>
               </Box>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <GenerateTextButton disabled={!hasStoryMoreThanTwoObjects}>
-                    <Box css={{ display: 'inline-flex', mr: '6px' }}>
-                      <KiIcon aria-hidden="true" />
-                    </Box>
-                    {translate('generate')}
-                  </GenerateTextButton>
-                </DialogTrigger>
-                <DialogContent small>
-                  <Box
-                    pb="10"
-                    css={{
-                      overflow: 'auto',
-                      maxHeight: 'inherit',
-                    }}
-                  >
+              <Flex alignItems="center" gap="1">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <GenerateTextButton
+                      title={
+                        !hasStoryMoreThanTwoObjects
+                          ? translate('needsTwoObjects')
+                          : undefined
+                      }
+                      disabled={!hasStoryMoreThanTwoObjects}
+                    >
+                      <Box css={{ display: 'inline-flex', mr: '6px' }}>
+                        <KiIcon aria-hidden="true" />
+                      </Box>
+                      {translate('generate')}
+                    </GenerateTextButton>
+                  </DialogTrigger>
+                  <DialogContent small>
                     <Box
+                      pb="10"
                       css={{
-                        position: 'sticky',
-                        top: 0,
-                        backgroundColor: 'white',
-                        borderTopLeftRadius: '19px',
-                        borderTopRightRadius: '19px',
+                        overflow: 'auto',
+                        maxHeight: 'inherit',
                       }}
                     >
-                      <Box pt="4">
-                        <Flex justifyContent="flex-end">
-                          <DialogClose asChild>
-                            <Button
-                              variant="ghost-dark"
-                              css={{
-                                backgroundColor: 'transparent',
-                                border: 'none',
-                                '&:hover': {
-                                  color: '$blueDark',
-                                  backgroundColor: 'transparent',
-                                },
-                              }}
-                              aria-label={translate('close')}
-                            >
-                              <CrossIcon
-                                aria-hidden="true"
-                                width="27px"
-                                height="27px"
-                              />
-                            </Button>
-                          </DialogClose>
-                        </Flex>
-                      </Box>
-                      <Box mt="3" pb="3" px="5">
-                        <DialogTitle css={{ textAlign: 'center' }}>
-                          {translate('generateIntroduction')}
-                        </DialogTitle>
-                      </Box>
-                    </Box>
-                    <Box px="5">
-                      <GenerateIntroduction
-                        storyId={story.id}
-                        insert={(text: string) => {
-                          setIntroduction(
-                            previous =>
-                              previous + (previous === '' ? '' : '\n') + text
-                          );
+                      <Box
+                        css={{
+                          position: 'sticky',
+                          top: 0,
+                          backgroundColor: 'white',
+                          borderTopLeftRadius: '19px',
+                          borderTopRightRadius: '19px',
                         }}
-                      />
+                      >
+                        <Box pt="4">
+                          <Flex justifyContent="flex-end">
+                            <DialogClose asChild>
+                              <Button
+                                variant="ghost-dark"
+                                css={{
+                                  backgroundColor: 'transparent',
+                                  border: 'none',
+                                  '&:hover': {
+                                    color: '$blueDark',
+                                    backgroundColor: 'transparent',
+                                  },
+                                }}
+                                aria-label={translate('close')}
+                              >
+                                <CrossIcon
+                                  aria-hidden="true"
+                                  width="27px"
+                                  height="27px"
+                                />
+                              </Button>
+                            </DialogClose>
+                          </Flex>
+                        </Box>
+                        <Box mt="3" pb="3" px="5">
+                          <DialogTitle css={{ textAlign: 'center' }}>
+                            {translate('generateIntroduction')}
+                          </DialogTitle>
+                        </Box>
+                      </Box>
+                      <Box px="5">
+                        <GenerateIntroduction
+                          storyId={story.id}
+                          insert={(text: string) => {
+                            setIntroduction(
+                              previous =>
+                                previous + (previous === '' ? '' : '\n') + text
+                            );
+                          }}
+                        />
+                      </Box>
                     </Box>
-                  </Box>
-                </DialogContent>
-              </Dialog>
+                  </DialogContent>
+                </Dialog>
+              </Flex>
             </Flex>
             <Textarea
               id="introduction"
@@ -415,83 +487,149 @@ function Story({ story }: { story: StoryFragment }) {
           >
             <Flex
               justifyContent="space-between"
-              alignItems="flex-start"
+              alignItems="center"
               css={{ my: '$2' }}
             >
               <Box as="label" htmlFor="conclusion">
-                <Text>{translate('conclusion')}</Text>
+                <Flex gap="1" alignItems="center">
+                  <Text>{translate('conclusion')}</Text>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="icon"
+                        css={{
+                          p: '0',
+                          '&[data-state="open"]': { color: '$blueDark' },
+                        }}
+                      >
+                        <QuestionMarkIcon width="16px" height="16px" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent
+                      asChild
+                      align="center"
+                      alignOffset={0}
+                      sideOffset={4}
+                    >
+                      <Box
+                        css={{
+                          pl: '$3',
+                          pr: '$8',
+                          py: '$5',
+                          backgroundColor: '$blue50',
+                          mx: '$3',
+                          maxWidth: 'calc(100vw - 24px)',
+
+                          '@bp2': {
+                            mx: '$10',
+                            maxWidth: 'calc(100vw - 80px)',
+                          },
+
+                          '@media(min-width: 968px)': {
+                            maxWidth: '389px',
+                            mx: '$10',
+                          },
+                        }}
+                      >
+                        <Box
+                          css={{ position: 'absolute', top: '0', right: '0' }}
+                        >
+                          <PopoverClose asChild>
+                            <Button
+                              aria-label={translate('close')}
+                              variant="icon"
+                            >
+                              <CrossIcon aria-hidden="true" />
+                            </Button>
+                          </PopoverClose>
+                        </Box>
+
+                        <Text size="small">{translate('needsTwoObjects')}</Text>
+                      </Box>
+                    </PopoverContent>
+                  </Popover>
+                </Flex>
               </Box>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <GenerateTextButton disabled={!hasStoryMoreThanTwoObjects}>
-                    <Box css={{ display: 'inline-flex', mr: '6px' }}>
-                      <KiIcon aria-hidden="true" />
-                    </Box>
-                    {translate('generate')}
-                  </GenerateTextButton>
-                </DialogTrigger>
-                <DialogContent small>
-                  <Box
-                    pb="10"
-                    css={{
-                      overflow: 'auto',
-                      maxHeight: 'inherit',
-                    }}
-                  >
+              <Flex alignItems="center" gap="1">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <GenerateTextButton
+                      title={
+                        !hasStoryMoreThanTwoObjects
+                          ? translate('needsTwoObjects')
+                          : undefined
+                      }
+                      disabled={!hasStoryMoreThanTwoObjects}
+                    >
+                      <Box css={{ display: 'inline-flex', mr: '6px' }}>
+                        <KiIcon aria-hidden="true" />
+                      </Box>
+                      {translate('generate')}
+                    </GenerateTextButton>
+                  </DialogTrigger>
+                  <DialogContent small>
                     <Box
+                      pb="10"
                       css={{
-                        position: 'sticky',
-                        top: 0,
-                        backgroundColor: 'white',
-                        borderTopLeftRadius: '19px',
-                        borderTopRightRadius: '19px',
+                        overflow: 'auto',
+                        maxHeight: 'inherit',
                       }}
                     >
-                      <Box pt="4">
-                        <Flex justifyContent="flex-end">
-                          <DialogClose asChild>
-                            <Button
-                              variant="ghost-dark"
-                              css={{
-                                backgroundColor: 'transparent',
-                                border: 'none',
-                                '&:hover': {
-                                  color: '$blueDark',
-                                  backgroundColor: 'transparent',
-                                },
-                              }}
-                              aria-label={translate('close')}
-                            >
-                              <CrossIcon
-                                aria-hidden="true"
-                                width="27px"
-                                height="27px"
-                              />
-                            </Button>
-                          </DialogClose>
-                        </Flex>
-                      </Box>
-                      <Box mt="3" px="5" pb="10">
-                        <DialogTitle css={{ textAlign: 'center' }}>
-                          {translate('generateConclusion')}
-                        </DialogTitle>
-                      </Box>
-                    </Box>
-
-                    <Box px="5">
-                      <GenerateConclusion
-                        storyId={story.id}
-                        insert={(text: string) => {
-                          setConclusion(
-                            previous =>
-                              previous + (previous === '' ? '' : '\n') + text
-                          );
+                      <Box
+                        css={{
+                          position: 'sticky',
+                          top: 0,
+                          backgroundColor: 'white',
+                          borderTopLeftRadius: '19px',
+                          borderTopRightRadius: '19px',
                         }}
-                      />
+                      >
+                        <Box pt="4">
+                          <Flex justifyContent="flex-end">
+                            <DialogClose asChild>
+                              <Button
+                                variant="ghost-dark"
+                                css={{
+                                  backgroundColor: 'transparent',
+                                  border: 'none',
+                                  '&:hover': {
+                                    color: '$blueDark',
+                                    backgroundColor: 'transparent',
+                                  },
+                                }}
+                                aria-label={translate('close')}
+                              >
+                                <CrossIcon
+                                  aria-hidden="true"
+                                  width="27px"
+                                  height="27px"
+                                />
+                              </Button>
+                            </DialogClose>
+                          </Flex>
+                        </Box>
+                        <Box mt="3" px="5" pb="10">
+                          <DialogTitle css={{ textAlign: 'center' }}>
+                            {translate('generateConclusion')}
+                          </DialogTitle>
+                        </Box>
+                      </Box>
+
+                      <Box px="5">
+                        <GenerateConclusion
+                          storyId={story.id}
+                          insert={(text: string) => {
+                            setConclusion(
+                              previous =>
+                                previous + (previous === '' ? '' : '\n') + text
+                            );
+                          }}
+                        />
+                      </Box>
                     </Box>
-                  </Box>
-                </DialogContent>
-              </Dialog>
+                  </DialogContent>
+                </Dialog>
+              </Flex>
             </Flex>
             <Textarea
               id="conclusion"
@@ -637,7 +775,7 @@ const EditTitle = ({
             <Button
               aria-label={translate('close')}
               type="button"
-              variant="ghost-dark"
+              variant="ghost"
             >
               {translate('Cancel')}
             </Button>

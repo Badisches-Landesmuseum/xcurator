@@ -6,7 +6,7 @@ import {
   Inline,
   Stack,
   styled,
-} from '@3pc/layout-components-react';
+} from 'src/@3pc/layout-components-react';
 import {
   HeartIcon,
   ChevronDownIcon,
@@ -22,6 +22,7 @@ import {
   ArrowDownIcon,
   AlertIcon,
   KiIcon,
+  QuestionMarkIcon,
 } from 'src/icons';
 import { Text } from 'src/components/Common/Text';
 import { ButtonTag } from 'src/components/Common/ButtonTag';
@@ -74,23 +75,44 @@ import { useProfile } from '../Context/ProfileContext';
 import { GetServerSidePropsContext } from 'next';
 import { Orbit } from '@uiball/loaders';
 import { Textarea } from '../Common/Textarea';
-import { imageLoader } from 'src/utils/formatImage';
+import { saveSizeImage } from 'src/utils/formatImage';
+import {
+  Popover,
+  PopoverClose,
+  PopoverContent,
+  PopoverTrigger,
+} from 'src/components/Common/Popover';
 
 const DESCRIPTION_HEIGHT = 65;
 
 const Detail = ({
-  setMinimizeDetail,
-  minimizeDetail,
   artefactId,
+  minimizeDetail,
+  setMinimizeDetail,
 }: {
+  artefactId: string;
   minimizeDetail: boolean;
   setMinimizeDetail: React.Dispatch<React.SetStateAction<boolean>>;
-  artefactId: string;
 }) => {
   const router = useRouter();
   const language = localeToLanguage(router.locale ?? '');
   const { isLoggedIn } = useAuth();
   const { favourites, loading } = useProfile();
+  const translate = useTranslations('ArtefactDetail');
+  const [descriptionExpanded, setDescriptionExpanded] = React.useState(false);
+  const [similarExpanded, setSimilarExpanded] = React.useState(false);
+  const [informationExpanded, setInformationExpanded] = React.useState(false);
+  const [entity, setEntity] = React.useState<EntityProps | undefined>();
+  const descriptionRef = React.useRef<HTMLDivElement>(null);
+  const [isDescriptionOverflowing, setIsDescriptionOverflowing] =
+    React.useState(false);
+  // const { setFavorite: setFavoriteToast } = useGlobalToasts();
+  const [favoriteToast, setFavoriteToast] = React.useState(false);
+
+  const isFavorite = React.useMemo(
+    () => favourites.some(favourite => favourite.id === artefactId),
+    [artefactId, favourites]
+  );
 
   const {
     data,
@@ -122,22 +144,59 @@ const Detail = ({
   const [deleteFromFavorite, { loading: deleteFromFavoriteLoading }] =
     useDeleteArtefactFromFavouriteMutation();
 
-  const translate = useTranslations('ArtefactDetail');
-  const [descriptionExpanded, setDescriptionExpanded] = React.useState(false);
-  const [similarExpanded, setSimilarExpanded] = React.useState(false);
-  const [informationExpanded, setInformationExpanded] = React.useState(false);
-  const [showEntity, setShowEntity] = React.useState(false);
-  const [entity, setEntity] = React.useState<EntityProps>({
-    language: language,
-    wikipediaId: '',
-    wikipediaUrl: '',
-    wikiDataId: '',
-    wikiDataUrl: '',
-    gndUrl: '',
-  });
-  const descriptionRef = React.useRef<HTMLDivElement>(null);
-  const [isDescriptionOverflowing, setIsDescriptionOverflowing] =
-    React.useState(false);
+  const title = React.useMemo(
+    () =>
+      data?.artefact?.entities?.length &&
+      data?.artefact.entities.some(entity => entity.property === 'title')
+        ? enrichMarkupWithEntities(
+            data?.artefact?.title,
+            data?.artefact?.entities || [],
+            'title'
+          )
+        : data?.artefact.title,
+    [data]
+  );
+
+  const description = React.useMemo(() => {
+    const entities = data?.artefact.entities ?? [];
+    const hasEntities = entities.length > 0;
+    return hasEntities
+      ? enrichMarkupWithEntities(data?.artefact.description, entities)
+      : data?.artefact.description;
+  }, [data?.artefact]);
+
+  React.useEffect(() => {
+    const handleWikiData = (event: CustomEvent<EntityDetails>) => {
+      const entity = {
+        artefactID: artefactId,
+        language,
+        wikipediaId: '',
+        wikipediaUrl: '',
+        wikiDataId: '',
+        wikiDataUrl: '',
+        gndUrl: '',
+        startPosition: event.detail.startPosition,
+        endPosition: event.detail.endPosition,
+        property: event.detail.property,
+      };
+
+      event.detail.links.forEach(link => {
+        if (link.source === 'WIKIDATA') {
+          entity.wikiDataId = link.id;
+          entity.wikiDataUrl = link.url;
+        } else if (link.source === 'WIKIPEDIA') {
+          entity.wikipediaId = link.id;
+          entity.wikipediaUrl = link.url;
+        } else if (link.source === 'GND') {
+          entity.gndUrl = link.url;
+        }
+      });
+      setEntity(entity);
+    };
+
+    window.addEventListener('entityDetails', handleWikiData);
+    return () => window.removeEventListener('entityDetails', handleWikiData);
+  }, [artefactId, language]);
 
   React.useLayoutEffect(() => {
     const el = descriptionRef.current;
@@ -163,77 +222,6 @@ const Detail = ({
     resizeObserver.observe(document.documentElement);
 
     return () => resizeObserver.unobserve(document.documentElement);
-  }, []);
-
-  const isFavorite = React.useMemo(
-    () =>
-      favourites.some(
-        (favourite: { id: string }) => favourite.id === artefactId
-      ),
-    [artefactId, favourites]
-  );
-
-  const description = React.useMemo(
-    () =>
-      data?.artefact?.entities?.length &&
-      data?.artefact.entities.some(entity => entity.property === 'description')
-        ? enrichMarkupWithEntities(
-            data?.artefact?.description,
-            data?.artefact?.entities || []
-          )
-        : data?.artefact.description,
-    [data]
-  );
-
-  const title = React.useMemo(
-    () =>
-      data?.artefact?.entities?.length &&
-      data?.artefact.entities.some(entity => entity.property === 'title')
-        ? enrichMarkupWithEntities(
-            data?.artefact?.title,
-            data?.artefact?.entities || [],
-            'title'
-          )
-        : data?.artefact.title,
-    [data]
-  );
-
-  React.useEffect(() => {
-    const handleWikiData = (event: CustomEvent<EntityDetails>) => {
-      const array = event.detail.items.split(',').map(item => item.split(' '));
-
-      array.forEach(item => {
-        if (item[0] === 'WIKIDATA') {
-          setEntity(prevState => {
-            return {
-              ...prevState,
-              wikiDataId: item[1],
-              wikiDataUrl: item[2],
-            };
-          });
-        } else if (item[0] === 'WIKIPEDIA') {
-          setEntity(prevState => {
-            return {
-              ...prevState,
-              wikipediaId: item[1],
-              wikipediaUrl: item[2],
-            };
-          });
-        } else if (item[0] === 'GND') {
-          setEntity(prevState => {
-            return {
-              ...prevState,
-              gndUrl: item[2],
-            };
-          });
-        }
-      });
-
-      setShowEntity(true);
-    };
-
-    window.addEventListener('entityDetails', handleWikiData);
-    return () => window.removeEventListener('entityDetails', handleWikiData);
   }, []);
 
   React.useEffect(() => {
@@ -337,19 +325,12 @@ const Detail = ({
               >
                 <Button
                   aria-label={translate('minimize')}
-                  variant="ghost-dark"
+                  variant="icon"
                   onClick={() => {
                     setMinimizeDetail(previous => !previous);
                   }}
                   css={{
                     transform: minimizeDetail ? 'rotate(180deg)' : undefined,
-                    '&:hover': {
-                      backgroundColor: 'transparent',
-                      borderColor: 'transparent',
-                      '> svg': {
-                        color: '$blueDark',
-                      },
-                    },
                   }}
                 >
                   <ChevronLargeIcon aria-hidden="true" />
@@ -418,6 +399,7 @@ const Detail = ({
                 }
                 isFavorite={isFavorite}
                 onClick={() => {
+                  setFavoriteToast(false);
                   if (isFavorite) {
                     deleteFromFavorite({
                       variables: { id: artefactId },
@@ -438,6 +420,9 @@ const Detail = ({
                           },
                         });
                       },
+                      onCompleted() {
+                        setFavoriteToast(true);
+                      },
                     });
                   } else {
                     addToFavorite({
@@ -456,6 +441,9 @@ const Detail = ({
                             },
                           },
                         });
+                      },
+                      onCompleted() {
+                        setFavoriteToast(true);
                       },
                     });
                   }
@@ -495,14 +483,22 @@ const Detail = ({
       <Box mt="4" px={{ '@initial': 3, '@bp2': 10 }}>
         {data?.artefact.sourceInfo.language !== language ? (
           <Box mb="3" css={{ color: '$black600' }}>
-            <Inline space="1" alignY="center">
+            <Flex gap="1" alignItems="center">
               <TranslatedIcon aria-hidden="true" width="16px" height="22px" />
-              <Text as="p" size="xsmall" italic>
+              <Text size="xsmall" italic>
                 {translate('translated')}
               </Text>
-            </Inline>
+            </Flex>
           </Box>
         ) : null}
+        <Box mb="3" css={{ color: '$black600' }}>
+          <Flex gap="1" alignItems="center">
+            <KiIcon aria-hidden="true" width="16px" height="16px" />
+            <Text size="xsmall" italic>
+              {translate('aiGenerated')}
+            </Text>
+          </Flex>
+        </Box>
         <Tags
           artefactTags={data?.artefact.tags || []}
           artefactId={data?.artefact.id || ''}
@@ -531,12 +527,10 @@ const Detail = ({
             priority
             src={data.artefact.images[0].url}
             alt={data.artefact.title || ''}
-            width={
-              (300 / data.artefact.images[0].height) *
-              data.artefact.images[0].width
-            }
-            height={300}
-            loader={imageLoader}
+            sizes="300px"
+            width={data.artefact.images[0].width}
+            height={data.artefact.images[0].height}
+            loader={saveSizeImage(data.artefact.images[0])}
           />
         </Box>
       ) : null}
@@ -616,11 +610,55 @@ const Detail = ({
       </Box>
 
       <Box mt="8" px={{ '@initial': 3, '@bp2': 10 }}>
-        <Flex alignItems="flex-end" gap="2">
-          <KiIcon height="15" width="15" color="black" />
-          <Text as="h3" weight="bold" size="normal">
-            {translate('similarImages')}
-          </Text>
+        <Flex alignItems="center" gap="2" css={{ position: 'relative' }}>
+          <Flex alignItems="flex-end" gap="2">
+            <KiIcon height="15" width="15" color="black" />
+            <Text as="h3" weight="bold" size="normal">
+              {translate('similarImages')}
+            </Text>
+          </Flex>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="icon"
+                css={{ p: '0', '&[data-state="open"]': { color: '$blueDark' } }}
+              >
+                <QuestionMarkIcon width="20px" height="20px" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent asChild align="end" alignOffset={0} sideOffset={4}>
+              <Box
+                css={{
+                  pl: '$3',
+                  pr: '$8',
+                  py: '$5',
+                  backgroundColor: '$blue50',
+                  mx: '$3',
+                  maxWidth: 'calc(100vw - 24px)',
+
+                  '@bp2': {
+                    mx: '$10',
+                    maxWidth: 'calc(100vw - 80px)',
+                  },
+
+                  '@media(min-width: 968px)': {
+                    maxWidth: '389px',
+                    mx: '$10',
+                  },
+                }}
+              >
+                <Box css={{ position: 'absolute', top: '0', right: '0' }}>
+                  <PopoverClose asChild>
+                    <Button aria-label={translate('close')} variant="icon">
+                      <CrossIcon aria-hidden="true" />
+                    </Button>
+                  </PopoverClose>
+                </Box>
+
+                <Text size="small">{translate('similarImagesInfo')}</Text>
+              </Box>
+            </PopoverContent>
+          </Popover>
         </Flex>
         <Box mt="5">
           {similarData?.searchSimilarArtefacts ? (
@@ -640,13 +678,10 @@ const Detail = ({
                       <Image
                         src={artefact.images[0].url}
                         alt={artefact.title || ''}
-                        sizes="(min-width: 968px) 191px, 300px"
-                        width={300}
-                        height={
-                          (300 / artefact.images[0].width) *
-                          artefact.images[0].height
-                        }
-                        loader={imageLoader}
+                        sizes="(min-width: 968px) 192px, 50vw"
+                        width={artefact.images[0].width}
+                        height={artefact.images[0].height}
+                        loader={saveSizeImage(artefact.images[0])}
                       />
                     </Box>
                   </Link>
@@ -761,35 +796,46 @@ const Detail = ({
       >
         <Feedback artefactId={artefactId} />
       </Box>
-
-      <Overlay open={showEntity} onOpenChange={isOpen => setShowEntity(isOpen)}>
+      <Toast open={favoriteToast} onOpenChange={setFavoriteToast}>
+        <Flex justifyContent="space-between">
+          <ToastDescription>
+            <Flex gap="2" css={{ mt: '$3' }}>
+              <Flex css={{ display: 'inline-flex', pt: '2px', flexShrink: 0 }}>
+                <CheckIcon aria-hidden="true" />
+              </Flex>
+              {isFavorite
+                ? translate('addedAsFavourite')
+                : translate('removedFromFavourites')}
+            </Flex>
+          </ToastDescription>
+          <Box css={{ pt: '6px', flexShrink: 0 }}>
+            <ToastAction asChild altText="Close">
+              <Button aria-label={translate('close')} variant="ghost-blue">
+                <Flex css={{ display: 'inline-flex' }}>
+                  <CrossIcon aria-hidden="true" />
+                </Flex>
+              </Button>
+            </ToastAction>
+          </Box>
+        </Flex>
+      </Toast>
+      <Overlay
+        open={!!entity}
+        onOpenChange={isOpen => {
+          if (!isOpen) setEntity(undefined);
+        }}
+      >
         <OverlayContent>
           <Box>
             <Box mt="4" px="3">
               <OverlayClose asChild>
-                <Button
-                  css={{
-                    backgroundColor: 'transparent',
-                    border: 'none',
-                    '&:hover': {
-                      color: '$blueDark',
-                      backgroundColor: 'transparent',
-                    },
-                  }}
-                  aria-label={translate('closeEntity')}
-                  variant="ghost-dark"
-                  onClick={() => {
-                    setShowEntity(false);
-                  }}
-                >
+                <Button aria-label={translate('closeEntity')} variant="icon">
                   <ArrowLeft aria-hidden="true" width="28px" height="28px" />
                 </Button>
               </OverlayClose>
             </Box>
           </Box>
-          <Box mt="5">
-            <Entity {...entity} />
-          </Box>
+          <Box mt="5">{entity ? <Entity {...entity} /> : null}</Box>
         </OverlayContent>
       </Overlay>
     </>
@@ -805,18 +851,7 @@ export const LoginDialogContent = () => {
       <DialogClose asChild>
         <Flex justifyContent="flex-end">
           <Box mt="4" mr="3">
-            <Button
-              aria-label={translate('close')}
-              variant="ghost-dark"
-              css={{
-                backgroundColor: 'transparent',
-                border: 'none',
-                '&:hover': {
-                  color: '$blueDark',
-                  backgroundColor: 'transparent',
-                },
-              }}
-            >
+            <Button aria-label={translate('close')} variant="icon">
               <CrossIcon aria-hidden="true" width="27px" height="27px" />
             </Button>
           </Box>
@@ -831,16 +866,7 @@ export const LoginDialogContent = () => {
         <Box mt="16">
           <Flex justifyContent="center" alignItems="center" gap="4">
             <DialogClose asChild>
-              <Button
-                variant="ghost"
-                css={{
-                  '&:hover': {
-                    backgroundColor: 'transparent',
-                    color: '$blueDark',
-                    borderColor: '$blueDark',
-                  },
-                }}
-              >
+              <Button variant="ghost">
                 <Text>{translate('abort')}</Text>
               </Button>
             </DialogClose>
@@ -913,8 +939,8 @@ const Tags = ({
   }, [artefactId, canvasTags, filteredTags, selected.length, tagId]);
 
   return (
-    <>
-      <Inline space="2">
+    <Box css={{ position: 'relative' }}>
+      <Inline space="2" alignY="center">
         {tags.map((t, i) => (
           <ButtonTag
             key={i}
@@ -935,6 +961,48 @@ const Tags = ({
             {t.tag.literal}
           </ButtonTag>
         ))}
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="icon"
+              css={{ p: '0', '&[data-state="open"]': { color: '$blueDark' } }}
+            >
+              <QuestionMarkIcon width="17px" height="17px" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent asChild align="end" alignOffset={0} sideOffset={4}>
+            <Box
+              css={{
+                pl: '$3',
+                pr: '$8',
+                py: '$5',
+                backgroundColor: '$blue50',
+                mx: '$3',
+                maxWidth: 'calc(100vw - 24px)',
+
+                '@bp2': {
+                  mx: '$10',
+                  maxWidth: 'calc(100vw - 80px)',
+                },
+
+                '@media(min-width: 968px)': {
+                  maxWidth: '389px',
+                  mx: '$10',
+                },
+              }}
+            >
+              <Box css={{ position: 'absolute', top: '0', right: '0' }}>
+                <PopoverClose asChild>
+                  <Button aria-label={translate('close')} variant="icon">
+                    <CrossIcon aria-hidden="true" />
+                  </Button>
+                </PopoverClose>
+              </Box>
+
+              <Text size="small">{translate('tagsInfo')}</Text>
+            </Box>
+          </PopoverContent>
+        </Popover>
       </Inline>
       <Box mt="3">
         <Flex justifyContent="flex-end" gap="5">
@@ -966,7 +1034,7 @@ const Tags = ({
           </Button>
         </Flex>
       </Box>
-    </>
+    </Box>
   );
 };
 
@@ -1003,18 +1071,7 @@ export const AddArtefactDialog = ({ artefactId }: { artefactId: string }) => {
             <Flex justifyContent="flex-end" css={{ width: '100%' }}>
               <Box mt="4">
                 <DialogClose asChild>
-                  <Button
-                    css={{
-                      backgroundColor: 'transparent',
-                      border: 'none',
-                      '&:hover': {
-                        color: '$blueDark',
-                        backgroundColor: 'transparent',
-                      },
-                    }}
-                    aria-label={translate('close')}
-                    variant="ghost-dark"
-                  >
+                  <Button aria-label={translate('close')} variant="icon">
                     <CrossIcon aria-hidden="true" width="27px" height="27px" />
                   </Button>
                 </DialogClose>
@@ -1197,16 +1254,14 @@ export const AddArtefactDialog = ({ artefactId }: { artefactId: string }) => {
                                 : 'linear-gradient(180deg, rgba(83, 11, 244, 0.20) 0%, rgba(83, 11, 244, 0.46) 51.41%, rgba(83, 11, 244, 0.70) 100%)',
                               borderRadius: '4px',
                               zIndex: 1,
-                              '&:hover': {
-                                backgroundColor: 'rgba(73, 2, 190, 0.85)',
-                                opacity: 0.85,
-                              },
                             }}
                           />
                           <Image
                             src={story.previewImage.url}
                             alt={story.title}
+                            sizes="(min-width: 768px) 660px, 80vw"
                             fill={true}
+                            loader={saveSizeImage(story.previewImage)}
                           />
                         </Box>
                       ) : (
@@ -1370,12 +1425,16 @@ export const StoryButton = styled('button', {
   borderRadius: '8px',
   width: '100%',
   height: '100px',
-  py: '6px',
-  pr: '$1',
   boxSizing: 'border-box',
+  border: '2px solid',
+  borderColor: 'transparent',
 
   '&:focus-visible': {
     outline: '3px solid $green',
+  },
+
+  '&:hover': {
+    borderColor: '$blue',
   },
 
   '&:disabled': {
@@ -1383,6 +1442,7 @@ export const StoryButton = styled('button', {
     color: '$black600',
     cursor: 'auto',
   },
+
   '@bp1': {
     height: '150px',
   },
@@ -1527,9 +1587,7 @@ export const FavoriteButton = styled('button', {
   cursor: 'pointer',
 
   '&:hover': {
-    borderColor: '$blue',
-    backgroundColor: '$blue',
-    color: 'white',
+    backgroundColor: '$blue100',
   },
 
   '&:focus-visible': {
@@ -1542,6 +1600,11 @@ export const FavoriteButton = styled('button', {
         color: 'white',
         borderColor: '$blue',
         backgroundColor: '$blue',
+
+        '&:hover': {
+          borderColor: '$blue',
+          backgroundColor: '$blue',
+        },
       },
     },
   },

@@ -1,0 +1,9 @@
+fragment Image on Image {
+  url
+  width
+  height
+  licence {
+    name
+    url
+  }
+}

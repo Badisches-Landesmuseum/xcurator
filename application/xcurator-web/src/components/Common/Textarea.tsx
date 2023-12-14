@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid, styled } from '@3pc/layout-components-react';
+import { Box, Grid, styled } from 'src/@3pc/layout-components-react';
 import { EditIcon } from 'src/icons';
 
 type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>;

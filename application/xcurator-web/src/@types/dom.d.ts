@@ -1,5 +1,12 @@
 export interface EntityDetails {
-  items: string;
+  links: {
+    source: string;
+    id: string;
+    url: string;
+  }[];
+  startPosition: number;
+  endPosition: number;
+  property: string;
 }
 
 interface CustomEventMap {

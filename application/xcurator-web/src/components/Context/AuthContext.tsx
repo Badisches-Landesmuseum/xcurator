@@ -8,6 +8,7 @@ import {
   useLogoutMutation,
   useMeLazyQuery,
 } from 'src/graphql/_generated/types';
+import { useRouter } from 'next/router';
 
 const AuthContext = React.createContext<{
   authenticate: () => void;
@@ -46,6 +47,7 @@ export const AuthContextProvider = ({
   const [userId, setUserId] = React.useState('');
   const [username, setUsername] = React.useState('');
   const [admin, setAdmin] = React.useState(false);
+  const router = useRouter();
 
   const unAuthenticate = React.useCallback(() => {
     logout().then(async () => {
@@ -140,6 +142,7 @@ export const AuthContextProvider = ({
   );
 
   React.useEffect(() => {
+    if (router.route.endsWith('/404')) return;
     if (session.status === 'authenticated' && !isLoggedIn) {
       syncWithGateway(session.data);
     }

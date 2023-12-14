@@ -1,4 +1,4 @@
-import { Box, Flex, styled } from '@3pc/layout-components-react';
+import { Box, Flex, styled } from 'src/@3pc/layout-components-react';
 import { Text } from 'src/components/Common/Text';
 import Image from 'next/image';
 import Link from 'next/link';

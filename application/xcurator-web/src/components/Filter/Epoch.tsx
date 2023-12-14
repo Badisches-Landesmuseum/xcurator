@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, styled } from '@3pc/layout-components-react';
+import { Box, Flex, Grid, styled } from 'src/@3pc/layout-components-react';
 import { Text } from 'src/components/Common/Text';
 import React from 'react';
 import { useTranslations } from 'next-intl';

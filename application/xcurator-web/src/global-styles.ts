@@ -1,4 +1,4 @@
-import { globalCss } from '@3pc/layout-components-react';
+import { globalCss } from 'src/@3pc/layout-components-react';
 
 export const globalStyles = globalCss({
   '@font-face': [
@@ -144,7 +144,13 @@ export const globalStyles = globalCss({
   },
 
   '.xcurator-dark mark[data-entity-type] > button::before': {
-    backgroundColor: '$black600',
+    backgroundColor: 'white',
+  },
+
+  '.xcurator-dark mark[data-entity-type]': {
+    '&:hover': {
+      color: '$blueDark',
+    },
   },
 
   'mark[data-entity-type] > button .icon-wrapper': {

@@ -1,14 +1,17 @@
 import * as React from 'react';
 import Link, { LinkProps } from 'next/link';
 import { Text } from 'src/components/Common/Text';
-import { Box, Flex } from '@3pc/layout-components-react';
+import { Box, Flex } from 'src/@3pc/layout-components-react';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { HEADER_HEIGHT } from 'src/components/Header/Header';
+import { TutorialDialog } from 'src/components/Stories/Tutorial';
+import { useHasHydrated } from 'src/utils/useHasHydrated';
 
 export default function Layout({ children }: { children: React.ReactElement }) {
   const router = useRouter();
   const translate = useTranslations('Stories');
+  const hasHydrated = useHasHydrated();
 
   return (
     <Flex
@@ -48,6 +51,7 @@ export default function Layout({ children }: { children: React.ReactElement }) {
         </Flex>
       </Box>
       {children}
+      {hasHydrated ? <TutorialDialog /> : null}
     </Flex>
   );
 }

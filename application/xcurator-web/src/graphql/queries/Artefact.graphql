@@ -2,13 +2,7 @@ query GetArtefact($where: ArtefactUniqueInput!) {
   artefact(where: $where) {
     id
     images {
-      url
-      width
-      height
-      licence {
-        name
-        url
-      }
+      ...Image
     }
     tags {
       isUsingAI
@@ -58,8 +52,10 @@ fragment Artefact on Artefact {
   id
   title
   description
+  keywords
   sourceInfo {
     url
+    language
   }
   images {
     url
@@ -78,6 +74,11 @@ fragment Artefact on Artefact {
   }
   persons {
     name
+  }
+  tags {
+    isUsingAI
+    type
+    literal
   }
 }
 

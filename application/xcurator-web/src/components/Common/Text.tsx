@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, VariantProps, CSS } from '@3pc/layout-components-react';
+import { styled, VariantProps, CSS } from 'src/@3pc/layout-components-react';
 import useText from './use-text';
 
 const Text = React.forwardRef<

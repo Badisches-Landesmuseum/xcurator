@@ -26,8 +26,13 @@ const formatImage = (
   }
 };
 
-export const imageLoader: ImageLoader = ({ src, width }) => {
-  return formatImage(src, Math.floor(width));
-};
+export function saveSizeImage(image: { width: number }): ImageLoader {
+  return ({ src, width }) => {
+    const size = Math.min(image.width, width);
+    return formatImage(src, size, size);
+  };
+}
 
-export default formatImage;
+export const fixFrameImageLoader: ImageLoader = ({ src, width: size }) => {
+  return formatImage(src, size, size);
+};

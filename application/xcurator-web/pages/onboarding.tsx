@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { useRouter } from 'next/router';
 import { GetServerSidePropsContext } from 'next';
-import { Box, Flex } from '@3pc/layout-components-react';
+import { Box, Flex } from 'src/@3pc/layout-components-react';
 import { Button } from 'src/components/Common/Button';
 import { useTranslations } from 'next-intl';
 import { Text } from 'src/components/Common/Text';
@@ -24,6 +24,9 @@ import {
   ToastDescription,
 } from 'src/components/Common/Toast';
 import Head from 'next/head';
+import { useGlobalToasts } from 'src/components/Context/GlobalToastsContext';
+import Link from 'next/link';
+import { ProgressBar } from 'src/components/Common/ProgressBar';
 
 export type OptionType = {
   labelKey: keyof Messages['Preferences'];
@@ -173,10 +176,11 @@ export default function Preferences({}) {
   );
   const translate = useTranslations('Preferences');
   const router = useRouter();
-  const [updateProfile, { loading }] = useUpdateUserProfileMutation();
+  const [updateProfile] = useUpdateUserProfileMutation();
   const { pathBeforeRedirectRef } = useProfile();
   const { username } = useAuth();
-  const [toastError, setToastError] = React.useState(false);
+  const [errorToast, setErrorToast] = React.useState(false);
+  const { setOnboardingSuccess } = useGlobalToasts();
 
   const locale = router.locale;
   const language = localeToLanguage(locale);
@@ -192,46 +196,17 @@ export default function Preferences({}) {
         <meta name="keyword" content={translate('keywords')} />
       </Head>
       <Box mt="5">
-        <Box px="5">
+        <Box px="7">
           <Flex justifyContent="flex-end">
-            <Button
+            <Link
               aria-label={translate('close')}
-              variant="ghost-dark"
-              css={{
-                backgroundColor: 'transparent',
-                border: 'none',
-                '&:hover': {
-                  color: '$blueDark',
-                  backgroundColor: 'transparent',
-                },
-              }}
-              disabled={loading}
+              href={pathBeforeRedirectRef.current || '/canvas'}
               onClick={() => {
-                updateProfile({
-                  variables: {
-                    continents: fields.continents,
-                    preferredLanguage: language,
-                    visitorRole: fields.visitorRole ? fields.visitorRole : null,
-                    visitorWish: fields.visitorWish ? fields.visitorWish : null,
-                    visitorTarget: fields.visitorTarget
-                      ? fields.visitorTarget
-                      : null,
-                    epochs: fields.epochs,
-                    username: username,
-                  },
-                  refetchQueries: [namedOperations.Query.Profile],
-                  onCompleted() {
-                    router.push(pathBeforeRedirectRef.current || '/canvas');
-                    pathBeforeRedirectRef.current = undefined;
-                  },
-                  onError() {
-                    setToastError(true);
-                  },
-                });
+                pathBeforeRedirectRef.current = undefined;
               }}
             >
               <CrossIcon width="27px" height="27px" />
-            </Button>
+            </Link>
           </Flex>
         </Box>
         <Box mt="3" pb="5">
@@ -244,7 +219,12 @@ export default function Preferences({}) {
             >
               {translate(steps[currentStep].titleKey)}
             </Text>
-            <ProgressBar steps={steps} currentStep={currentStep} />
+            <Box
+              mt={{ '@initial': 5, '@bp1': 12 }}
+              css={{ width: '106px', '@bp2': { width: '200px' } }}
+            >
+              <ProgressBar value={currentStep + 1} max={steps.length} />
+            </Box>
             <Box mb="5" mt="8">
               <Text>{translate(steps[currentStep].subTitleKey)}</Text>
             </Box>
@@ -386,9 +366,10 @@ export default function Preferences({}) {
                       onCompleted() {
                         router.push(pathBeforeRedirectRef.current || '/canvas');
                         pathBeforeRedirectRef.current = undefined;
+                        setOnboardingSuccess(true);
                       },
                       onError() {
-                        setToastError(true);
+                        setErrorToast(true);
                       },
                     });
                   } else {
@@ -401,7 +382,7 @@ export default function Preferences({}) {
             </Box>
           </Flex>
         </Box>
-        <Toast open={toastError} onOpenChange={setToastError}>
+        <Toast open={errorToast} onOpenChange={setErrorToast}>
           <Flex justifyContent="space-between">
             <ToastDescription>
               <Flex gap="2" css={{ mt: '$3' }}>
@@ -428,40 +409,6 @@ export default function Preferences({}) {
     </>
   );
 }
-
-const ProgressBar = ({
-  steps,
-  currentStep,
-}: {
-  steps: Step[];
-  currentStep: number;
-}) => {
-  return (
-    <Flex alignItems="center" justifyContent="center">
-      {steps.map((step, index) => (
-        <Box
-          key={index}
-          css={{
-            marginTop: '20px',
-            marginBottom: '40px',
-            width: '50px',
-            height: '4px',
-            backgroundColor: currentStep >= index ? '$blue' : '#C4C4C4',
-            borderRadius:
-              index === 0
-                ? '2px 0px 0px 2px'
-                : index === steps.length - 1
-                ? '0px 2px 2px 0px'
-                : '0px',
-            '@bp1': {
-              marginTop: '50px',
-            },
-          }}
-        />
-      ))}
-    </Flex>
-  );
-};
 
 function useFormFields<T extends { [key: string]: string | string[] }>(
   initialValues: T,

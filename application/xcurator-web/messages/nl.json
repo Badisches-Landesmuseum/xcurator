@@ -15,11 +15,11 @@
 
   },
   "Home": {
-    "title": "Duik in onze collecties, ontdek verhalen van anderen en maak je eigen verhaal.",
-    "start": "Aan de slag!",
+    "title": "Jouw AI co-piloot. Duik in collecties, ontdek verbanden en verhalen en creëer je eigen verhaal.",
+    "start": "Laten we gaan!",
     "seoTitle": "Start",
-    "description": "Met xCurator kun je jezelf onderdompelen in de collecties van het Baden State Museum en het Allard Pierson Museum.",
-    "keywords": "virtuele collectie, AI, verrijking, xCurator, museumtool, museumsoftware, online collectie"
+    "description":"Met de xCurator kun je je onderdompelen in de collecties van het Badisches Landesmuseum Karlsruhe en Allard Pierson Amsterdam.",
+    "keywords":"virtuele collectie, AI, verrijking, xCurator, museumtool, museumsoftware, online collectie"
   },
   "Admin" : {
     "title": "Berichten beheren",
@@ -30,7 +30,7 @@
     "manageStories": "Verhalen beheren",
     "manageObjects": "Feedbackobjecten",
     "delete" : "Verhaal verwijderen",
-    "private": "privé",
+    "private": "Privé",
     "check": "Verhaal controleren",
     "checkObject": "Object controleren",
     "deleteNotification": "Melding verwijderen",
@@ -71,8 +71,9 @@
     "systemTemplateExplanation": "Systeemsjabloon: Dit veld bepaalt hoe het systeem zich moet gedragen. Houd er rekening mee dat een speciaal sleutelwoord <important>'<LANGUAGE>'</important> of <important>'<DATA>'</important> in dit veld moet worden ingevoerd.",
     "userInput": "In het objectgebruiksgeval moeten we de annotatie <important>'<USER_INPUT>'</important> in beide velden opnemen",
     "checkKeywordExistence": "Een van de sleutelwoorden ontbreekt, controleer of u <important>'<DATA>'</important> of <important>'<LANGUAGE>'</important> hebt ingevoegd in het gebruikerssjabloon en <important>'<LANGUAGE>'</important> of <important>'<DATA>'</important> in het systeemsjabloon. Beide trefwoorden moeten aanwezig zijn.",
-    "checkKeywordExistenceObject": "Een van de sleutelwoorden ontbreekt, controleer of je <important>'<LANGUAGE>'</important> of <important>'<DATA>'</important> of <important>'<USER_INPUT>'</important> hebt ingevoegd in een van de velden. Alle sleutelwoorden moeten aanwezig zijn.",
+    "checkKeywordExistenceObject": "Een van de sleutelwoorden ontbreekt, controleer of je <important>'<LANGUAGE>'</important> of <important>'<DATA>'</important> hebt ingevoegd in een van de velden. Alle sleutelwoorden moeten aanwezig zijn.",
     "templateUpdated": "Sjabloon bijgewerkt",
+    "templateUpdateError": "Er is een fout opgetreden bij het bijwerken van de sjablonen. Probeer het later nog eens.",
     "example": "Voorbeeld : ",
     "giveUserId": "Geef gebruikers-ID",
     "export": "Exporteren",
@@ -97,60 +98,56 @@
   "About": {
     "Header": "Over xCurator",
     "ForWho": {
-        "title": "Voor wie is xCurator bedoeld?",
-        "text": "<li>Voor liefhebbers van cultureel erfgoed en verzamelaars - techneuten en ontwikkelaars - denkers en creatievelingen.</li><li>Voor studenten, onderzoekers of personen met specifieke interesse in culturele geschiedenis.</li>"
+        "title": "Voor wie is de xCurator?",
+        "text": "<li>Voor liefhebbers van cultureel erfgoed en verzamelaars - techneuten en ontwikkelaars - meedenkers en creatievelingen.</li><li>Voor scholieren, studenten, onderzoekers of mensen met specifieke interesses in cultuurgeschiedeni</li>"
     },
     "WhatCanIdo": {
         "title": "Wat kan ik hier doen?",
-        "text": "<li>Jouw blik op de geschiedenis: je kunt 50.000 jaar culturele geschiedenis verkennen, verbanden ontdekken en je eigen verhalen ontwikkelen.</li><li>Je kunt verhalen schrijven voor anderen en ze delen.</li><li>Je kunt hoogwaardige verhaalsjablonen gebruiken en ze aanpassen of verder ontwikkelen naar jouw wensen.</li><li>Verschillende kunstmatige intelligentie-technieken kunnen je helpen en je wellicht verrassen. We hopen dat je iets nieuws ontdekt!</li><li>Houd er rekening mee dat kunstmatige intelligentie geen menselijke intelligentie is - je eigen oordeel is altijd het belangrijkst.</li>"
+        "text": "<li>Ontdekken: Jouw blik in de geschiedenis. Je kunt jezelf onderdompelen in 50.000 jaar cultuurgeschiedenis, verbanden ontdekken en je eigen verhalen ontwikkelen. Met een experimentele neuronale zoektocht vind je spannende en verrassende patronen.</li><li>Creëren: Je kunt verhalen schrijven voor anderen en ze delen. Er staan hoogwaardige verhaalsjablonen tot je beschikking die je  naar wens kunt aanpassen of verder ontwikkelen. </li><li>Laat kunstmatige intelligentie je ondersteunen: verschillende methoden van machinaal leren en generatieve AI  helpen je bij je zoektocht en verrassen je wellicht met een nieuw perspectief?</li><li>Het museum helpen: Soms moeten de algoritmen nog van jou leren. Wil je correcte inhoud bevestigen en fouten melden? Als je iets opmerkt, ontvangen we graag je feedback zodat we de AI-training op de lange termijn kunnen verbe</li>"
     },
     "Data": {
         "title": "Wat gebeurt er met mijn gegevens?",
-        "text": "<li>Om een verhaal te maken, vragen we je om je aan te melden. Dit is nodig om verhalen te maken, op te slaan en te delen.</li><li>Je beslist zelf of je jouw inhoud met anderen wilt delen.</li><li>Lees de <usageLink>gebruiksvoorwaarden</usageLink>, toegankelijkheidsverklaringen en <dataProtectionLink>privacyvoorwaarden</dataProtectionLink> hiervoor goed door.</li>"
+        "text": "<li>Om een verhaal te maken, vragen we je om je te registreren. Je kunt je verhaal publiceren voor anderen. Om aan de regels voor gegevensbescherming te voldoen en omde kwaliteit van de inhoud te garanderen, hebben we je registratie hier nodig. Je gegevens zijn veilig bij ons. Lees ook de <termsLink>gebruiksvoorwaarden</termsLink> en <privacyLink>het privacybeleid.</privacyLink></li>"
     },
     "WhatIsAI": {
         "title": "Wat betekent kunstmatige intelligentie?",
-        "text": "<li>Kunstmatige intelligentie of artificial intelligence (AI) is een vakgebied binnen de informatica. AI draait om het laten handelen van computers op manieren die door mensen als intelligent worden ervaren. Dit omvat onder andere het oplossen van complexe problemen, het zelfstandig leren van nieuwe vaardigheden en het beheersen van menselijke taal. In AI worden verschillende technologieën gebruikt, zoals kunstmatige neurale netwerken voor beeldherkenning en taalmodellen voor vertaling of tekstgeneratie.</li><li>Je beslist zelf of je jouw inhoud met anderen wilt delen.</li><li>In de xCurator-tool wordt AI gebruikt om digitale collecties beter, gepersonaliseerd en op interesse gebaseerd toegankelijk te maken en om gebruikers van het museum te helpen verbanden te leggen en verhalen te creëren.</li>"
+        "text": "<li>Kunstmatige intelligentie (AI) is een tak van de computerwetenschap. Het gaat erom computers op bepaalde manieren te laten handelen die mensen als intelligent ervaren. <ideaLink>Het idee is meer dan 100 jaar oud</ideaLink> en de technologie van vandaag kan in verschillende toepassingen worden gebruikt. Je kunt kunstmatige intelligentie vinden in je smartphone of in je muziekaanbevelingen. Wat de laatste jaren nieuw is, is de ontwikkeling van generatieve technologieën waarmee afbeeldingen of teksten automatisch kunnen worden gecreëerd. Daarom wordt vaak gezegd dat kunstmatige intelligentie ook 'creatief' kan zijn. <learningLink>Je kunt hier</learningLink> veel interessante <learningLink>leermiddelen </learningLink>vinden. </li><li>Kunstmatige intelligentie verwijst naar verschillende technologieën, zoals kunstmatige neurale netwerken voor beeldherkenning of taalmodellen voor het vertalen of creëren van teksten. </li><li>We hebben het overigens liever over machine-intelligentie en hebben daar al veel over gesproken. <readMore>Je kunt er hier over lezen.</readMore></li><li>In xCurator wordt machine-intelligentie gebruikt om de digitale collecties toegankelijker, persoonlijker en interessanter te maken en om je te helpen verbanden te leggen en je eigen verhalen te creëren.</li><li>Dit werkt soms heel goed, maar soms ervaren we machinaal gegenereerde resultaten als 'fout' omdat de berekeningen vaak eigenlijk alleen waarschijnlijke uitkomsten opleveren en een nauwkeurigheid van 100% alleen kan worden bereikt met menselijke hulp. We moeten er nog wat aan wennen om te gaan met deze waarschijnlijkheden, leren door machines gegenereerde resultaten kritisch te beoordelen en eventueel aan te passen voordat we er verder mee gaan. Dit is niet altijd even makkelijk. </li><li>Misschien vind je het leuk om fouten te verzamelen of ons te helpen de algoritmen te verbeteren. Je kunt de feedbackfuncties gebruiken om te helpen bij het beoordelen en trainen van door machines gegenereerde resultaten en bij het verbeteren van de processen. </li><li>Houd er rekening mee dat machine-intelligentie geen menselijke intelligentie is - je eigen oordeel is altijd het belangrijkst. </li>"
     },
     "WhyAI": {
-        "title": "Waarom maken we gebruik van kunstmatige intelligentie?",
-        "text": "<li>We vinden het belangrijk dat kunstmatige intelligentie wordt ingezet op een manier die ethisch en in lijn met het algemeen belang is en die op verantwoorde wijze menselijk handelen ondersteunt. Daarom zoeken we met xCurator concrete manieren om digitale museumcollecties te benutten.</li><li>Machine learning en deep learning kunnen worden gebruikt om bestaande inhoud opnieuw te bekijken. De mogelijkheid van AI om archieven of museumstukken opnieuw te ordenen, kan ook nieuwe verbanden zichtbaar maken.</li><li>In het project Creative User Empowerment zijn verschillende methoden onderzocht en ontwikkeld om met behulp van kunstmatige intelligentie betere toegang tot digitale collecties te bieden.</li><li><dataLabLink>Naar het Data Lab</dataLabLink></li>"
+        "title": "Waarom gebruiken we intelligente machines?",
+        "text": "<li>Kunstmatige intelligentie moet ethisch en voor het algemeen belang worden gebruikt en menselijk auteurschap en verantwoordelijk gedrag ondersteunen. Met xCurator werkten we samen met het publiek en experts om manieren te vinden om het digitale museum toegankelijker te maken. </li><li>Machine learning en deep learning kunnen worden gebruikt om met een frisse blik te kijken naar wat er al is. Het vermogen van kunstmatige neurale netwerkprocessen om archieven of tentoonstellingen in collecties te reorganiseren kan nieuwe verbanden zichtbaar maken. </li><li>In het project Creative User Empowerment werden verschillende methoden onderzocht en ontwikkeld om nieuwe toegang tot digitale collecties te creëren met behulp van machine-intelligentie. De focus lag altijd op de vraag hoe de processen de gebruikers het beste kunnen ondersteunen en welke rol en welk beeld we aan kunstmatige intelligentie willen toekennen. Uit de geschiedenis van ideeën weten we dat ideeën over abstracte concepten in de loop van de tijd veranderen. Ons begrip van kunstmatige intelligentie moet daarom altijd historisch begrepen worden.<dataLabLink>Naar de projectdocumentatie en experimenteerruimte.</dataLabLink></li>"
     },
     "WhereAI": {
-        "title": "Waar wordt kunstmatige intelligentie hier gebruikt?",
-        "text": "<li>Overal waar je dit symbool ziet, maken we gebruik van kunstmatige intelligentie: bla bla</li><li>Intelligente zoekfunctie: het systeem stelt je specifiek objecten voor die overeenkomen met je opgegeven interesses en zoekopdrachten.</li><li>Vision AI: De foto's van objecten zijn geanalyseerd en toegankelijk gemaakt via een beeldzoekfunctie. Dit betekent dat kleuren automatisch worden herkend en objecten en onderwerpen in afbeeldingen worden geïdentificeerd. Afbeeldingen worden door het systeem gegroepeerd op een manier die inhoudelijke en visuele overeenkomsten laten zien.</li><li>Intelligente verrijking: Sleutelwoorden zijn automatisch gegenereerd en dragen bij aan de inhoudelijke ontsluiting van de collectie.</li><li>Met gepersonaliseerd zoeken vind je sneller interessante dingen en ontdek je je eigen individuele toegang tot het verleden.</li><li>Generatieve teksten: Deze tool helpt je bij het maken van teksten en het identificeren van verbanden tussen objecten. Je kunt nieuwe creatieve verbanden ontwikkelen met AI als co-auteur.</li>"
+        "title": "Waar is kunstmatige intelligentie hier?",
+        "text": "<li>Overal waar je dit symbool ziet<imageLiSmall></imageLiSmall>, gebruiken we machine learning of tonen we resultaten met behulp van generatieve kunstmatige intelligentie</li><li>Intelligent zoeken: Hoe creatief kun je zoeken? Het systeem stelt objecten voor die overeenkomen met je opgegeven interesses en zoekopdrachten. Op de homepage zijn museumobjecten gesorteerd in zogenaamde clusters, die je helpen om sneller en coherenter toegang te krijgen tot de verscheidenheid aan objecten in de collectie. De intelligente zoekfunctie omvat een visuele zoekfunctie op basis van overeenkomsten en patroonherkenning en algoritmen sorteren de inhoud voor je voor. Probeer het gewoon eens! </li><li>Je kunt intelligente filteropties gebruiken om de zoekopdracht uit te breiden of te beperken op kleur, tijd, materiaal en locatie.</li><li>Machinaal gegenereerde trefwoorden en intelligente verrijking: nieuwe trefwoorden werden gegenereerd uit de beeld- en tekstinformatie om nieuwe verbanden tussen dingen te leggen. Help het museum door de kwaliteit van de trefwoorden en automatische links te beoordelen. </li><li>Zoeken naar overeenkomsten en aanbevelingen: De afbeeldingen van de objecten zijn geanalyseerd en toegankelijk gemaakt via een beeldzoekfunctie, wat betekent dat kleuren, motieven, objecten en thema's in afbeeldingen worden herkend. Afbeeldingen worden door het systeem in groepen gesorteerd, zodat je inhoudelijke en visuele verbanden te zien krijgt. Als je een nieuw verhaal maakt, krijg je aanbevelingen op basis van je zoekopdracht en titelgegevens over welke objecten geschikt zouden kunnen zijn. </li><li>Met gepersonaliseerde instellingen kun je sneller spannende dingen vinden en je individuele benadering van het verleden ontdekken. Je persoonlijke gegevens zijn veilig bij ons en worden niet verwerkt door kunstmatige intelligentieprocessen. </li><li>Generatieve teksten: De tool helpt je om teksten te maken en verbanden tussen dingen te herkennen. Je kunt xCurator gebruiken als assistent om nieuwe, creatieve en spannende contexten te ontwikkelen. We hebben veel gewerkt aan de gegevensbasis zodat het taalmodel niet zo veel hallucineert, maar in plaats daarvan put uit de collectiegegevens en echt nieuwe en spannende inhoud. Je kunt het taalmodel wel hints geven over wat het voor jou moet doen. Maar wees voorzichtig, je moet de resultaten van het taalmodel zelf beoordelen! Gebruik gewoon de museumteksten om je te helpen. Om veiligheidsredenen hebben we de prompts vooraf ingesteld. Als je goede suggesties hebt over hoe de prompts verbeterd kunnen worden of als je een specifieke prompt voor je verhaal wilt, dan hoort het museum dat graag! </li>"
     },
     "WhichAI": {
-      "title": "Welke AI-methoden en modellen zijn precies gebruikt?",
-      "text": "<li><naturalLanguageLink>Natural Language Processing</naturalLanguageLink></li><li>Entity Extraction en Entity Linking</li><li>Beeldherkenning</li><li>Multi-modale methoden</li><li>AI-zoekfuncties</li><li>Generatieve taalmodellen</li><li>Op dit moment worden algoritmen en foundation-modellen gebruikt van Elastic Search, Clip, DeepL, Spacey, <relLink>Radbound Entity Linker (REL)</relLink>; <flairLink>flairNLP (Beta)</flairLink>, <elasticSearch>Elasticsearch Similarity</elasticSearch>; <elasticSearchSpring>Elasticsearch Queries with Spring Data</elasticSearchSpring>; <mappingTypes>Alternatives to mapping types</mappingTypes>; <elasticSearchRelations>Managing Relations Inside Elasticsearch</elasticSearchRelations>; <dslQuery>Query DSL</dslQuery>, <elasticSearchDoc>Py ElasticSearch Documentation</elasticSearchDoc>, <elasticSearchGithub>Py ElasticSearch GitHub</elasticSearchGithub>, <openClip>OpenClip</openClip></li>"
-  },
-  "DetectAI": {
-      "title": "Hoe herken ik welke resultaten door kunstmatige intelligentie zijn gegenereerd?",
-      "text": "<li>Alle machinaal gegenereerde resultaten worden gemarkeerd met dit symbool \n\n<##>, zodat je kunt zien wat door AI is gemaakt en het zelf kritisch kunt beoordelen.</li><li>De vertalingen zijn machinaal gegenereerd door AI. Wees daarom voorzichtig en controleer indien nodig het oorspronkelijke document.</li>"
+      "title": "Welke AI-processen en -modellen zijn er precies gebruikt?",
+      "text": "<li>xCurator is ontwikkeld als een herbruikbare en aanpasbare open source softwareoplossing, die hier in detail wordt uiteengezet: https://github.com/Badisches-Landesmuseum/xcurator </li><li>xCurator maakt gebruik van verschillende machine learning-methoden om je te ondersteunen bij het indexeren, begrijpen en je eigen productieproces. xCurator gebruikt methoden op het gebied van natuurlijke taalverwerking, entiteitsextractie en entiteitkoppeling, beeldherkenning, intelligent zoeken, multimodale methoden en generatieve taalmodellen. </li><li>Oplossingen en modellen van Elastic Search, Open Clip, DeepL, Spacey, <elasticSimilarLink>Elasticsearch Similarity</elasticSimilarLink>;<elasticSearchSpring> Elasticsearch Queries with Spring Data</elasticSearchSpring>;<mappingTypes> Alternatives to mapping types</mappingTypes>;<elasticSearchRelation> Managing Relations Inside Elasticsearch</elasticSearchRelation>; <dslQuery>Query DSL</dslQuery>, <elasticSearchDoc>Py ElasticSearch Documentation</elasticSearchDoc>, <elasticSearchDoc>Py ElasticSearch GitHub</elasticSearchDoc>,<entiyLinker> Radbound Entity Linker (REL)</entiyLinker>; <flairLink>flairNLP (Beta)</flairLink>,<openClip> OpenClip </openClip> een oplossing van <pixSolution>https://github.com/pixolution/embeddings-grid</pixSolution> worden momenteel gebruikt. </li><li>Momenteel testen we de kwaliteit van een <qualityTest>Named Entity Recognition en Entity Linking System</qualityTest> samen met de Staatsbibliothek zu Berlin - Preußischer Kulturbesitz (https://staatsbibliothek-berlin.de/) van het QURATOR - Curation Technologies project (https://qurator.ai/) en verbeteren we de hit rate voor jou: </li><li>We hebben veel besproken, onderzocht en getest: De tool maakt momenteel ook gebruikvan het taalmodel van OpenAI. Waarom? Omdat taalmodellen onze huidige tijd kenmerken en zowel kansen als risico's bieden. Omdat het belangrijk is om actief om te gaan met de effecten van vormen van kunstmatige intelligentie zoals taalmodellen - ook in beschermde ruimtes en via cultuur. Je kunt oefenen met het maken van content met behulp van taalmodellen op een solide feitelijke basis. Je nieuwe supervaardigheid wordt prompting en fact-checking, dat beloof ik! </li><li>In de <gitDocs>technische documentatie</gitDocs> en het <dataLabLink>Datalab</dataLabLink> kun je meer te weten komen over de technologieën en de achtergrond. Het is ook een experimentele plek die spannend is voor nieuwsgierige mensen, onderzoekers en ontwikkelaars. Doe gewoon mee en word deel van de kosmos!</li>"
   },
   "Ethic": {
-      "title": "Welke ethische richtlijnen zijn gevolgd bij het gebruik en de ontwikkeling van kunstmatige intelligentie?",
-      "text": "<li>We volgen de verklaring van de <germanEthic>Duitse Ethiekraad uit 2023</germanEthic>.</li><li>We willen AI gebruiken om de gebruikers van het museum te ondersteunen en de toegang tot kunst en cultuur te verbeteren.</li><li>We zorgen ervoor dat resultaten die machinaal zijn gegenereerd duidelijk worden gemarkeerd. (Symbool)</li><li>We vermijden het tonen van overdreven beelden van kunstmatige intelligentie of het presenteren van AI als een magisch wezen.</li><li>We letten erop dat we kunstmatige intelligentie niet vermenselijken.</li><li>We werken samen in een divers en internationaal team en betrekken verschillende gebruikersgroepen vanaf het begin bij de ontwikkeling.</li><li>We houden rekening met de huidige stand van onderzoek en ontwikkeling.</li>"
+      "title": "Welke ethische richtlijnen werden in acht genomen bij het gebruik ende ontwikkeling van machine intelligentie?",
+      "text": "<li>Ethische richtlijnen: Ons AI-initiatief is gebaseerd op de aanbevelingen van de Duitseethische raad van 2023. </li><li>Ondersteuning door AI: Ons doel is om AI te gebruiken om bezoekers te ondersteunen enbetere toegang tot kunst en cultuur te bieden. AI-oplossingen worden gebruikt in de toolom het handelingsvermogen in de context van het digitale museumbezoek te verbeteren.We proberen een realistisch begrip van kunstmatige, of beter gezegd machine-intelligentie te bevorderen. </li><li>Labeling van machineresultaten: We zorgen ervoor dat alle inhoud die door AI wordtgegenereerd duidelijk als zodanig wordt gelabeld om transparantie te garanderen.</li><li>Vermijd misleidende AI-beelden: We vermijden het afschilderen van AI als almachtig omrealistische verwachtingen te bevorderen.</li><li>Geen antropomorfisme: We vermijden het vermenselijken van AI om een duidelijk begripvan de werking ervan te bevorderen.</li><li>Diversiteit en internationaliteit in het team: Ons internationale en diverse team betrektverschillende gebruikersgroepen vanaf het begin bij de ontwikkeling.</li><li>Normen voor onderzoek en ontwikkeling: We oriënteren ons altijd op de huidige standvan onderzoek en ontwikkeling om de kwaliteit en relevantie van AI-toepassingen tewaarborgen.</li>"
   },
   "HowDeveloped": {
       "title": "Hoe is de tool ontwikkeld?",
-      "text": "<li>Een sterk verhaal - vraag er maar niet te veel over. Er kwam veel pizza bij kijken, sterke koffie en online meetings.</li><li>Er waren verschillende hackathons waar wilde ideeën werden ontwikkeld. <dataLabLink>Naar het Datalab</dataLabLink></li><li>Een groep geïnteresseerde AI-testers heeft het project vanaf het begin van de ontwikkeling begeleid en feedback gegeven over welke wensen en eisen ze hebben voor toegang tot de collectie met AI.</li><li>Het team van <dreipc>3pc</dreipc> heeft in 2022 en 2023 gewerkt aan het concept en de uitvoering.</li><li>Bovendien waren er veel experts van over de hele wereld die advies hebben gegeven. De lijst van betrokken personen vind je hier.</li>"
+      "text": "<li>Een sterk verhaal - vraag er maar niet maar. Er kwam pizza bij aan te pas, sterke koffie en online ontmoetingen. </li><li>Er waren verschillende hackathons waar wilde ideeën werden ontwikkeld. </li><li>Een groep geïnteresseerde AI-piloten begeleidde het project vanaf het begin van de ontwikkeling en gaf informatie over hun wensen en eisen voor AI-ondersteunde toegang tot de collectie. De ontwikkeling van de tool was alleen mogelijk dankzij vele discussies endigitaal vrijwilligerswerk - hartelijk dank! </li><li>Het 3pc-team werkte aan het concept en de implementatie in 2022 en 2023. </li><li>De adviesraad van het Badisches Landesmuseum heeft belangrijke suggesties gedaan voor de ontwikkeling van de tool!</li><li>Het team van het Badisches Landesmuseum en Allard Pierson hebben veel discussies gevoerd over de juiste benadering van machine-intelligentie.</li><li>Daarnaast hebben veel experts van over de hele wereld kennis en tips bijgedragen. Je kunt de lijst van bijdragers hier vinden.</li>"
   },
   "AIStrategies": {
-    "title": "Welke AI-strategie zit erachter?",
-    "text": "<li>Kunstmatige intelligentie is interessant, maar geen doel op zich: we ontwikkelen AI voor doelen die de maatschappij ten goede komen.</li><li>Bezoekers veranderen in gebruikers: niet alleen kijken, maar zelfstandig toegang vinden en zelf beslissen hoe je de collectie wilt gebruiken. We werken met een CC-0-licentie, zodat vrije toegang en hergebruik van cultuur mogelijk is.</li><li>Veel van de objecten zijn niet lokaal toegankelijk in tentoonstellingen en worden digitaal beschikbaar gesteld. We willen gebruikers wereldwijd een locatie-onafhankelijke en zelfstandige toegang tot de collecties van het museum bieden.</li><li>Elke persoon heeft verschillende inhoudelijke interesses: we ondersteunen individuele toegang tot de collecties.</li><li>Vaak weten we weinig over de achtergrond wanneer we een object bekijken: we verbeteren met behulp van AI de gegevenskwaliteit van de objecten in het museum en maken het gemakkelijker om de inhoudelijke context te begrijpen.</li><li>Er zijn zoveel dingen - hoe kan ik daar een overzicht van krijgen of toegang toe krijgen? We verbeteren de zoekbaarheid en vindbaarheid van digitale museumobjecten.</li><li>De tool is niet slechts één AI, „de“ museum-AI of één enkel neuraal netwerk, maar biedt ondersteuning voor individuele gebruikersbehoeften door middel van machine learning-methoden en AI-modellen. Hierbij staan de eisen voor gewenste toegang tot de digitale collectie van de gebruikers van het Badisches Landesmuseum en het Allard Pierson centraal.</li>"
+    "title": "Wat is de AI-strategie erachter?",
+    "text": "<li>Kunstmatige intelligentie is interessant, maar geen doel op zich: we ontwikkelen AI voor het algemeen belang, vergroten de beschikbaarheid van gegevens, werken op een interdisciplinaire manier en streven naar een brede maatschappelijke dialoog in ontwikkeling. </li><li>Bezoekers worden gebruikers: Niet alleen kijken, maar zelfstandig toegang zoeken en zelf bepalen hoe je de collectie wilt hergebruiken. We werken met een CC-0 licentie zodat vrije toegang tot cultuur mogelijk is en het gebruik daarna juridisch veilig is. </li><li>Veel van de objecten zijn niet toegankelijk in tentoonstellingen op locatie en worden hier voor het eerst digitaal toegankelijk gemaakt. We willen gebruikers wereldwijd vanaf elke locatie onafhankelijk toegang bieden tot de collecties van het museum.</li><li>Iedereen heeft andere interesses op het gebied van inhoud: We ondersteunen individuele toegang tot de collecties.</li><li>Als we naar een object kijken, weten we vaak weinig over de achtergrond: We verbeterende beschikbaarheid van gegevens en de kwaliteit van de gegevens met als doel de toegang tot inhoudelijke contexten te vergemakkelijken. </li><li>Er is zoveel te zien - hoe krijg ik een overzicht of toegang? Wij verbeteren de doorzoekbaarheid en vindbaarheid van digitale museumobjecten. </li><li>De tool is niet één AI, 'de' museum-AI of één neuraal netwerk, maar biedt ondersteuningvoor individuele gebruikerseisen door middel van machine-learningprocessen en AI-modellen. </li><li>De eisen voor gewenste toegang tot de digitale collectie van de gebruikers van het Badisches Landesmuseum en het Allard Pierson staan altijd centraal. </li>"
 },
   "WithoutAI": {
-      "title": "Kan het ook zonder kunstmatige intelligentie?",
-      "text": "<li>Zeker, je kunt helemaal analoog naar het museum gaan of hier de digitale catalogus bekijken. Daar zul je zeker andere verhalen ontdekken. Het museum kijkt uit naar je komst!</li>"
+      "title": "Is het mogelijk zonder kunstmatige intelligentie?",
+      "text": "<li>Ja, natuurlijk kun je naar <museumLink>het museum gaan</museumLink> in analoge vorm of <digitalLink>hier</digitalLink> andere digitale aanbiedingen vinden. Je zult er zeker andere onderwerpen en verhalen ontdekken. Het museum kijkt uit naar je komst!</li>"
   },
   "HowToUse": {
-      "title":"Hoe kan ik deze tool gebruiken in school of educatief werk?",
-      "text": "Hier moet nog een aanvulling komen, lesmateriaal is in ontwikkeling."
+      "title":"Hoe kan ik de tool gebruiken op school of in het onderwijs?",
+      "text": "<li>Aanbevelingen voor gebruik op scholen vind je <recommendation>hier</recommendation></li>"
   },
   "HowToHelp": {
-      "title": "Hoe kan ik bijdragen aan de ontwikkeling en verbetering?",
-      "text": "<li>Je kunt verhalen maken met ondersteuning van AI en zo helpen om de belangrijkste verhalen toegankelijk te maken voor anderen.</li><li>Je kunt feedback geven als resultaten onduidelijk of onjuist zijn. Met deze feedback verbeteren we de AI-methoden op de achtergrond.</li><li>Je kunt hier de code bekijken en suggesties doen voor verbetering van de tool.</li>"
+      "title": "Hoe kan ik bijdragen aan ontwikkeling en verbetering?",
+      "text": "<li>Je kunt verhalen maken met AI-ondersteuning en zo helpen om je belangrijkste verhalen toegankelijk te maken voor anderen. </li><li>Je kunt feedback geven als de resultaten onduidelijk of onjuist zijn. We gebruiken de feedback om de AI-processen op de achtergrond te verbeteren. </li><li>Je kunt de code hier bekijken en suggesties doen over hoe we de tool kunnen verbeteren.</li><li>Voor vragen of ideeën kun je contact opnemen met creative@landesmuseum.de </li>"
   },
   "InfoButtons": {
       "title": "Info-knoppen",
@@ -196,15 +193,24 @@
     "loading": "Laden",
     "isFavourite": "Favoriet",
     "seoTitle": "Ontdek",
-    "description": "Gebruik de neurale zoekfunctie van xCurator en ontdek de gedigitaliseerde collecties van het Badens Staatsmuseum en het Allard Pierson Museum met behulp van filters.",
-    "keywords": "museumcollectie, museumobjecten, virtuele collectie, digitale collectie"
+    "description":"Gebruik de neurale zoekfunctie van xCurator en ontdek de gedigitaliseerde collecties van het Badisches Landesmuseum en Allard Pierson Amsterdam met behulp van filters.",
+    "keywords": "museumcollectie, museumobjecten, virtuele collectie, digitale collectie",
+    "didTheLinkMatch": "Was deze link geschikt?",
+    "didMatch": "geschikt",
+    "noMatch": "ongeschikt",
+    "login":"Je bent niet ingelogd.",
+    "pleaseLogin": "Log in om de link te beoordelen",
+    "entityRated": "Bedankt voor uw feedback, de entiteit is succesvol beoordeeld",
+    "entityRatedFailed": "Uw beoordeling is mislukt, probeer het later nog eens.",
+    "sources": "Bronnen",
+    "linkInfo": "De link is gegenereerd door de AI. Help de service te verbeteren door de kwaliteit van de link te beoordelen."
   },
   "EditStory": {
     "Preview": "Voorbeeld",
     "Share": "Delen",
     "License": "Licentie",
     "LicenseInformation": "Licentie informatie",
-    "LicenseDescription": "Hier kun je aanpassingen maken in de licentieverlening. Standaard is de licentie CC-0 geselecteerd.",
+    "LicenseDescription": "Hier kun je de licentietoewijzing aanpassen. De CC-0 licentie is standaard geselecteerd. Informatie over CC-licenties vind je hier: https://de.creativecommons.net/was-ist-cc/",
     "Cancel": "Annuleren",
     "Select": "Selecteren",
     "Public": "Openbaar",
@@ -225,8 +231,8 @@
     "storyNotFound": "Het verhaal is niet gevonden.",
     "editStory": "Verhaal bewerken",
     "standard": "standaard",
-    "confirmDelete": "Wil je de module echt verwijderen?",
-    "storyDeleted": "De module wordt onherroepelijk verwijderd.",
+    "confirmDelete": "Wil je het hoofdstuk echt verwijderen?",
+    "storyDeleted": "Het hoofdstuk wordt onherroepelijk verwijderd.",
     "noArtefactsInStory": "Er zijn nog geen objecten in dit verhaal. Selecteer objecten in de collectie.",
     "noArtefactsInFavorites": "Er staan nog geen objecten in je favorieten. Selecteer objecten in de collectie.",
     "noArtefactsInSuggested": "We konden geen objecten voor je voorstellen. Probeer het later nog eens.",
@@ -257,7 +263,7 @@
     "helpTheAi": "Trefwoorden voor de AI",
     "helpPlaceholder": "Schrijf hier trefwoorden die de AI helpen de tekst te maken volgens jouw wensen.",
     "notLoggedIn": "Je bent nog niet ingelogd.",
-    "login": "Nu inloggen",
+    "login": "Inloggen",
     "notYourStory": "Dit is niet jouw verhaal.",
     "watchinPresenter": "Bekijk het verhaal in de presentatiemodus.",
     "watch": "Bekijken",
@@ -284,7 +290,8 @@
     "alternativeText": "Alternatieve tekst",
     "useKeywords": "Trefwoorden opnemen",
     "addObjectFirst": "Voeg alsjeblieft eerst een hoofdstuk toe aan het verhaal",
-    "lastModule": "Als je het laatste object verwijdert, wordt je verhaal automatisch weer op privé gezet."
+    "lastModule": "Als je het laatste object verwijdert, wordt je verhaal automatisch weer op privé gezet.",
+    "needsTwoObjects" : "Je hebt minstens twee objecten nodig zodat de AI tekst voor je kan genereren."
   },
   "Details": {
     "explorer": "Ontdekken",
@@ -301,11 +308,13 @@
     "closeDetails": "Sluit details weergave",
     "previousDetailWIndow": "Vorige detailweergave" ,
     "shuffleTextView": "Meer of minder lezen",
-    "loading": "Laden"
+    "loading": "Laden",
+    "similarImagesInfo": "Deze afbeeldingen zijn automatisch herkend om je zoekresultaten te tonen die op elkaar lijken.",
+    "close": "Sluiten"
   },
   "ArtefactDetail": {
     "noTitle": "Geen titel",
-    "similarImages": "Visueel vergelijkbaar:",
+    "similarImages": "Visueel vergelijkbaar",
     "saveToStory": "Opslaan in verhaal",
     "readMore": "Lees meer",
     "readLess": "Lees minder",
@@ -332,7 +341,7 @@
     "loading": "Laden...",
     "addArtefact": "Object toevoegen",
     "loginToSave": "Log in om het object aan een verhaal toe te voegen.",
-    "login": "Nu inloggen",
+    "login": "Inloggen",
     "abort": "Annuleren",
     "save": "Opslaan",
     "editStory": "Verhaal bewerken",
@@ -341,13 +350,15 @@
     "couldNotAdd": "Kon niet worden toegevoegd aan verhaal",
     "notAdded": "niet toegevoegd",
     "tryLater": "Probeer het later opnieuw.",
-    "feedbackText": "Als u opmerkingen of vragen heeft over deze objectdataset, kunt u ons een bericht achterlaten. Het museum stelt uw commentaar op prijs.",
+    "feedbackText": "Help ons door de kwaliteit van de trefwoorden en automatische links te beoordelen.",
     "feedback": "KI Feedback",
     "sendFeedback": "Feedback verzenden",
     "addText": "Tekst toevoegen",
     "feedbackSent": "Feedback verzonden",
     "addToFavourites": "Toevoegen aan favorieten",
     "backToFavourites": "Terug naar favorieten",
+    "addedAsFavourite": "Het object is toegevoegd aan je favorieten.",
+    "removedFromFavourites": "Het object is verwijderd uit je favorieten.",
     "SimilarArtefact": "Zum ähnlichen Objek",
     "close": "Sluiten",
     "minimize": "Minimaliseer detailvenster",
@@ -355,7 +366,10 @@
     "closeEntity": "Entity-venster sluiten",
     "reset": "Herstellen",
     "seoTitle": "Objectdetails",
-    "description": "Hier vind je alle informatie over het object"
+    "description": "Hier vind je alle informatie over het object",
+    "tagsInfo": "Trefwoorden met dit pictogram werden automatisch gegenereerd door een algoritme voor entiteitherkenning.",
+    "similarImagesInfo": "Deze afbeeldingen zijn automatisch herkend om je zoekresultaten te tonen die op elkaar lijken.",
+    "aiGenerated": "Gegenereerd met kunstmatige intelligentie"
   },
   "Filter": {
     "filter": "Filter",
@@ -454,7 +468,7 @@
     "place": "Plaats",
     "next": "Volgende",
     "back": "Terug",
-    "success": "Je profiel is succesvol bijgewerkt. Je wordt binnen een seconde doorgestuurd naar de startpagina.",
+    "success": "Je profiel is succesvol bijgewerkt.",
     "error": "Sorry, er is een fout opgetreden bij het bijwerken van je profiel. Probeer het later opnieuw.",
     "jump":  "Ga gewoon naar de startpagina.",
     "close": "Sluiten",
@@ -466,7 +480,7 @@
   },
   "Favourites": {
     "loginPlease": "Log in om je favorieten te zien.",
-    "loginButton": "Nu inloggen",
+    "loginButton": "Inloggen",
     "noFavourites": "Je hebt nog geen favorieten.",
     "selectInCanvas": "Selecteer objecten in de collectie om ze aan je favorieten toe te voegen.",
     "toCanvas": "Naar de collectie",
@@ -478,7 +492,7 @@
     "addToFavourites": "Toevoegen aan favorieten",
     "close": "Sluiten",
     "seoTitle": "Favorieten",
-    "description": "Registreer en bewaar je favoriete objecten uit de digitale collecties van het Baden State Museum en het Allard Pierson Museum.",
+    "description": "Registreer en bewaar je favoriete objecten uit de digitale collecties van het Badisches Landesmuseum en Allard Pierson.",
     "keywords": "Favorieten, favoriete objecten, museumobjecten, museumcollectie"
   },
   "Profile": {
@@ -554,7 +568,10 @@
     "notLoggedIn": "Je bent nog niet ingelogd.",
     "close": "Sluiten",
     "storyWasReported": "Het verhaal is gemeld.",
-    "cannotBeViewed": "Dit verhaal kan niet in de presentatiemodus worden bekeken. De reden hiervoor zou kunnen zijn dat dit verhaal geen modules heeft."
+    "cannotBeViewed": "Dit verhaal kan niet in de presentatiemodus worden bekeken. De reden hiervoor zou kunnen zijn dat dit verhaal geen modules heeft.",
+    "errorPleaseTryLater": "Er is een fout opgetreden. Probeer het later nog eens.",
+    "createdWithAi": "Gemaakt in samenwerking met generatieve kunstmatige intelligentie"
+
   },
   "Impressum" : {
     "seoTitle": "Impressum",
@@ -563,20 +580,18 @@
     "responsible": "Verantwoordelijk in de zin van de perswet",
     "publisher": "Uitgever",
     "disclaimer": "Juridische informatie / disclaimer",
-    "disclaimer1": "Het Badisches Landesmuseum heeft alle informatie gecontroleerd informatie naar eer en geweten gecontroleerd. Vanwege het gebruik van AI-gegenereerde inhoud kan echter niet worden ingestaan voor de juistheid in alle gevallen. AI-gegenereerde inhoud is als zodanig gelabeld en moet grondig worden gecontroleerd. moet grondig worden gecontroleerd. Er kan geen garantie worden gegeven voor actualiteit, juistheid, volledigheid of kwaliteit en beschikbaarheid van de toepassing te allen tijde.",
-    "disclaimer2": "Het Badisches Landesmuseum is niet aansprakelijk voor schade die ontstaat verband met het gebruik of niet-gebruik van de informatie informatie op het internet. Aansprakelijkheid is ook uitgesloten Aansprakelijkheid is ook uitgesloten als er schade ontstaat bij het oproepen of downloaden van gegevens om welke reden dan ook.",
-    "disclaimer3": "Bovendien wordt geen aansprakelijkheid aanvaard voor de inhoud van externe links. Voor de inhoud van de gelinkte pagina's zijn uitsluitend de verantwoordelijkheid van hun exploitanten.",
-    "disclaimer4": "Alle rechten voorbehouden. Tenzij anders vermeld, zijn alle teksten, afbeeldingen, illustraties, documenten en bestanden bestanden auteursrechtelijk beschermd. Ze mogen niet gereproduceerd of gepubliceerd worden zonder uitdrukkelijke toestemming van het Badisches Landesmuseum. gepubliceerd zonder uitdrukkelijke toestemming van het Landesmuseum Baden." ,
-    "copyrightsText": "Het is hierbij uitdrukkelijk toegestaan om - met inachtneming van de onderstaande beperkingen - de teksten en de bijgevoegde documenten te kopiëren, af te drukken en te verspreiden. AI-gegenereerde inhoud is momenteel publiek domein (12/2023) en kan worden gebruikt onder een vrije licentie. Elke kopie (dit geldt ook voor uittreksels) moet worden gecrediteerd volgens de licenties van de datasets en verhalen. Fotocredits Tenzij anders vermeld, zijn alle foto's op deze website Badisches Landesmuseum en Allard Pierson Amsterdam. De licentie voor de afbeelding is te vinden in de dataset. Meer informatie Privacybeleid van het Badisches Landesmuseum Verklaring over toegankelijkheid van het Badisches Landesmuseum.",
+    "disclaimer1": "Het Badisches Landesmuseum heeft alle verstrekte informatie naar eer en geweten gecontroleerd. Door het gebruik van AI-gegenereerde inhoud kan echter niet in alle gevallen de juistheid worden gegarandeerd. AI-gegenereerde content is als zodanig gekenmerkt en dient in geval van twijfel grondig te worden gecontroleerd. Er kan geen garantie worden gegeven voor de actualiteit, juistheid, volledigheid of kwaliteit en beschikbaarheid van de toepassing op elk moment. Tenzij anders vermeld, vallen alle teksten, afbeeldingen, illustraties, documenten en bestanden onder het auteursrecht. Zonder uitdrukkelijke toestemming van het Badisches Landesmuseum mogen deze niet worden verveelvoudigd of openbaar gemaakt",
+    "copyrightsText": "In het geval van AI-gegenereerde inhoud op ons portaal is het over het algemeen toegestaan om de teksten en documenten die eraan zijn gekoppeld te kopiëren, af te drukken en te verspreiden. AI-gegenereerde inhoud zonder menselijke bijdrage valt momenteel onder het publieke domein (12/2023). Als ze echter auteursrechtelijk beschermd zijn, mogen ze worden gebruikt en gedistribueerd onder de vrije licentie die voor elk geval is gespecificeerd, met inachtneming van de voorwaarden.",
     "copyrights": "Auteursrechten",
     "contracted": "De federale regeringscommissaris voor Cultuur en Media",
     "supportedBy": "Ondersteund door:",
     "pictureCredits": "Plaatjes",
-    "pictureCreditsText": "Tenzij anders vermeld, zijn alle foto's op deze website Badisches Landesmuseum en Allard Pierson Amsterdam. De licentie voor de afbeelding staat in het gegevensrecord.",
+    "pictureCreditsText": "De licentie voor de foto staat in de gegevensrecord.",
     "moreInfos": "Nadere informatie",
-    "moreInfosText":"Privacybeleid van het Badisches Landesmuseum Verklaring over toegankelijkheid van het Badisches Landesmuseum.",
+    "moreInfosText-1": "Privacybeleid van het Landesmuseum Baden.",
+    "moreInfosText-2": "Verklaring over de toegankelijkheid van het Badisches Landesmuseum.",
     "dataSafty": "Functionaris voor gegevensbescherming",
-    "responsibleProduct": "Verantwoordelijke partijen",
+    "realisationTitle": "Realisatie",
     "supervision": "Projectbeheer",
     "cooperation": "Een samenwerking met Allard Pierson Amsterdam",
     "datalab": "Projectdocumentatie en deelnemers:",
@@ -623,7 +638,7 @@
     "availability": "Beschikbaarheid van xCurator",
     "availability-1": "Het Badisches Landesmuseum garandeert niet dat a) de website ononderbroken, tijdig of vrij van fouten zal zijn, b) de resultaten die kunnen worden verkregen uit het gebruik van de website nauwkeurig of betrouwbaar zullen zijn, c) de kwaliteit, nauwkeurigheid, tijdigheid, waarachtigheid, volledigheid of betrouwbaarheid van inhoud, producten, diensten, informatie of andere materialen die via de website zijn verkregen aan uw verwachtingen zullen voldoen, of d) eventuele fouten in de website of software zullen worden gecorrigeerd.",
     "dataPrivacy": "Gegevensbescherming",
-    "dataPrivacy-1": "Informatie over welke persoonlijke gegevens van u worden verwerkt, voor welke doeleinden, hoe lang, door wie en hoe deze worden verwerkt, evenals uw rechten, kunt u vinden in ons privacybeleid. U kunt het privacybeleid van het Badisches Landesmuseum vinden op www.landesmuseum.de/datenschutz ",
+    "dataPrivacy-1": "Informatie over welke persoonlijke gegevens van u worden verwerkt, voor welke doeleinden, hoe lang, door wie en hoe deze worden verwerkt, evenals uw rechten, kunt u vinden in ons privacybeleid. U kunt het privacybeleid van het Badisches Landesmuseum vinden op",
     "deleteProfil": "Verwijder het profiel, annulering, beëindiging van de service",
     "deleteProfil-1": "Je kunt je profiel verwijderen in het xCurator-profielgedeelte. Je gegevens worden dan permanent verwijderd. Dit omvat je naam, wachtwoord en gepersonaliseerde inhoud. Als je je profiel in xCurator verwijdert, worden je verhalen ook verwijderd.  Houd er echter rekening mee dat gepubliceerde verhalen die zijn vrijgegeven voor gebruik door het algemene publiek, kunnen worden hergebruikt door derden.",
     "deleteProfil-2": "Je registratie in het gebruikersaccount van het Badisches Landesmuseum blijft bewaard zodat je gebruik kunt blijven maken van andere aanbiedingen van het Landesmuseum. Voor het verwijderen en annuleren van je gebruikersaccount gelden de bepalingen van het bijbehorende privacybeleid.",
@@ -634,6 +649,25 @@
   },
   "Extra": {
     "notFound": "Pagina niet gevonden.",
-    "serverSideError" : "500 - Er heeft zich een server-side fout voorgedaan."
+    "serverSideError" : "500 - Er heeft zich een server-side fout voorgedaan.",
+    "backToXCurator": "Terug naar xCurator"
+  },
+  "Tutorials": {
+    "create": "Creëer",
+    "next": "Volgende",
+    "back": "Terug",
+    "close": "Sluiten",
+    "create-page-1":"Ontdek hier de verhalen van anderen en maak je eigen verhaal. Probeer het gewoon eens!",
+    "create-page-2-1": "Heb je gebrek aan ideeën? Gebruik AI voor inspiratie, maar benader AI-gegenereerde inhoud kritisch.",
+    "create-page-2-2": "Je kunt meer informatie vinden over AI-technologieën in de",
+    "create-page-3": "Je kunt zelf beslissen of je je verhaal wilt publiceren en met anderen wilt delen.",
+    "explore": "Ontdekken",
+    "explore-welcome": "Welkom bij xCurator",
+    "explore-page-1-1": "Je AI-ondersteunde co-piloot helpt je op je ontdekkingstocht door de collectie. Werk samen met xCurator en ontdek wat je samen kunt bereiken.",
+    "explore-page-1-2": "Hier krijg je een paar korte uitleg over hoe je met onze tool kunt werken.",
+    "explore-page-2-1": "Overal waar je dit symbool ziet",
+    "explore-page-2-2": ", is automatisch inhoud gegenereerd.",
+    "explore-page-2-3": "Het is mogelijk dat er fouten zijn ingeslopen. In dat geval kijken we uit naar uw feedback. Want het helpt ons om de AI-oplossingen te blijven trainen!",
+    "explore-page-3": "Til je zoekopdracht naar een nieuw niveau: gebruik filters om nieuwe dingen te ontdekken of maak onbekende verbanden met behulp van trefwoorden. Pas je museumtour aan op basis van je interesses."
   }
 }

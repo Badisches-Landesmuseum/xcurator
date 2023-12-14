@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Flex, Box, styled } from '@3pc/layout-components-react';
+import { Flex, Box, styled } from 'src/@3pc/layout-components-react';
 import { ArrowDownIcon, CloseIcon, DeleteIcon } from 'src/icons';
 import { GetStaticPropsContext } from 'next';
 import { Text } from 'src/components/Common/Text';

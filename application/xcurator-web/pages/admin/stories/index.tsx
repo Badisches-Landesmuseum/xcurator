@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { Box, Flex, Grid, Stack, styled } from '@3pc/layout-components-react';
+import {
+  Box,
+  Flex,
+  Grid,
+  Stack,
+  styled,
+} from 'src/@3pc/layout-components-react';
 import Link from 'next/link';
 import {
   ChevronIcon,
@@ -155,19 +161,26 @@ const Index = () => {
                       '@bp4': 10,
                     }}
                     css={{
+                      mt: '$4',
                       gridTemplateColumns:
                         'repeat(auto-fit, minmax(300px, 1fr))',
 
                       '@bp1': {
                         gridTemplateColumns:
-                          data?.reportedStories.length === 0
+                          data.reportedStories.length === 1
                             ? 'repeat(auto-fit, minmax(420px, 600px))'
                             : 'repeat(auto-fit, minmax(420px, 1fr))',
                       },
 
+                      '@bp2': {
+                        mt: '$7',
+                      },
+
                       '@bp4': {
                         gridTemplateColumns:
-                          'repeat(auto-fit, minmax(420px, 600px))',
+                          data.reportedStories.length < 3
+                            ? 'repeat(auto-fit, minmax(420px, 600px))'
+                            : undefined,
                       },
                     }}
                   >

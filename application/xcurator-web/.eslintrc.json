@@ -1,7 +1,7 @@
 {
   "parser": "@typescript-eslint/parser",
   "parserOptions": {},
-  "ignorePatterns": ["__ENV.js"],
+  "ignorePatterns": ["__ENV.js", "src/@3pc"],
   "plugins": ["@typescript-eslint", "prettier"],
   "extends": [
     "next/core-web-vitals",

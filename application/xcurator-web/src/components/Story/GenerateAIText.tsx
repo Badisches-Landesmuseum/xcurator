@@ -1,14 +1,13 @@
 import * as React from 'react';
-import { Box, Flex, styled } from '@3pc/layout-components-react';
+import { Box, Flex, styled } from 'src/@3pc/layout-components-react';
 import { useTranslations } from 'next-intl';
 import { ApolloError } from '@apollo/client';
-import { CloseIcon, KiIcon } from 'src/icons';
+import { KiIcon } from 'src/icons';
 import { Text } from 'src/components/Common/Text';
 import { Button } from 'src/components/Common/Button';
 import { DialogClose } from 'src/components/Common/Dialog';
 import { Orbit } from '@uiball/loaders';
 import { theme } from 'src/themes/theme';
-import { Textarea } from 'src/components/Common/Textarea';
 
 export const GenerateAIText = ({
   text,
@@ -16,16 +15,12 @@ export const GenerateAIText = ({
   error,
   refetch,
   insert,
-  input,
-  setInput,
 }: {
   text?: string | null;
   loading: boolean;
   error?: ApolloError;
   refetch: () => void;
   insert: (text: string) => void;
-  input?: string;
-  setInput?: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const translate = useTranslations('EditStory');
 
@@ -61,35 +56,6 @@ export const GenerateAIText = ({
           </Box>
         )}
       </Box>
-      {input !== undefined && setInput !== undefined ? (
-        <Box mt="4">
-          <Box as="label" htmlFor="input">
-            <Text>{translate('helpTheAi')}...</Text>
-          </Box>
-          <Box mt="3" css={{ position: 'relative' }}>
-            <Textarea
-              id="input"
-              value={input}
-              rows={3}
-              onChange={e => setInput(e.target.value)}
-              placeholder={translate('helpPlaceholder')}
-            />
-            {input ? (
-              <Box
-                css={{
-                  position: 'absolute',
-                  top: '75%',
-                  right: '2%',
-                  cursor: 'pointer',
-                }}
-                onClick={() => setInput('')}
-              >
-                <CloseIcon width="12px" height="12px" />
-              </Box>
-            ) : null}
-          </Box>
-        </Box>
-      ) : null}
       <Flex
         justifyContent="center"
         css={{
@@ -100,9 +66,7 @@ export const GenerateAIText = ({
           <Box css={{ mr: '6px' }}>
             <KiIcon aria-hidden="true" />
           </Box>
-          <Text>
-            {!input ? translate('generate') : translate('generateWithKeywords')}
-          </Text>
+          <Text>{translate('generate')}</Text>
         </GenerateButton>
       </Flex>
       <Box mt="5" css={{ borderTop: '2px solid', borderColor: '$black100' }} />
@@ -114,7 +78,9 @@ export const GenerateAIText = ({
         }}
       >
         <DialogClose asChild>
-          <AbortButton type="button">{translate('Cancel')}</AbortButton>
+          <Button variant="ghost" type="button">
+            {translate('Cancel')}
+          </Button>
         </DialogClose>
         <DialogClose asChild>
           <Button
@@ -155,22 +121,5 @@ const GenerateButton = styled('button', {
     color: '$black600',
     backgroundColor: '$black100',
     borderColor: '$black100',
-  },
-});
-
-const AbortButton = styled('button', {
-  all: 'unset',
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  color: '$blue',
-  backgroundColor: 'transparent',
-  p: '$2',
-  cursor: 'pointer',
-  border: '1px solid',
-  borderColor: 'transparent',
-  borderRadius: '$1',
-  '&:hover': {
-    borderColor: '$blue',
   },
 });

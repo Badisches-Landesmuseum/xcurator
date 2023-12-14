@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { Box, Flex, Grid, Stack, styled } from '@3pc/layout-components-react';
+import {
+  Box,
+  Flex,
+  Grid,
+  Stack,
+  styled,
+} from 'src/@3pc/layout-components-react';
 import { Text } from 'src/components/Common/Text';
 import Link from 'next/link';
 import { HEADER_HEIGHT } from 'src/components/Header/Header';
@@ -58,7 +64,7 @@ import {
   DialogTrigger,
 } from 'src/components/Common/Dialog';
 import { GenerateAIText } from 'src/components/Story/GenerateAIText';
-import formatImage, { imageLoader } from 'src/utils/formatImage';
+import { saveSizeImage } from 'src/utils/formatImage';
 import { useFlip } from 'src/utils/useFlip';
 
 export function EditChapter({
@@ -293,7 +299,7 @@ export function EditChapter({
                           alt={artefact.title}
                           fill={true}
                           sizes="(min-width: 435px) 193px, 105px"
-                          loader={imageLoader}
+                          loader={saveSizeImage(artefact.images[0])}
                         />
                       </Box>
                       {selected.length > 1 ? (
@@ -413,15 +419,7 @@ export function EditChapter({
                         <Flex justifyContent="flex-end">
                           <DialogClose asChild>
                             <Button
-                              variant="ghost-dark"
-                              css={{
-                                backgroundColor: 'transparent',
-                                border: 'none',
-                                '&:hover': {
-                                  color: '$blueDark',
-                                  backgroundColor: 'transparent',
-                                },
-                              }}
+                              variant="icon"
                               aria-label={translate('close')}
                             >
                               <CrossIcon
@@ -943,7 +941,6 @@ const GenerateText = ({
   artefactIds: string[];
   insert: (text: string) => void;
 }) => {
-  const [input, setInput] = React.useState('');
   const { data, loading, error, refetch } = useGenerateThoughtQuery({
     variables: {
       where: {
@@ -963,13 +960,10 @@ const GenerateText = ({
           where: {
             storyId,
             artefactIds,
-            userInput: input,
           },
         })
       }
       insert={insert}
-      input={input}
-      setInput={setInput}
     />
   );
 };
@@ -1051,7 +1045,7 @@ const Artefact = ({
             alt={artefact.title}
             sizes="250px"
             fill={true}
-            loader={imageLoader}
+            loader={saveSizeImage(artefact.images[0])}
           />
         </Box>
       </Box>
@@ -1147,10 +1141,11 @@ export const Detail = ({ artefact }: { artefact: ArtefactFragment }) => {
           }}
         >
           <Image
-            src={formatImage(artefact.images[0].url, 300)}
+            src={artefact.images[0].url}
             alt={artefact.title || ''}
             sizes="300px"
             fill={true}
+            loader={saveSizeImage(artefact.images[0])}
           />
         </Box>
       ) : null}

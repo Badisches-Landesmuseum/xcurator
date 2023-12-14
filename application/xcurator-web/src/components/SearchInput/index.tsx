@@ -1,4 +1,4 @@
-import { Box, Flex, styled } from '@3pc/layout-components-react';
+import { Box, Flex, styled } from 'src/@3pc/layout-components-react';
 import React, { forwardRef } from 'react';
 import { SearchIcon } from 'src/icons';
 

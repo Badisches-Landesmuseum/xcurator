@@ -5,7 +5,7 @@ import {
   Inline,
   keyframes,
   styled,
-} from '@3pc/layout-components-react';
+} from 'src/@3pc/layout-components-react';
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { useTranslations } from 'next-intl';
 import {
@@ -53,7 +53,7 @@ import { HEADER_HEIGHT } from 'src/components/Header/Header';
 import Image from 'next/image';
 import { useTagStore } from 'src/store/useTagStore';
 import { useRouter } from 'next/router';
-import { imageLoader } from 'src/utils/formatImage';
+import { saveSizeImage } from 'src/utils/formatImage';
 import Link from 'next/link';
 import { useHasHydrated } from 'src/utils/useHasHydrated';
 import { useProfile } from 'src/components/Context/ProfileContext';
@@ -62,6 +62,7 @@ import { useFilterStore } from 'src/store/useFilterStore';
 import { Orbit } from '@uiball/loaders';
 import Head from 'next/head';
 import { push } from '@socialgouv/matomo-next';
+import { TutorialDialog } from 'src/components/Canvas/Tutorial';
 
 const MinLengthForSuggestions = 3;
 
@@ -501,14 +502,12 @@ export default function Page({
                 minimize={minimizeDetail}
                 onInteractOutside={event => event.preventDefault()}
               >
-                <Box>
-                  <Box mt="5">
-                    <Detail
-                      minimizeDetail={minimizeDetail}
-                      setMinimizeDetail={setMinimizeDetail}
-                      artefactId={artefactId as string}
-                    />
-                  </Box>
+                <Box mt="5">
+                  <Detail
+                    artefactId={artefactId as string}
+                    minimizeDetail={minimizeDetail}
+                    setMinimizeDetail={setMinimizeDetail}
+                  />
                 </Box>
               </OverlayContent>
             </Overlay>
@@ -582,6 +581,7 @@ export default function Page({
             </Box>
           </ZoomButton>
         </Flex>
+        {hasHydrated ? <TutorialDialog /> : null}
       </Box>
     </>
   );
@@ -882,7 +882,9 @@ const GridWrapper = React.memo(function GridWrapper({
             href={
               gridItem.item.__typename === 'Artefact'
                 ? `/canvas/${gridItem.item.id}`
-                : `/presentation/${gridItem.item.title}/${gridItem.item.id}`
+                : `/presentation/${encodeURIComponent(gridItem.item.title)}/${
+                    gridItem.item.id
+                  }`
             }
             onClick={() => {
               if (gridItem.item.__typename === 'Story') return;
@@ -898,9 +900,10 @@ const GridWrapper = React.memo(function GridWrapper({
               <Artefact
                 artefact={gridItem.item}
                 isSelected={artefactId === (gridItem.item as Artefact).id}
+                zoom={zoom}
               />
             ) : gridItem.item.__typename === 'Story' ? (
-              <Story story={gridItem.item} />
+              <Story story={gridItem.item} zoom={zoom} />
             ) : null}
           </GridLink>
         );
@@ -912,9 +915,11 @@ const GridWrapper = React.memo(function GridWrapper({
 const Artefact = ({
   artefact,
   isSelected,
+  zoom,
 }: {
   artefact: ExploreArtefactFragment;
   isSelected: boolean;
+  zoom: number;
 }) => {
   const [loaded, setLoaded] = React.useState(false);
   const [error, setError] = React.useState(false);
@@ -954,9 +959,11 @@ const Artefact = ({
         <Image
           src={artefact.images[0].url}
           fill={true}
-          sizes="(min-width: 1170px) 100px, 75px"
+          sizes={`(min-width: 1170px) ${Math.round(zoom * 100)}px, ${Math.round(
+            zoom * 100
+          )}px`}
           alt={artefact.title}
-          loader={imageLoader}
+          loader={saveSizeImage(artefact.images[0])}
           onLoadingComplete={() => {
             setLoaded(true);
             setError(false);
@@ -998,7 +1005,13 @@ const Artefact = ({
   );
 };
 
-const Story = ({ story }: { story: ExploreStoryFragment }) => {
+const Story = ({
+  story,
+  zoom,
+}: {
+  story: ExploreStoryFragment;
+  zoom: number;
+}) => {
   const [loaded, setLoaded] = React.useState(false);
   const [error, setError] = React.useState(false);
   return (
@@ -1031,9 +1044,11 @@ const Story = ({ story }: { story: ExploreStoryFragment }) => {
             <Image
               src={story.previewImage.url}
               fill={true}
-              sizes="(min-width: 1170px) 125px, 75px"
+              sizes={`(min-width: 1170px) ${Math.round(
+                zoom * 125
+              )}px, ${Math.round(zoom * 75)}px`}
               alt={story.title}
-              loader={imageLoader}
+              loader={saveSizeImage(story.previewImage)}
               onLoadingComplete={() => {
                 setLoaded(true);
                 setError(false);

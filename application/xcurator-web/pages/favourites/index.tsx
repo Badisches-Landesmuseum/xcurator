@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Flex, styled } from '@3pc/layout-components-react';
+import { Box, Flex, styled } from 'src/@3pc/layout-components-react';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { Text } from 'src/components/Common/Text';
 import { GetStaticPropsContext } from 'next';
@@ -22,7 +22,7 @@ import {
 } from 'src/components/Common/Toast';
 import { Button } from 'src/components/Common/Button';
 import Image from 'next/image';
-import { imageLoader } from 'src/utils/formatImage';
+import { saveSizeImage } from 'src/utils/formatImage';
 import { Overlay, OverlayContent } from 'src/components/Common/Overlay';
 import { useState } from 'react';
 import Head from 'next/head';
@@ -171,7 +171,7 @@ export default function Page() {
                             (300 / artefact.images[0].width) *
                             artefact.images[0].height
                           }
-                          loader={imageLoader}
+                          loader={saveSizeImage(artefact.images[0])}
                         />
                       </Box>
                       <Text

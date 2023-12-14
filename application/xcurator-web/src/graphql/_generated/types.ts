@@ -788,6 +788,7 @@ export type Mutation = {
   updateStory: Story;
   updateStoryNotification: Notification;
   updateUserProfile?: Maybe<UserProfile>;
+  verifyEntity: NamedEntity;
 };
 
 
@@ -952,6 +953,11 @@ export type MutationUpdateUserProfileArgs = {
   update: UpdateUserProfileInput;
 };
 
+
+export type MutationVerifyEntityArgs = {
+  where: VerifyEntityInput;
+};
+
 export type NamedEntity = {
   __typename?: 'NamedEntity';
   endPosition: Scalars['Int']['output'];
@@ -1050,7 +1056,10 @@ export type Notification = {
   story: Story;
 };
 
-/**  Relay */
+/**
+ * Spec: https://www.graphql-scalars.dev/docs/scalars/local-date
+ * Relay
+ */
 export type PageInfo = {
   __typename?: 'PageInfo';
   endCursor?: Maybe<Scalars['String']['output']>;
@@ -1255,7 +1264,6 @@ export enum SearchTagType {
   Technique = 'TECHNIQUE'
 }
 
-/**  Spec: https://www.graphql-scalars.dev/docs/scalars/local-date */
 export enum SortDirection {
   Asc = 'ASC',
   Desc = 'DESC'
@@ -1512,6 +1520,16 @@ export type UserUniqueInput = {
   sub: Scalars['ID']['input'];
 };
 
+export type VerifyEntityInput = {
+  /** xCurator Identifier */
+  artefactId: Scalars['String']['input'];
+  artefactProperty: Scalars['String']['input'];
+  entityEndPosition: Scalars['Int']['input'];
+  entityStartPosition: Scalars['Int']['input'];
+  isCorrect: Scalars['Boolean']['input'];
+  language: Language;
+};
+
 export enum VisitorRole {
   Curator = 'CURATOR',
   Other = 'OTHER',
@@ -1534,6 +1552,8 @@ export enum VisitorWish {
   Research = 'RESEARCH',
   Work = 'WORK'
 }
+
+export type ImageFragment = { __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } };
 
 export type MeFragment = { __typename?: 'User', sub: string, preferred_username?: string | null, name?: string | null, email?: string | null, roles?: Array<string | null> | null };
 
@@ -1580,14 +1600,14 @@ export type CreateModuleMutationVariables = Exact<{
 }>;
 
 
-export type CreateModuleMutation = { __typename?: 'Mutation', createModule: { __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> }> } };
+export type CreateModuleMutation = { __typename?: 'Mutation', createModule: { __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> }> } };
 
 export type CreateStoryMutationVariables = Exact<{
   create: StoryInput;
 }>;
 
 
-export type CreateStoryMutation = { __typename?: 'Mutation', createStory: { __typename?: 'Story', id: string, title: string, introduction?: string | null, conclusion?: string | null, rating?: number | null, language: Language, isPublished: boolean, myRating?: number | null, licence: LicenceType, author: { __typename?: 'User', username: string, sub: string }, previewImage?: { __typename?: 'Image', url: string } | null, modules?: Array<{ __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> }> }> | null, artefactBasket?: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> } | null> | null } };
+export type CreateStoryMutation = { __typename?: 'Mutation', createStory: { __typename?: 'Story', id: string, title: string, introduction?: string | null, conclusion?: string | null, rating?: number | null, language: Language, isPublished: boolean, myRating?: number | null, licence: LicenceType, author: { __typename?: 'User', username: string, sub: string }, previewImage?: { __typename?: 'Image', url: string, width: number, height: number } | null, modules?: Array<{ __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> }> }> | null, artefactBasket?: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> } | null> | null } };
 
 export type DeleteArtefactFromFavouriteMutationVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -1642,7 +1662,7 @@ export type PublishStoryMutationVariables = Exact<{
 }>;
 
 
-export type PublishStoryMutation = { __typename?: 'Mutation', publishStory: { __typename?: 'Story', id: string, title: string, introduction?: string | null, conclusion?: string | null, rating?: number | null, language: Language, isPublished: boolean, myRating?: number | null, licence: LicenceType, author: { __typename?: 'User', username: string, sub: string }, previewImage?: { __typename?: 'Image', url: string } | null, modules?: Array<{ __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> }> }> | null, artefactBasket?: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> } | null> | null } };
+export type PublishStoryMutation = { __typename?: 'Mutation', publishStory: { __typename?: 'Story', id: string, title: string, introduction?: string | null, conclusion?: string | null, rating?: number | null, language: Language, isPublished: boolean, myRating?: number | null, licence: LicenceType, author: { __typename?: 'User', username: string, sub: string }, previewImage?: { __typename?: 'Image', url: string, width: number, height: number } | null, modules?: Array<{ __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> }> }> | null, artefactBasket?: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> } | null> | null } };
 
 export type RateStoryMutationVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -1699,7 +1719,7 @@ export type UnpublishStoryMutationVariables = Exact<{
 }>;
 
 
-export type UnpublishStoryMutation = { __typename?: 'Mutation', unpublishStory: { __typename?: 'Story', id: string, title: string, introduction?: string | null, conclusion?: string | null, rating?: number | null, language: Language, isPublished: boolean, myRating?: number | null, licence: LicenceType, author: { __typename?: 'User', username: string, sub: string }, previewImage?: { __typename?: 'Image', url: string } | null, modules?: Array<{ __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> }> }> | null, artefactBasket?: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> } | null> | null } };
+export type UnpublishStoryMutation = { __typename?: 'Mutation', unpublishStory: { __typename?: 'Story', id: string, title: string, introduction?: string | null, conclusion?: string | null, rating?: number | null, language: Language, isPublished: boolean, myRating?: number | null, licence: LicenceType, author: { __typename?: 'User', username: string, sub: string }, previewImage?: { __typename?: 'Image', url: string, width: number, height: number } | null, modules?: Array<{ __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> }> }> | null, artefactBasket?: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> } | null> | null } };
 
 export type UpdateArtefactNotificationMutationVariables = Exact<{
   update: UpdateArtefactNotificationInput;
@@ -1713,14 +1733,14 @@ export type UpdateModuleMutationVariables = Exact<{
 }>;
 
 
-export type UpdateModuleMutation = { __typename?: 'Mutation', updateModule: { __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> }> } };
+export type UpdateModuleMutation = { __typename?: 'Mutation', updateModule: { __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> }> } };
 
 export type UpdateStoryMutationVariables = Exact<{
   update: UpdateStoryInput;
 }>;
 
 
-export type UpdateStoryMutation = { __typename?: 'Mutation', updateStory: { __typename?: 'Story', id: string, title: string, introduction?: string | null, conclusion?: string | null, rating?: number | null, language: Language, isPublished: boolean, myRating?: number | null, licence: LicenceType, author: { __typename?: 'User', username: string, sub: string }, previewImage?: { __typename?: 'Image', url: string } | null, modules?: Array<{ __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> }> }> | null, artefactBasket?: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> } | null> | null } };
+export type UpdateStoryMutation = { __typename?: 'Mutation', updateStory: { __typename?: 'Story', id: string, title: string, introduction?: string | null, conclusion?: string | null, rating?: number | null, language: Language, isPublished: boolean, myRating?: number | null, licence: LicenceType, author: { __typename?: 'User', username: string, sub: string }, previewImage?: { __typename?: 'Image', url: string, width: number, height: number } | null, modules?: Array<{ __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> }> }> | null, artefactBasket?: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> } | null> | null } };
 
 export type UpdateStoryNotificationMutationVariables = Exact<{
   update: UpdateStoryNotificationInput;
@@ -1742,6 +1762,18 @@ export type UpdateUserProfileMutationVariables = Exact<{
 
 export type UpdateUserProfileMutation = { __typename?: 'Mutation', updateUserProfile?: { __typename?: 'UserProfile', preferredLanguage: Language, continents: Array<Continent>, epochs: Array<ProfileEpoch>, visitorRole?: VisitorRole | null, visitorTarget?: VisitorTarget | null, visitorWish?: VisitorWish | null } | null };
 
+export type VerifyEntityMutationVariables = Exact<{
+  artefactId: Scalars['String']['input'];
+  artefactProperty: Scalars['String']['input'];
+  entityEndPosition: Scalars['Int']['input'];
+  entityStartPosition: Scalars['Int']['input'];
+  isCorrect: Scalars['Boolean']['input'];
+  language: Language;
+}>;
+
+
+export type VerifyEntityMutation = { __typename?: 'Mutation', verifyEntity: { __typename?: 'NamedEntity', endPosition: number, literal: string, property: string, startPosition: number, type: string, linkedData: Array<{ __typename?: 'LinkedDataBySource', source: LinkedDataSource, link: { __typename?: 'LinkedData', id: string, url: string } }> } };
+
 export type GetArtefactQueryVariables = Exact<{
   where: ArtefactUniqueInput;
 }>;
@@ -1749,7 +1781,7 @@ export type GetArtefactQueryVariables = Exact<{
 
 export type GetArtefactQuery = { __typename?: 'Query', artefact: { __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, materials: Array<string>, techniques: Array<string>, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }>, dateRange?: { __typename?: 'DateRange', start?: any | null, end?: any | null, literal?: string | null } | null, persons: Array<{ __typename?: 'Person', name: string }>, sourceInfo: { __typename?: 'DataSource', language: Language, collection: string, owner: string, id: string, url?: string | null }, entities: Array<{ __typename?: 'NamedEntity', literal: string, startPosition: number, endPosition: number, type: string, property: string, linkedData: Array<{ __typename?: 'LinkedDataBySource', source: LinkedDataSource, link: { __typename?: 'LinkedData', url: string, id: string } }> }>, locations: Array<{ __typename?: 'Location', countryName?: string | null, lat?: number | null, lon?: number | null, name: string }> } };
 
-export type ArtefactFragment = { __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> };
+export type ArtefactFragment = { __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> };
 
 export type EntityFragment = { __typename?: 'NamedEntity', literal: string, startPosition: number, endPosition: number, type: string, property: string, linkedData: Array<{ __typename?: 'LinkedDataBySource', source: LinkedDataSource, link: { __typename?: 'LinkedData', id: string, url: string } }> };
 
@@ -1771,15 +1803,15 @@ export type SearchExploreQueryVariables = Exact<{
 }>;
 
 
-export type SearchExploreQuery = { __typename?: 'Query', searchExplore: { __typename?: 'ExploreSearchResult', queryString: string, items: Array<{ __typename?: 'ExploreGridItem', size: { __typename?: 'ExploreItemSize', width: number, height: number }, item: { __typename: 'Artefact', id: string, title: string, images: Array<{ __typename?: 'Image', url: string }> } | { __typename: 'Story', id: string, title: string, previewImage?: { __typename?: 'Image', url: string } | null } }>, gridInfo: { __typename?: 'GridInfo', rows: number, columns: number }, bestMatch?: { __typename?: 'ExploreGridItem', size: { __typename?: 'ExploreItemSize', width: number, height: number }, item: { __typename: 'Artefact', id: string, title: string, images: Array<{ __typename?: 'Image', url: string }> } | { __typename: 'Story', id: string, title: string, previewImage?: { __typename?: 'Image', url: string } | null } } | null, facette: { __typename?: 'ExploreFacette', colorFacette: Array<{ __typename?: 'ColorFacette', color: ArtefactColor, count: number }>, epochFacette: Array<{ __typename?: 'EpochFacette', epoch: ArtefactEpoch, count: number }>, materialFacette: Array<{ __typename?: 'MaterialFacette', material: Material, count: number }>, sourceFacette: Array<{ __typename?: 'SourceFacette', count: number, owner: ArtefactSourceOwner }>, locationFacette: Array<{ __typename?: 'ContinentFacette', continent: Continent, totalCount: number, countries?: Array<{ __typename?: 'CountryFacette', name: string, count: number }> | null }> } } };
+export type SearchExploreQuery = { __typename?: 'Query', searchExplore: { __typename?: 'ExploreSearchResult', queryString: string, items: Array<{ __typename?: 'ExploreGridItem', size: { __typename?: 'ExploreItemSize', width: number, height: number }, item: { __typename: 'Artefact', id: string, title: string, images: Array<{ __typename?: 'Image', width: number, height: number, url: string }> } | { __typename: 'Story', id: string, title: string, previewImage?: { __typename?: 'Image', url: string, width: number, height: number } | null } }>, gridInfo: { __typename?: 'GridInfo', rows: number, columns: number }, bestMatch?: { __typename?: 'ExploreGridItem', size: { __typename?: 'ExploreItemSize', width: number, height: number }, item: { __typename: 'Artefact', id: string, title: string, images: Array<{ __typename?: 'Image', width: number, height: number, url: string }> } | { __typename: 'Story', id: string, title: string, previewImage?: { __typename?: 'Image', url: string, width: number, height: number } | null } } | null, facette: { __typename?: 'ExploreFacette', colorFacette: Array<{ __typename?: 'ColorFacette', color: ArtefactColor, count: number }>, epochFacette: Array<{ __typename?: 'EpochFacette', epoch: ArtefactEpoch, count: number }>, materialFacette: Array<{ __typename?: 'MaterialFacette', material: Material, count: number }>, sourceFacette: Array<{ __typename?: 'SourceFacette', count: number, owner: ArtefactSourceOwner }>, locationFacette: Array<{ __typename?: 'ContinentFacette', continent: Continent, totalCount: number, countries?: Array<{ __typename?: 'CountryFacette', name: string, count: number }> | null }> } } };
 
-export type ExploreSearchResultFragment = { __typename?: 'ExploreSearchResult', queryString: string, items: Array<{ __typename?: 'ExploreGridItem', size: { __typename?: 'ExploreItemSize', width: number, height: number }, item: { __typename: 'Artefact', id: string, title: string, images: Array<{ __typename?: 'Image', url: string }> } | { __typename: 'Story', id: string, title: string, previewImage?: { __typename?: 'Image', url: string } | null } }>, gridInfo: { __typename?: 'GridInfo', rows: number, columns: number }, bestMatch?: { __typename?: 'ExploreGridItem', size: { __typename?: 'ExploreItemSize', width: number, height: number }, item: { __typename: 'Artefact', id: string, title: string, images: Array<{ __typename?: 'Image', url: string }> } | { __typename: 'Story', id: string, title: string, previewImage?: { __typename?: 'Image', url: string } | null } } | null, facette: { __typename?: 'ExploreFacette', colorFacette: Array<{ __typename?: 'ColorFacette', color: ArtefactColor, count: number }>, epochFacette: Array<{ __typename?: 'EpochFacette', epoch: ArtefactEpoch, count: number }>, materialFacette: Array<{ __typename?: 'MaterialFacette', material: Material, count: number }>, sourceFacette: Array<{ __typename?: 'SourceFacette', count: number, owner: ArtefactSourceOwner }>, locationFacette: Array<{ __typename?: 'ContinentFacette', continent: Continent, totalCount: number, countries?: Array<{ __typename?: 'CountryFacette', name: string, count: number }> | null }> } };
+export type ExploreSearchResultFragment = { __typename?: 'ExploreSearchResult', queryString: string, items: Array<{ __typename?: 'ExploreGridItem', size: { __typename?: 'ExploreItemSize', width: number, height: number }, item: { __typename: 'Artefact', id: string, title: string, images: Array<{ __typename?: 'Image', width: number, height: number, url: string }> } | { __typename: 'Story', id: string, title: string, previewImage?: { __typename?: 'Image', url: string, width: number, height: number } | null } }>, gridInfo: { __typename?: 'GridInfo', rows: number, columns: number }, bestMatch?: { __typename?: 'ExploreGridItem', size: { __typename?: 'ExploreItemSize', width: number, height: number }, item: { __typename: 'Artefact', id: string, title: string, images: Array<{ __typename?: 'Image', width: number, height: number, url: string }> } | { __typename: 'Story', id: string, title: string, previewImage?: { __typename?: 'Image', url: string, width: number, height: number } | null } } | null, facette: { __typename?: 'ExploreFacette', colorFacette: Array<{ __typename?: 'ColorFacette', color: ArtefactColor, count: number }>, epochFacette: Array<{ __typename?: 'EpochFacette', epoch: ArtefactEpoch, count: number }>, materialFacette: Array<{ __typename?: 'MaterialFacette', material: Material, count: number }>, sourceFacette: Array<{ __typename?: 'SourceFacette', count: number, owner: ArtefactSourceOwner }>, locationFacette: Array<{ __typename?: 'ContinentFacette', continent: Continent, totalCount: number, countries?: Array<{ __typename?: 'CountryFacette', name: string, count: number }> | null }> } };
 
-export type ExploreGridItemFragment = { __typename?: 'ExploreGridItem', size: { __typename?: 'ExploreItemSize', width: number, height: number }, item: { __typename: 'Artefact', id: string, title: string, images: Array<{ __typename?: 'Image', url: string }> } | { __typename: 'Story', id: string, title: string, previewImage?: { __typename?: 'Image', url: string } | null } };
+export type ExploreGridItemFragment = { __typename?: 'ExploreGridItem', size: { __typename?: 'ExploreItemSize', width: number, height: number }, item: { __typename: 'Artefact', id: string, title: string, images: Array<{ __typename?: 'Image', width: number, height: number, url: string }> } | { __typename: 'Story', id: string, title: string, previewImage?: { __typename?: 'Image', url: string, width: number, height: number } | null } };
 
-export type ExploreArtefactFragment = { __typename?: 'Artefact', id: string, title: string, images: Array<{ __typename?: 'Image', url: string }> };
+export type ExploreArtefactFragment = { __typename?: 'Artefact', id: string, title: string, images: Array<{ __typename?: 'Image', width: number, height: number, url: string }> };
 
-export type ExploreStoryFragment = { __typename?: 'Story', id: string, title: string, previewImage?: { __typename?: 'Image', url: string } | null };
+export type ExploreStoryFragment = { __typename?: 'Story', id: string, title: string, previewImage?: { __typename?: 'Image', url: string, width: number, height: number } | null };
 
 export type ExportProfileMutationVariables = Exact<{
   where: UserUniqueInput;
@@ -1791,7 +1823,7 @@ export type ExportProfileMutation = { __typename?: 'Mutation', exportProfile: st
 export type FavoritesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FavoritesQuery = { __typename?: 'Query', profile?: { __typename?: 'UserProfile', favorites: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> }> } | null };
+export type FavoritesQuery = { __typename?: 'Query', profile?: { __typename?: 'UserProfile', favorites: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> }> } | null };
 
 export type GenerateConclusionQueryVariables = Exact<{
   where: StoryConclusionGenerateInput;
@@ -1827,21 +1859,21 @@ export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', sub: s
 export type MyFavouritesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MyFavouritesQuery = { __typename?: 'Query', myFavourites: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> }> };
+export type MyFavouritesQuery = { __typename?: 'Query', myFavourites: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> }> };
 
 export type MyStoriesQueryVariables = Exact<{
   language: Language;
 }>;
 
 
-export type MyStoriesQuery = { __typename?: 'Query', myStories: Array<{ __typename?: 'Story', id: string, title: string, introduction?: string | null, conclusion?: string | null, rating?: number | null, language: Language, isPublished: boolean, myRating?: number | null, licence: LicenceType, author: { __typename?: 'User', username: string, sub: string }, previewImage?: { __typename?: 'Image', url: string } | null, modules?: Array<{ __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> }> }> | null, artefactBasket?: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> } | null> | null }> };
+export type MyStoriesQuery = { __typename?: 'Query', myStories: Array<{ __typename?: 'Story', id: string, title: string, introduction?: string | null, conclusion?: string | null, rating?: number | null, language: Language, isPublished: boolean, myRating?: number | null, licence: LicenceType, author: { __typename?: 'User', username: string, sub: string }, previewImage?: { __typename?: 'Image', url: string, width: number, height: number } | null, modules?: Array<{ __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> }> }> | null, artefactBasket?: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> } | null> | null }> };
 
 export type ProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ProfileQuery = { __typename?: 'Query', profile?: { __typename?: 'UserProfile', epochs: Array<ProfileEpoch>, continents: Array<Continent>, visitorRole?: VisitorRole | null, visitorWish?: VisitorWish | null, visitorTarget?: VisitorTarget | null, preferredLanguage: Language, favorites: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> }> } | null };
+export type ProfileQuery = { __typename?: 'Query', profile?: { __typename?: 'UserProfile', epochs: Array<ProfileEpoch>, continents: Array<Continent>, visitorRole?: VisitorRole | null, visitorWish?: VisitorWish | null, visitorTarget?: VisitorTarget | null, preferredLanguage: Language, favorites: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> }> } | null };
 
-export type ProfileFragment = { __typename?: 'UserProfile', epochs: Array<ProfileEpoch>, continents: Array<Continent>, visitorRole?: VisitorRole | null, visitorWish?: VisitorWish | null, visitorTarget?: VisitorTarget | null, preferredLanguage: Language, favorites: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> }> };
+export type ProfileFragment = { __typename?: 'UserProfile', epochs: Array<ProfileEpoch>, continents: Array<Continent>, visitorRole?: VisitorRole | null, visitorWish?: VisitorWish | null, visitorTarget?: VisitorTarget | null, preferredLanguage: Language, favorites: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> }> };
 
 export type RandomStringQueryVariables = Exact<{
   where: LanguageInput;
@@ -1856,21 +1888,21 @@ export type ReportedArtefactQueryVariables = Exact<{
 }>;
 
 
-export type ReportedArtefactQuery = { __typename?: 'Query', reportedArtefact: { __typename?: 'ArtefactNotification', id: string, message: string, isRead: boolean, artefact: { __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, materials: Array<string>, techniques: Array<string>, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }>, dateRange?: { __typename?: 'DateRange', start?: any | null, end?: any | null, literal?: string | null } | null, persons: Array<{ __typename?: 'Person', name: string }>, sourceInfo: { __typename?: 'DataSource', language: Language, collection: string, owner: string, id: string, url?: string | null }, entities: Array<{ __typename?: 'NamedEntity', literal: string, startPosition: number, endPosition: number, type: string, property: string, linkedData: Array<{ __typename?: 'LinkedDataBySource', source: LinkedDataSource, link: { __typename?: 'LinkedData', url: string, id: string } }> }>, locations: Array<{ __typename?: 'Location', countryName?: string | null, lat?: number | null, lon?: number | null, name: string }> } } };
+export type ReportedArtefactQuery = { __typename?: 'Query', reportedArtefact: { __typename?: 'ArtefactNotification', id: string, message: string, isRead: boolean, artefact: { __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> } } };
 
 export type ReportedArtefactsQueryVariables = Exact<{
   language: Language;
 }>;
 
 
-export type ReportedArtefactsQuery = { __typename?: 'Query', reportedArtefacts: Array<{ __typename?: 'ArtefactNotification', id: string, message: string, isRead: boolean, artefact: { __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> } }> };
+export type ReportedArtefactsQuery = { __typename?: 'Query', reportedArtefacts: Array<{ __typename?: 'ArtefactNotification', id: string, message: string, isRead: boolean, artefact: { __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> } }> };
 
 export type ReportedStoriesQueryVariables = Exact<{
   language: Language;
 }>;
 
 
-export type ReportedStoriesQuery = { __typename?: 'Query', reportedStories: Array<{ __typename?: 'Notification', id: string, isRead: boolean, story: { __typename?: 'Story', id: string, title: string, introduction?: string | null, conclusion?: string | null, rating?: number | null, language: Language, isPublished: boolean, myRating?: number | null, licence: LicenceType, author: { __typename?: 'User', username: string, sub: string }, previewImage?: { __typename?: 'Image', url: string } | null, modules?: Array<{ __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> }> }> | null, artefactBasket?: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> } | null> | null } }> };
+export type ReportedStoriesQuery = { __typename?: 'Query', reportedStories: Array<{ __typename?: 'Notification', id: string, isRead: boolean, story: { __typename?: 'Story', id: string, title: string, introduction?: string | null, conclusion?: string | null, rating?: number | null, language: Language, isPublished: boolean, myRating?: number | null, licence: LicenceType, author: { __typename?: 'User', username: string, sub: string }, previewImage?: { __typename?: 'Image', url: string, width: number, height: number } | null, modules?: Array<{ __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> }> }> | null, artefactBasket?: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> } | null> | null } }> };
 
 export type ReportedStoryQueryVariables = Exact<{
   where: StoryNotificationUniqueInput;
@@ -1878,7 +1910,7 @@ export type ReportedStoryQueryVariables = Exact<{
 }>;
 
 
-export type ReportedStoryQuery = { __typename?: 'Query', reportedStory: { __typename?: 'Notification', id: string, story: { __typename?: 'Story', id: string, title: string, introduction?: string | null, conclusion?: string | null, rating?: number | null, language: Language, isPublished: boolean, myRating?: number | null, licence: LicenceType, author: { __typename?: 'User', username: string, sub: string }, previewImage?: { __typename?: 'Image', url: string } | null, modules?: Array<{ __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> }> }> | null, artefactBasket?: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> } | null> | null } } };
+export type ReportedStoryQuery = { __typename?: 'Query', reportedStory: { __typename?: 'Notification', id: string, story: { __typename?: 'Story', id: string, title: string, introduction?: string | null, conclusion?: string | null, rating?: number | null, language: Language, isPublished: boolean, myRating?: number | null, licence: LicenceType, author: { __typename?: 'User', username: string, sub: string }, previewImage?: { __typename?: 'Image', url: string, width: number, height: number } | null, modules?: Array<{ __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> }> }> | null, artefactBasket?: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> } | null> | null } } };
 
 export type SetConclusionMutationVariables = Exact<{
   where: StoryConclusionInput;
@@ -1900,7 +1932,7 @@ export type GetSimilarArtefactsQueryVariables = Exact<{
 }>;
 
 
-export type GetSimilarArtefactsQuery = { __typename?: 'Query', searchSimilarArtefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> }> };
+export type GetSimilarArtefactsQuery = { __typename?: 'Query', searchSimilarArtefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> }> };
 
 export type StoriesQueryVariables = Exact<{
   language: Language;
@@ -1908,18 +1940,20 @@ export type StoriesQueryVariables = Exact<{
 }>;
 
 
-export type StoriesQuery = { __typename?: 'Query', stories: Array<{ __typename?: 'Story', id: string, title: string, introduction?: string | null, conclusion?: string | null, rating?: number | null, language: Language, isPublished: boolean, myRating?: number | null, licence: LicenceType, author: { __typename?: 'User', username: string, sub: string }, previewImage?: { __typename?: 'Image', url: string } | null, modules?: Array<{ __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> }> }> | null, artefactBasket?: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> } | null> | null }> };
+export type StoriesQuery = { __typename?: 'Query', stories: Array<{ __typename?: 'Story', id: string, title: string, introduction?: string | null, conclusion?: string | null, rating?: number | null, language: Language, isPublished: boolean, myRating?: number | null, licence: LicenceType, author: { __typename?: 'User', username: string, sub: string }, previewImage?: { __typename?: 'Image', url: string, width: number, height: number } | null, modules?: Array<{ __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> }> }> | null, artefactBasket?: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> } | null> | null }> };
 
 export type StoryQueryVariables = Exact<{
   where: StoryUniqueInput;
 }>;
 
 
-export type StoryQuery = { __typename?: 'Query', story?: { __typename?: 'Story', id: string, title: string, introduction?: string | null, conclusion?: string | null, rating?: number | null, language: Language, isPublished: boolean, myRating?: number | null, licence: LicenceType, author: { __typename?: 'User', username: string, sub: string }, previewImage?: { __typename?: 'Image', url: string } | null, modules?: Array<{ __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> }> }> | null, artefactBasket?: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> } | null> | null } | null };
+export type StoryQuery = { __typename?: 'Query', story?: { __typename?: 'Story', id: string, title: string, introduction?: string | null, conclusion?: string | null, rating?: number | null, language: Language, isPublished: boolean, myRating?: number | null, licence: LicenceType, author: { __typename?: 'User', username: string, sub: string }, previewImage?: { __typename?: 'Image', url: string, width: number, height: number } | null, modules?: Array<{ __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> }> }> | null, artefactBasket?: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> } | null> | null } | null };
 
-export type StoryFragment = { __typename?: 'Story', id: string, title: string, introduction?: string | null, conclusion?: string | null, rating?: number | null, language: Language, isPublished: boolean, myRating?: number | null, licence: LicenceType, author: { __typename?: 'User', username: string, sub: string }, previewImage?: { __typename?: 'Image', url: string } | null, modules?: Array<{ __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> }> }> | null, artefactBasket?: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> } | null> | null };
+export type StoryFragment = { __typename?: 'Story', id: string, title: string, introduction?: string | null, conclusion?: string | null, rating?: number | null, language: Language, isPublished: boolean, myRating?: number | null, licence: LicenceType, author: { __typename?: 'User', username: string, sub: string }, previewImage?: { __typename?: 'Image', url: string, width: number, height: number } | null, modules?: Array<{ __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> }> }> | null, artefactBasket?: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> } | null> | null };
 
-export type ModuleFragment = { __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> }> };
+export type ModuleFragment = { __typename?: 'StoryTextModule', id: string, thought?: string | null, index: number, artefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> }> };
+
+export type PreviewImageFragment = { __typename?: 'Image', url: string, width: number, height: number };
 
 export type SuggestArtefactsQueryVariables = Exact<{
   take: Scalars['Int']['input'];
@@ -1927,7 +1961,7 @@ export type SuggestArtefactsQueryVariables = Exact<{
 }>;
 
 
-export type SuggestArtefactsQuery = { __typename?: 'Query', suggestRelatedArtefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, sourceInfo: { __typename?: 'DataSource', url?: string | null }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }> }> };
+export type SuggestArtefactsQuery = { __typename?: 'Query', suggestRelatedArtefacts: Array<{ __typename?: 'Artefact', id: string, title: string, description?: string | null, keywords: Array<string>, sourceInfo: { __typename?: 'DataSource', url?: string | null, language: Language }, images: Array<{ __typename?: 'Image', url: string, width: number, height: number, licence: { __typename?: 'Licence', name: string, url: string } }>, dateRange?: { __typename?: 'DateRange', literal?: string | null } | null, locations: Array<{ __typename?: 'Location', name: string }>, persons: Array<{ __typename?: 'Person', name: string }>, tags: Array<{ __typename?: 'SearchTag', isUsingAI: boolean, type: SearchTagType, literal: string }> }> };
 
 export type SuggestExploreQueryVariables = Exact<{
   where: SuggestExploreInput;
@@ -1941,6 +1975,17 @@ export type ThoughtTemplateQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ThoughtTemplateQuery = { __typename?: 'Query', thoughtTemplate: { __typename?: 'LLMTemplate', systemTemplate: string, userTemplate: string } };
 
+export const ImageFragmentDoc = gql`
+    fragment Image on Image {
+  url
+  width
+  height
+  licence {
+    name
+    url
+  }
+}
+    `;
 export const MeFragmentDoc = gql`
     fragment Me on User {
   sub
@@ -1988,6 +2033,8 @@ export const ExploreArtefactFragmentDoc = gql`
   id
   title
   images {
+    width
+    height
     url
   }
 }
@@ -1998,6 +2045,8 @@ export const ExploreStoryFragmentDoc = gql`
   title
   previewImage {
     url
+    width
+    height
   }
 }
     `;
@@ -2065,8 +2114,10 @@ export const ArtefactFragmentDoc = gql`
   id
   title
   description
+  keywords
   sourceInfo {
     url
+    language
   }
   images {
     url
@@ -2086,6 +2137,11 @@ export const ArtefactFragmentDoc = gql`
   persons {
     name
   }
+  tags {
+    isUsingAI
+    type
+    literal
+  }
 }
     `;
 export const ProfileFragmentDoc = gql`
@@ -2101,6 +2157,13 @@ export const ProfileFragmentDoc = gql`
   }
 }
     ${ArtefactFragmentDoc}`;
+export const PreviewImageFragmentDoc = gql`
+    fragment PreviewImage on Image {
+  url
+  width
+  height
+}
+    `;
 export const ModuleFragmentDoc = gql`
     fragment Module on StoryTextModule {
   id
@@ -2126,7 +2189,7 @@ export const StoryFragmentDoc = gql`
     sub
   }
   previewImage {
-    url
+    ...PreviewImage
   }
   modules {
     ...Module
@@ -2136,7 +2199,8 @@ export const StoryFragmentDoc = gql`
   }
   licence
 }
-    ${ModuleFragmentDoc}
+    ${PreviewImageFragmentDoc}
+${ModuleFragmentDoc}
 ${ArtefactFragmentDoc}`;
 export const AddArtefactToBasketDocument = gql`
     mutation AddArtefactToBasket($create: AddArtefactInput!) {
@@ -3048,18 +3112,63 @@ export function useUpdateUserProfileMutation(baseOptions?: Apollo.MutationHookOp
 export type UpdateUserProfileMutationHookResult = ReturnType<typeof useUpdateUserProfileMutation>;
 export type UpdateUserProfileMutationResult = Apollo.MutationResult<UpdateUserProfileMutation>;
 export type UpdateUserProfileMutationOptions = Apollo.BaseMutationOptions<UpdateUserProfileMutation, UpdateUserProfileMutationVariables>;
+export const VerifyEntityDocument = gql`
+    mutation verifyEntity($artefactId: String!, $artefactProperty: String!, $entityEndPosition: Int!, $entityStartPosition: Int!, $isCorrect: Boolean!, $language: Language!) {
+  verifyEntity(
+    where: {artefactId: $artefactId, artefactProperty: $artefactProperty, entityEndPosition: $entityEndPosition, entityStartPosition: $entityStartPosition, isCorrect: $isCorrect, language: $language}
+  ) {
+    endPosition
+    linkedData {
+      link {
+        id
+        url
+      }
+      source
+    }
+    literal
+    property
+    startPosition
+    type
+  }
+}
+    `;
+export type VerifyEntityMutationFn = Apollo.MutationFunction<VerifyEntityMutation, VerifyEntityMutationVariables>;
+
+/**
+ * __useVerifyEntityMutation__
+ *
+ * To run a mutation, you first call `useVerifyEntityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVerifyEntityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [verifyEntityMutation, { data, loading, error }] = useVerifyEntityMutation({
+ *   variables: {
+ *      artefactId: // value for 'artefactId'
+ *      artefactProperty: // value for 'artefactProperty'
+ *      entityEndPosition: // value for 'entityEndPosition'
+ *      entityStartPosition: // value for 'entityStartPosition'
+ *      isCorrect: // value for 'isCorrect'
+ *      language: // value for 'language'
+ *   },
+ * });
+ */
+export function useVerifyEntityMutation(baseOptions?: Apollo.MutationHookOptions<VerifyEntityMutation, VerifyEntityMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<VerifyEntityMutation, VerifyEntityMutationVariables>(VerifyEntityDocument, options);
+      }
+export type VerifyEntityMutationHookResult = ReturnType<typeof useVerifyEntityMutation>;
+export type VerifyEntityMutationResult = Apollo.MutationResult<VerifyEntityMutation>;
+export type VerifyEntityMutationOptions = Apollo.BaseMutationOptions<VerifyEntityMutation, VerifyEntityMutationVariables>;
 export const GetArtefactDocument = gql`
     query GetArtefact($where: ArtefactUniqueInput!) {
   artefact(where: $where) {
     id
     images {
-      url
-      width
-      height
-      licence {
-        name
-        url
-      }
+      ...Image
     }
     tags {
       isUsingAI
@@ -3104,7 +3213,8 @@ export const GetArtefactDocument = gql`
     }
   }
 }
-    ${EntityFragmentDoc}`;
+    ${ImageFragmentDoc}
+${EntityFragmentDoc}`;
 
 /**
  * __useGetArtefactQuery__
@@ -3616,64 +3726,14 @@ export const ReportedArtefactDocument = gql`
     query ReportedArtefact($where: ArtefactNotificationUniqueInput!, $language: Language!) {
   reportedArtefact(where: $where, language: $language) {
     artefact {
-      id
-      images {
-        url
-        width
-        height
-        licence {
-          name
-          url
-        }
-      }
-      tags {
-        isUsingAI
-        type
-        literal
-      }
-      title
-      dateRange {
-        start
-        end
-        literal
-      }
-      description
-      keywords
-      persons {
-        name
-      }
-      sourceInfo {
-        language
-        collection
-        owner
-        id
-        url
-      }
-      entities {
-        ...Entity
-      }
-      materials
-      techniques
-      locations {
-        countryName
-        lat
-        lon
-        name
-      }
-      entities {
-        linkedData {
-          link {
-            url
-          }
-        }
-      }
+      ...Artefact
     }
     id
     message
     isRead
   }
 }
-    ${EntityFragmentDoc}`;
+    ${ArtefactFragmentDoc}`;
 
 /**
  * __useReportedArtefactQuery__
@@ -4158,11 +4218,13 @@ export const namedOperations = {
     UpdateStory: 'UpdateStory',
     UpdateStoryNotification: 'UpdateStoryNotification',
     updateUserProfile: 'updateUserProfile',
+    verifyEntity: 'verifyEntity',
     ExportProfile: 'ExportProfile',
     SetConclusion: 'SetConclusion',
     SetIntroduction: 'SetIntroduction'
   },
   Fragment: {
+    Image: 'Image',
     Me: 'Me',
     MeError: 'MeError',
     MeResponse: 'MeResponse',
@@ -4174,6 +4236,7 @@ export const namedOperations = {
     ExploreStory: 'ExploreStory',
     Profile: 'Profile',
     Story: 'Story',
-    Module: 'Module'
+    Module: 'Module',
+    PreviewImage: 'PreviewImage'
   }
 }

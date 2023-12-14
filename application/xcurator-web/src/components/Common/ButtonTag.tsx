@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { Flex, styled, VariantProps } from '@3pc/layout-components-react';
+import { Flex, styled, VariantProps } from 'src/@3pc/layout-components-react';
 import { Text } from './Text';
 import { CrossIcon, KiIcon } from 'src/icons';
 

@@ -1,7 +1,12 @@
 import React from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { DialogContentProps } from '@radix-ui/react-dialog';
-import { VariantProps, styled, keyframes } from '@3pc/layout-components-react';
+import {
+  VariantProps,
+  styled,
+  keyframes,
+} from 'src/@3pc/layout-components-react';
+import { darkTheme } from 'src/themes/theme';
 
 const overlayShow = keyframes({
   '0%': { opacity: 0 },
@@ -25,7 +30,8 @@ const StyledOverlay = styled(DialogPrimitive.Overlay, {
 });
 
 const StyledContent = styled(DialogPrimitive.Content, {
-  zIndex: 10,
+  zIndex: 11,
+  overflowY: 'auto',
   backgroundColor: 'white',
   borderRadius: '19px',
   boxShadow:
@@ -48,6 +54,11 @@ const StyledContent = styled(DialogPrimitive.Content, {
     padding: '40px',
   },
 
+  [`.${darkTheme} &`]: {
+    color: '$white',
+    backgroundColor: '#00198A',
+  },
+
   variants: {
     small: {
       true: {
@@ -55,15 +66,6 @@ const StyledContent = styled(DialogPrimitive.Content, {
         height: 'fit-content',
         maxHeight: '85vh',
         padding: 0,
-      },
-    },
-    dark: {
-      true: {
-        backgroundColor: '#00198A',
-        padding: '30px',
-        color: '$white',
-        boxShadow:
-          'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
       },
     },
   },

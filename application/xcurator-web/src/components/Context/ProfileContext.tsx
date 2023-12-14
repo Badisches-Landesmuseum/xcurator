@@ -75,7 +75,15 @@ export const ProfileContextProvider = ({
         refetchQueries: [namedOperations.Query.Profile],
       });
     }
-  }, [isLoggedIn, router, loading, data?.profile, updateProfile, username]);
+  }, [
+    isLoggedIn,
+    router,
+    loading,
+    data?.profile,
+    updateProfile,
+    username,
+    language,
+  ]);
 
   return (
     <Profile.Provider

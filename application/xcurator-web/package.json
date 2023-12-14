@@ -20,7 +20,6 @@
     "lint:fix": "eslint src --fix"
   },
   "dependencies": {
-    "@3pc/layout-components-react": "1.0.1",
     "@apollo/client": "3.8.4",
     "@capsizecss/core": "3.1.1",
     "@dnd-kit/core": "6.0.8",
@@ -35,6 +34,7 @@
     "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/react-icons": "1.3.0",
     "@radix-ui/react-popover": "1.0.7",
+    "@radix-ui/react-progress": "^1.0.3",
     "@radix-ui/react-radio-group": "^1.1.3",
     "@radix-ui/react-select": "^1.2.2",
     "@radix-ui/react-tabs": "1.0.4",
@@ -42,6 +42,7 @@
     "@radix-ui/react-toggle-group": "1.0.4",
     "@smastrom/react-rating": "^1.3.2",
     "@socialgouv/matomo-next": "^1.8.0",
+    "@stitches/react": "^1.2.8",
     "@tanstack/react-query": "4.35.3",
     "@types/react-router-dom": "5.3.3",
     "@uiball/loaders": "^1.3.0",
@@ -57,6 +58,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-intersection-observer": "9.5.2",
+    "react-keyed-flatten-children": "^3.0.0",
     "react-minimal-pie-chart": "^8.4.0",
     "react-multi-carousel": "2.8.4",
     "react-responsive-masonry": "2.1.7",

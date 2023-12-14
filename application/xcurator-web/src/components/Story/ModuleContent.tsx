@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Flex, Stack, styled } from '@3pc/layout-components-react';
+import { Box, Flex, Stack, styled } from 'src/@3pc/layout-components-react';
 import Image from 'next/image';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
@@ -8,6 +8,7 @@ import { GetServerSidePropsContext } from 'next';
 import { Text } from 'src/components/Common/Text';
 import { useTranslations } from 'next-intl';
 import { ArtefactFragment } from 'src/graphql/_generated/types';
+import { saveSizeImage } from 'src/utils/formatImage';
 
 const responsive = {
   mobile: {
@@ -87,6 +88,7 @@ export default function ModuleContent({
                   src={artefact.images[0].url}
                   alt={artefact.title}
                   fill={true}
+                  loader={saveSizeImage(artefact.images[0])}
                   draggable="false"
                 />
               </Box>
@@ -97,8 +99,10 @@ export default function ModuleContent({
       <Box mt="3">
         <ArtefactText
           key={index}
-          title={artefacts[index].title}
-          description={artefacts[index].description}
+          title={artefacts.length > index ? artefacts[index].title : ''}
+          description={
+            artefacts.length > index ? artefacts[index].description : ''
+          }
         />
       </Box>
     </>
@@ -129,6 +133,7 @@ export default function ModuleContent({
               alt={artefact.title}
               fill={true}
               draggable="false"
+              loader={saveSizeImage(artefact.images[0])}
             />
           </Box>
           <Flex

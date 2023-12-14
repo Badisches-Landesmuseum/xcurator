@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { GetStaticPropsContext } from 'next';
 import { useAuth } from 'src/components/Context/AuthContext';
-import { Box, Flex, Stack, styled } from '@3pc/layout-components-react';
+import { Box, Flex, Stack, styled } from 'src/@3pc/layout-components-react';
 import { Text } from 'src/components/Common/Text';
 import { Button } from 'src/components/Common/Button';
 import { useTranslations } from 'next-intl';
 import { HEADER_HEIGHT } from 'src/components/Header/Header';
 import Link from 'next/link';
-import { CheckIcon, ChevronIcon, CrossIcon } from 'src/icons';
+import { AlertIcon, CheckIcon, ChevronIcon, CrossIcon } from 'src/icons';
 import * as Tabs from '@radix-ui/react-tabs';
 import { Textarea } from 'src/components/Common/Textarea';
 import {
@@ -42,6 +42,7 @@ const Page = () => {
   const [storyConclusionKeywordsExist, setStoryConclusionKeywordsExist] =
     React.useState(false);
   const [templateUpdated, setTemplateUpdated] = React.useState(false);
+  const [templateUpdateError, setTemplateUpdateError] = React.useState(false);
   const [setModuleThoughtPrompt] = useSetModuleThoughtPromptMutation();
   const [setStoryIntroductionPrompt] =
     useSetStoryIntroductionTemplateMutation();
@@ -93,9 +94,7 @@ const Page = () => {
       objectUserTemplate &&
       objectSystemTemplate &&
       (objectUserTemplate + objectSystemTemplate).includes('<LANGUAGE>') &&
-      (objectUserTemplate + objectSystemTemplate).includes('<DATA>') &&
-      objectUserTemplate.includes('<USER_INPUT>') &&
-      objectSystemTemplate.includes('<USER_INPUT>')
+      (objectUserTemplate + objectSystemTemplate).includes('<DATA>')
     );
   }, [objectUserTemplate, objectSystemTemplate]);
 
@@ -309,13 +308,6 @@ const Page = () => {
                             </Text>
                           </StyledListItem>
                           <StyledListItem>
-                            <Text css={{ mt: '$3' }}>
-                              {translate.rich('userInput', {
-                                important: chunks => <strong>{chunks}</strong>,
-                              })}
-                            </Text>
-                          </StyledListItem>
-                          <StyledListItem>
                             <Flex
                               flexDirection="column"
                               gap="4"
@@ -329,13 +321,11 @@ const Page = () => {
                               >
                                 <Text>
                                   System Template: Given {'<DATA>'}: Please use
-                                  only this input as source and give me{' '}
-                                  {'<USER_INPUT>'} back.
+                                  only this input as source.
                                 </Text>
                                 <Text>
                                   User Template: What is this artefact made of?
-                                  Please use {'<USER_INPUT>'} and answer in the
-                                  language {'<LANGUAGE>'}
+                                  Please answer in the language {'<LANGUAGE>'}
                                 </Text>
                               </Flex>
                             </Flex>
@@ -453,6 +443,9 @@ const Page = () => {
                                             },
                                             onCompleted: () => {
                                               setTemplateUpdated(true);
+                                            },
+                                            onError: () => {
+                                              setTemplateUpdateError(true);
                                             },
                                           })
                                         }
@@ -627,6 +620,9 @@ const Page = () => {
                                             onCompleted: () => {
                                               setTemplateUpdated(true);
                                             },
+                                            onError: () => {
+                                              setTemplateUpdateError(true);
+                                            },
                                           })
                                         }
                                       >
@@ -748,6 +744,9 @@ const Page = () => {
                                             onCompleted: () => {
                                               setTemplateUpdated(true);
                                             },
+                                            onError: () => {
+                                              setTemplateUpdateError(true);
+                                            },
                                           })
                                         }
                                       >
@@ -779,6 +778,36 @@ const Page = () => {
                         <CheckIcon />
                       </Flex>
                       {translate('templateUpdated')}
+                    </Flex>
+                  </ToastDescription>
+                  <Box css={{ pt: '6px', flexShrink: 0 }}>
+                    <ToastAction asChild altText="Close">
+                      <Button variant="ghost-blue">
+                        <Flex css={{ display: 'inline-flex' }}>
+                          <CrossIcon />
+                        </Flex>
+                      </Button>
+                    </ToastAction>
+                  </Box>
+                </Flex>
+              </Toast>
+              <Toast
+                open={templateUpdateError}
+                onOpenChange={setTemplateUpdateError}
+              >
+                <Flex justifyContent="space-between">
+                  <ToastDescription>
+                    <Flex css={{ mt: '$3' }}>
+                      <Flex
+                        css={{
+                          display: 'inline-flex',
+                          pt: '2px',
+                          flexShrink: 0,
+                        }}
+                      >
+                        <AlertIcon />
+                      </Flex>
+                      {translate('templateUpdateError')}
                     </Flex>
                   </ToastDescription>
                   <Box css={{ pt: '6px', flexShrink: 0 }}>

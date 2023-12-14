@@ -1,6 +1,6 @@
 import React from 'react';
 import { PieChart } from 'react-minimal-pie-chart';
-import { Box } from '@3pc/layout-components-react';
+import { Box } from 'src/@3pc/layout-components-react';
 import { GetStaticPropsContext } from 'next';
 import { useTranslations } from 'next-intl';
 import { useFilterStore } from 'src/store/useFilterStore';

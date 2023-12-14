@@ -1,6 +1,6 @@
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import * as React from 'react';
-import { keyframes, styled } from '@3pc/layout-components-react';
+import { keyframes, styled } from 'src/@3pc/layout-components-react';
 import { ChevronDownIcon } from 'src/icons';
 import { AccordionTriggerProps } from '@radix-ui/react-accordion';
 

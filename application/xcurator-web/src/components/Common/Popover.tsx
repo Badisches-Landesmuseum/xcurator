@@ -1,4 +1,4 @@
-import { styled, keyframes } from '@3pc/layout-components-react';
+import { styled, keyframes } from 'src/@3pc/layout-components-react';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 import { forwardRef } from 'react';
 
@@ -90,3 +90,5 @@ export const Popover = PopoverPrimitive.Root;
 export const PopoverTrigger = PopoverPrimitive.Trigger;
 export const PopoverContent = Content;
 export const PopoverClose = PopoverPrimitive.Close;
+
+export const PopoverAnchor = PopoverPrimitive.Anchor;

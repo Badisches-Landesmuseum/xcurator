@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Flex, Grid } from '@3pc/layout-components-react';
+import { Box, Flex, Grid } from 'src/@3pc/layout-components-react';
 import Link from 'next/link';
 import { NextPageWithLayout } from 'pages/_app';
 import { Text } from 'src/components/Common/Text';
@@ -21,7 +21,7 @@ import { useRouter } from 'next/router';
 import { localeToLanguage } from 'src/utils/useLanguage';
 import { Orbit } from '@uiball/loaders';
 import { colors } from 'src/themes/theme';
-import { imageLoader } from 'src/utils/formatImage';
+import { saveSizeImage } from 'src/utils/formatImage';
 import Head from 'next/head';
 
 const SORT_OPTIONS = [
@@ -242,7 +242,7 @@ const All: NextPageWithLayout = () => {
                           alt={story.title ?? ''}
                           fill={true}
                           sizes="20vw"
-                          loader={imageLoader}
+                          loader={saveSizeImage(story.previewImage)}
                         />
                       </Box>
                     ) : null}

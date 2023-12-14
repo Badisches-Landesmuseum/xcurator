@@ -1,4 +1,4 @@
-import { Box, Stack, styled } from '@3pc/layout-components-react';
+import { Box, Stack, styled } from 'src/@3pc/layout-components-react';
 import { Text } from 'src/components/Common/Text';
 import { useTranslations } from 'next-intl';
 import { Line } from 'src/components/Common/Line';
@@ -12,6 +12,7 @@ import {
 } from 'src/components/Common/Accordion';
 import Head from 'next/head';
 import * as React from 'react';
+import { KiIcon } from 'src/icons';
 
 export default function Page() {
   const translate = useTranslations('About');
@@ -61,13 +62,19 @@ export default function Page() {
                 <Box as="ul">
                   {translate.rich('Data.text', {
                     li: chunk => <StyledListItem>{chunk}</StyledListItem>,
-                    usageLink: chunk => (
-                      <StyledLinkItem target="_blank" href="#">
+                    termsLink: chunk => (
+                      <StyledLinkItem
+                        target="_blank"
+                        href="https://xcurator.landesmuseum.de/terms-of-use"
+                      >
                         {chunk}
                       </StyledLinkItem>
                     ),
-                    dataProtectionLink: chunk => (
-                      <StyledLinkItem target="_blank" href="#">
+                    privacyLink: chunk => (
+                      <StyledLinkItem
+                        target="_blank"
+                        href="https://www.landesmuseum.de/datenschutz"
+                      >
                         {chunk}
                       </StyledLinkItem>
                     ),
@@ -82,6 +89,30 @@ export default function Page() {
                 <Box as="ul">
                   {translate.rich('WhatIsAI.text', {
                     li: chunk => <StyledListItem>{chunk}</StyledListItem>,
+                    ideaLink: chunk => (
+                      <StyledLinkItem
+                        target="_blank"
+                        href="https://de.wikipedia.org/wiki/Ada_Lovelace"
+                      >
+                        {chunk}
+                      </StyledLinkItem>
+                    ),
+                    learningLink: chunk => (
+                      <StyledLinkItem
+                        target="_blank"
+                        href="https://ki-campus.org/"
+                      >
+                        {chunk}
+                      </StyledLinkItem>
+                    ),
+                    readMore: chunk => (
+                      <StyledLinkItem
+                        target="_blank"
+                        href="https://ki-campus.org/"
+                      >
+                        {chunk}
+                      </StyledLinkItem>
+                    ),
                   })}
                 </Box>
               </AccordionContent>
@@ -94,7 +125,10 @@ export default function Page() {
                   {translate.rich('WhyAI.text', {
                     li: chunk => <StyledListItem>{chunk}</StyledListItem>,
                     dataLabLink: chunk => (
-                      <StyledLinkItem target="_blank" href="#">
+                      <StyledLinkItem
+                        target="_blank"
+                        href="https://datalab.landesmuseum.de/"
+                      >
                         {chunk}
                       </StyledLinkItem>
                     ),
@@ -109,6 +143,11 @@ export default function Page() {
                 <Box as="ul">
                   {translate.rich('WhereAI.text', {
                     li: chunk => <StyledListItem>{chunk}</StyledListItem>,
+                    imageLiSmall: () => (
+                      <StyledSpan>
+                        <KiIcon color="#C500D7" width="20px" height="30px" />
+                      </StyledSpan>
+                    ),
                   })}
                 </Box>
               </AccordionContent>
@@ -120,18 +159,18 @@ export default function Page() {
                 <Box as="ul" display="flex" css={{ flexDirection: 'column' }}>
                   {translate.rich('WhichAI.text', {
                     li: chunk => <StyledListItem>{chunk}</StyledListItem>,
-                    naturalLanguageLink: chunk => (
+                    gitLink: chunk => (
                       <StyledLinkItem
                         target="_blank"
-                        href="https://en.wikipedia.org/wiki/Computational_linguistics"
+                        href="https://github.com/Badisches-Landesmuseum/xcurator"
                       >
                         {chunk}
                       </StyledLinkItem>
                     ),
-                    relLink: chunk => (
+                    elasticSimilarLink: chunk => (
                       <StyledLinkItem
                         target="_blank"
-                        href="https://github.com/informagi/REL"
+                        href="https://www.elastic.co/guide/en/elasticsearch/reference/current/similarity.html"
                       >
                         {chunk}
                       </StyledLinkItem>
@@ -140,14 +179,6 @@ export default function Page() {
                       <StyledLinkItem
                         target="_blank"
                         href="https://flairnlp.github.io/docs/tutorial-basics/entity-linking"
-                      >
-                        {chunk}
-                      </StyledLinkItem>
-                    ),
-                    elasticSearch: chunk => (
-                      <StyledLinkItem
-                        target="_blank"
-                        href="https://www.elastic.co/guide/en/elasticsearch/reference/current/similarity.html"
                       >
                         {chunk}
                       </StyledLinkItem>
@@ -192,10 +223,26 @@ export default function Page() {
                         {chunk}
                       </StyledLinkItem>
                     ),
+                    elasticSearchRelation: chunk => (
+                      <StyledLinkItem
+                        target="_blank"
+                        href="https://www.elastic.co/blog/managing-relations-inside-elasticsearch"
+                      >
+                        {chunk}
+                      </StyledLinkItem>
+                    ),
                     elasticSearchGithub: chunk => (
                       <StyledLinkItem
                         target="_blank"
                         href="https://github.com/elastic/elasticsearch-py"
+                      >
+                        {chunk}
+                      </StyledLinkItem>
+                    ),
+                    entiyLinker: chunk => (
+                      <StyledLinkItem
+                        target="_blank"
+                        href="https://github.com/informagi/REL"
                       >
                         {chunk}
                       </StyledLinkItem>
@@ -208,17 +255,38 @@ export default function Page() {
                         {chunk}
                       </StyledLinkItem>
                     ),
-                  })}
-                </Box>
-              </AccordionContent>
-              <Line width="100%" color="blue200" />
-            </AccordionItem>
-            <AccordionItem value="DetectAI">
-              <AccordionTrigger>{translate('DetectAI.title')}</AccordionTrigger>
-              <AccordionContent>
-                <Box as="ul">
-                  {translate.rich('DetectAI.text', {
-                    li: chunk => <StyledListItem>{chunk}</StyledListItem>,
+                    pixSolution: chunk => (
+                      <StyledLinkItem
+                        target="_blank"
+                        href="https://github.com/pixolution/embeddings-grid"
+                      >
+                        {chunk}
+                      </StyledLinkItem>
+                    ),
+                    qualityTest: chunk => (
+                      <StyledLinkItem
+                        target="_blank"
+                        href="https://ravius.sbb.berlin/sbb-tools/index.html?ppn=756689090&model_id=precomputed&el_model_id=precomputed&task=ner"
+                      >
+                        {chunk}
+                      </StyledLinkItem>
+                    ),
+                    gitDocs: chunk => (
+                      <StyledLinkItem
+                        target="_blank"
+                        href="https://github.com/Badisches-Landesmuseum/xcurator"
+                      >
+                        {chunk}
+                      </StyledLinkItem>
+                    ),
+                    dataLabLink: chunk => (
+                      <StyledLinkItem
+                        target="_blank"
+                        href="https://datalab.landesmuseum.de/"
+                      >
+                        {chunk}
+                      </StyledLinkItem>
+                    ),
                   })}
                 </Box>
               </AccordionContent>
@@ -287,6 +355,22 @@ export default function Page() {
                 <Box as="ul">
                   {translate.rich('WithoutAI.text', {
                     li: chunk => <StyledListItem>{chunk}</StyledListItem>,
+                    museumLink: chunk => (
+                      <StyledLinkItem
+                        target="_blank"
+                        href="https://www.landesmuseum.de/museum"
+                      >
+                        {chunk}
+                      </StyledLinkItem>
+                    ),
+                    digitalLink: chunk => (
+                      <StyledLinkItem
+                        target="_blank"
+                        href="https://www.landesmuseum.de/digital"
+                      >
+                        {chunk}
+                      </StyledLinkItem>
+                    ),
                   })}
                 </Box>
               </AccordionContent>
@@ -298,6 +382,14 @@ export default function Page() {
                 <Box as="ul">
                   {translate.rich('HowToUse.text', {
                     li: chunk => <StyledListItem>{chunk}</StyledListItem>,
+                    recommendation: chunk => (
+                      <StyledLinkItem
+                        target="_blank"
+                        href="https://www.landesmuseum.de/kulturvermittlung/schulen-kinder-und-jugendgruppen"
+                      >
+                        {chunk}
+                      </StyledLinkItem>
+                    ),
                   })}
                 </Box>
               </AccordionContent>
@@ -311,19 +403,14 @@ export default function Page() {
                 <Box as="ul">
                   {translate.rich('HowToHelp.text', {
                     li: chunk => <StyledListItem>{chunk}</StyledListItem>,
-                  })}
-                </Box>
-              </AccordionContent>
-              <Line width="100%" color="blue200" />
-            </AccordionItem>
-            <AccordionItem value="InfoButtons">
-              <AccordionTrigger>
-                {translate('InfoButtons.title')}
-              </AccordionTrigger>
-              <AccordionContent>
-                <Box as="ul">
-                  {translate.rich('InfoButtons.text', {
-                    li: chunk => <StyledListItem>{chunk}</StyledListItem>,
+                    codeLink: chunk => (
+                      <StyledLinkItem
+                        target="_blank"
+                        href="https://github.com/Badisches-Landesmuseum/xcurator"
+                      >
+                        {chunk}
+                      </StyledLinkItem>
+                    ),
                   })}
                 </Box>
               </AccordionContent>
@@ -348,12 +435,16 @@ const StyledLinkItem = styled('a', {
   },
 });
 
+const StyledSpan = styled('span', {
+  mx: '$1',
+});
+
 const StyledListItem = styled('li', {
-  display: 'inline-flex',
   marginBottom: '$3',
   px: '$5',
   fontSize: '18px',
   lineHeight: '1.4',
+  listStyle: 'none',
   '&::before': {
     content: '"•"',
     marginRight: '$3',

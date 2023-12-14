@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Flex, Stack } from '@3pc/layout-components-react';
+import { Box, Flex, Stack } from 'src/@3pc/layout-components-react';
 import { GetStaticPropsContext } from 'next';
 import { useTranslations } from 'next-intl';
 import { Text } from 'src/components/Common/Text';

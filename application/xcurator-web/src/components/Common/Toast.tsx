@@ -1,4 +1,4 @@
-import { styled, keyframes } from '@3pc/layout-components-react';
+import { styled, keyframes } from 'src/@3pc/layout-components-react';
 import * as ToastPrimitive from '@radix-ui/react-toast';
 
 const VIEWPORT_PADDING = 25;

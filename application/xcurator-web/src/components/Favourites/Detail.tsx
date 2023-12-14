@@ -6,7 +6,7 @@ import {
   Inline,
   Stack,
   styled,
-} from '@3pc/layout-components-react';
+} from 'src/@3pc/layout-components-react';
 import {
   HeartIcon,
   ChevronDownIcon,
@@ -66,7 +66,7 @@ import { InfoCircledIcon } from '@radix-ui/react-icons';
 import { GetServerSidePropsContext } from 'next';
 import { Orbit } from '@uiball/loaders';
 import { Textarea } from '../Common/Textarea';
-import { imageLoader } from 'src/utils/formatImage';
+import { saveSizeImage } from 'src/utils/formatImage';
 import { useProfile } from '../Context/ProfileContext';
 
 const DESCRIPTION_HEIGHT = 65;
@@ -117,16 +117,7 @@ const Detail = ({
   const [descriptionExpanded, setDescriptionExpanded] = React.useState(false);
   const [similarExpanded, setSimilarExpanded] = React.useState(false);
   const [informationExpanded, setInformationExpanded] = React.useState(false);
-  const [showEntity, setShowEntity] = React.useState(false);
 
-  const [entity, setEntity] = React.useState<EntityProps>({
-    language: language,
-    wikipediaId: '',
-    wikipediaUrl: '',
-    wikiDataId: '',
-    wikiDataUrl: '',
-    gndUrl: '',
-  });
   const descriptionRef = React.useRef<HTMLDivElement>(null);
   const [isDescriptionOverflowing, setIsDescriptionOverflowing] =
     React.useState(false);
@@ -157,17 +148,7 @@ const Detail = ({
     return () => resizeObserver.unobserve(document.documentElement);
   }, []);
 
-  const description = React.useMemo(
-    () =>
-      data?.artefact?.entities?.length &&
-      data?.artefact.entities.some(entity => entity.property === 'description')
-        ? enrichMarkupWithEntities(
-            data?.artefact?.description,
-            data?.artefact?.entities || []
-          )
-        : data?.artefact.description,
-    [data]
-  );
+  const [entity, setEntity] = React.useState<EntityProps | undefined>();
 
   const title = React.useMemo(
     () =>
@@ -182,43 +163,45 @@ const Detail = ({
     [data]
   );
 
+  const description = React.useMemo(() => {
+    const entities = data?.artefact.entities ?? [];
+    const hasEntities = entities.length > 0;
+    return hasEntities
+      ? enrichMarkupWithEntities(data?.artefact.description, entities)
+      : data?.artefact.description;
+  }, [data?.artefact]);
   React.useEffect(() => {
     const handleWikiData = (event: CustomEvent<EntityDetails>) => {
-      const array = event.detail.items.split(',').map(item => item.split(' '));
+      const entity = {
+        artefactID: artefactId,
+        language,
+        wikipediaId: '',
+        wikipediaUrl: '',
+        wikiDataId: '',
+        wikiDataUrl: '',
+        gndUrl: '',
+        startPosition: event.detail.startPosition,
+        endPosition: event.detail.endPosition,
+        property: event.detail.property,
+      };
 
-      array.forEach(item => {
-        if (item[0] === 'WIKIDATA') {
-          setEntity(prevState => {
-            return {
-              ...prevState,
-              wikiDataId: item[1],
-              wikiDataUrl: item[2],
-            };
-          });
-        } else if (item[0] === 'WIKIPEDIA') {
-          setEntity(prevState => {
-            return {
-              ...prevState,
-              wikipediaId: item[1],
-              wikipediaUrl: item[2],
-            };
-          });
-        } else if (item[0] === 'GND') {
-          setEntity(prevState => {
-            return {
-              ...prevState,
-              gndUrl: item[2],
-            };
-          });
+      event.detail.links.forEach(link => {
+        if (link.source === 'WIKIDATA') {
+          entity.wikiDataId = link.id;
+          entity.wikiDataUrl = link.url;
+        } else if (link.source === 'WIKIPEDIA') {
+          entity.wikipediaId = link.id;
+          entity.wikipediaUrl = link.url;
+        } else if (link.source === 'GND') {
+          entity.gndUrl = link.url;
         }
       });
-
-      setShowEntity(true);
+      setEntity(entity);
     };
 
     window.addEventListener('entityDetails', handleWikiData);
     return () => window.removeEventListener('entityDetails', handleWikiData);
-  }, []);
+  }, [artefactId, language]);
 
   const [addToFavorite, { loading: addToFavoriteLoading }] =
     useAddToFavouriteMutation();
@@ -334,17 +317,7 @@ const Detail = ({
               }}
             >
               <OverlayClose asChild>
-                <Button
-                  variant="ghost-dark"
-                  css={{
-                    backgroundColor: 'transparent',
-                    border: 'none',
-                    '&:hover': {
-                      color: '$blueDark',
-                      backgroundColor: 'transparent',
-                    },
-                  }}
-                >
+                <Button variant="icon">
                   <CrossIcon aria-hidden="true" width="27px" height="27px" />
                 </Button>
               </OverlayClose>
@@ -492,12 +465,10 @@ const Detail = ({
             priority
             src={data.artefact.images[0].url}
             alt={data.artefact.title || ''}
-            width={
-              (300 / data.artefact.images[0].height) *
-              data.artefact.images[0].width
-            }
-            height={300}
-            loader={imageLoader}
+            sizes="300px"
+            width={data.artefact.images[0].width}
+            height={data.artefact.images[0].height}
+            loader={saveSizeImage(data.artefact.images[0])}
           />
         </Box>
       ) : null}
@@ -584,17 +555,16 @@ const Detail = ({
                         },
                       }}
                     >
-                      <Image
-                        src={artefact.images[0].url}
-                        alt={artefact.title || ''}
-                        sizes="(min-width: 968px) 191px, 300px"
-                        width={300}
-                        height={
-                          (300 / artefact.images[0].width) *
-                          artefact.images[0].height
-                        }
-                        loader={imageLoader}
-                      />
+                      {artefact.images[0]?.url && (
+                        <Image
+                          src={artefact.images[0].url}
+                          alt={artefact.title || ''}
+                          sizes="(min-width: 968px) 192px, 50vw"
+                          width={artefact.images[0].width}
+                          height={artefact.images[0].height}
+                          loader={saveSizeImage(artefact.images[0])}
+                        />
+                      )}
                     </Box>
                   </UnstyledButton>
                 ))}
@@ -702,32 +672,21 @@ const Detail = ({
         <Feedback artefactId={artefactId} />
       </Box>
 
-      <Overlay open={showEntity} onOpenChange={isOpen => setShowEntity(isOpen)}>
+      <Overlay
+        open={!!entity}
+        onOpenChange={isOpen => {
+          if (!isOpen) setEntity(undefined);
+        }}
+      >
         <OverlayContent>
           <Box mt="4" px="3">
             <OverlayClose asChild>
-              <Button
-                css={{
-                  backgroundColor: 'transparent',
-                  border: 'none',
-                  '&:hover': {
-                    color: '$blueDark',
-                    backgroundColor: 'transparent',
-                  },
-                }}
-                aria-label={translate('closeEntity')}
-                variant="ghost-dark"
-                onClick={() => {
-                  setShowEntity(false);
-                }}
-              >
+              <Button aria-label={translate('closeEntity')} variant="icon">
                 <ArrowLeft aria-hidden="true" width="28px" height="28px" />
               </Button>
             </OverlayClose>
           </Box>
-          <Box mt="5">
-            <Entity {...entity} />
-          </Box>
+          <Box mt="5">{entity ? <Entity {...entity} /> : null}</Box>
         </OverlayContent>
       </Overlay>
     </>
@@ -961,16 +920,14 @@ export const AddArtefactDialog = ({ artefactId }: { artefactId: string }) => {
                                 : 'linear-gradient(180deg, rgba(83, 11, 244, 0.20) 0%, rgba(83, 11, 244, 0.46) 51.41%, rgba(83, 11, 244, 0.70) 100%)',
                               borderRadius: '4px',
                               zIndex: 1,
-                              '&:hover': {
-                                backgroundColor: 'rgba(73, 2, 190, 0.85)',
-                                opacity: 0.85,
-                              },
                             }}
                           />
                           <Image
                             src={story.previewImage.url}
                             alt={story.title}
+                            sizes="(min-width: 768px) 660px, 80vw"
                             fill={true}
+                            loader={saveSizeImage(story.previewImage)}
                           />
                         </Box>
                       ) : (
@@ -1139,12 +1096,16 @@ export const StoryButton = styled('button', {
   borderRadius: '8px',
   width: '100%',
   height: '100px',
-  py: '6px',
-  pr: '$1',
   boxSizing: 'border-box',
+  border: '2px solid',
+  borderColor: 'transparent',
 
   '&:focus-visible': {
     outline: '3px solid $green',
+  },
+
+  '&:hover': {
+    borderColor: '$blue',
   },
 
   '&:disabled': {

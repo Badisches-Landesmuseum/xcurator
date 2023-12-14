@@ -18,7 +18,7 @@ fragment Story on Story {
     sub
   }
   previewImage {
-    url
+    ...PreviewImage
   }
   modules {
     ...Module
@@ -36,4 +36,10 @@ fragment Module on StoryTextModule {
   artefacts {
     ...Artefact
   }
+}
+
+fragment PreviewImage on Image {
+  url
+  width
+  height
 }

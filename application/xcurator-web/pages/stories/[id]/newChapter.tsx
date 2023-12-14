@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Flex } from '@3pc/layout-components-react';
+import { Box, Flex } from 'src/@3pc/layout-components-react';
 import { Text } from 'src/components/Common/Text';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { localeToLanguage } from 'src/utils/useLanguage';

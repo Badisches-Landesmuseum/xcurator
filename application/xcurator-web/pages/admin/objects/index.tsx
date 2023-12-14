@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Flex, Stack, styled } from '@3pc/layout-components-react';
+import { Box, Flex, Stack, styled } from 'src/@3pc/layout-components-react';
 import { GetStaticPropsContext } from 'next';
 import { HEADER_HEIGHT } from 'src/components/Header/Header';
 import Link from 'next/link';

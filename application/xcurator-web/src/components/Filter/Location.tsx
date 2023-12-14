@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bleed, Box, Flex, styled } from '@3pc/layout-components-react';
+import { Bleed, Box, Flex, styled } from 'src/@3pc/layout-components-react';
 import Image from 'next/image';
 import { GetStaticPropsContext } from 'next';
 import { CaretUpIcon, CheckIcon } from 'src/icons';

@@ -65,6 +65,8 @@ fragment ExploreArtefact on Artefact {
   id
   title
   images {
+    width
+    height
     url
   }
 }
@@ -74,5 +76,7 @@ fragment ExploreStory on Story {
   title
   previewImage {
     url
+    width
+    height
   }
 }

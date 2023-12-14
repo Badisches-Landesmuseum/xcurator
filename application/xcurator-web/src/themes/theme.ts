@@ -1,4 +1,4 @@
-import { createTheme } from '@3pc/layout-components-react';
+import { createTheme } from 'src/@3pc/layout-components-react';
 
 export const colors = {
   white: '#fff',

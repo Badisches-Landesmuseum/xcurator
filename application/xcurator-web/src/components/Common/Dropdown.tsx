@@ -1,5 +1,5 @@
 import * as DropdownPrimitive from '@radix-ui/react-dropdown-menu';
-import { keyframes, styled, Box, Flex } from '@3pc/layout-components-react';
+import { keyframes, styled, Box, Flex } from 'src/@3pc/layout-components-react';
 import { forwardRef } from 'react';
 import Link, { LinkProps } from 'next/link';
 

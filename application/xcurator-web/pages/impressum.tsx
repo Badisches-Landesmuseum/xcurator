@@ -1,4 +1,4 @@
-import { Box, Stack, Flex, Inline } from '@3pc/layout-components-react';
+import { Box, Stack, Flex, Inline } from 'src/@3pc/layout-components-react';
 import { GetStaticPropsContext } from 'next';
 import Image from 'next/image';
 import { Text } from 'src/components/Common/Text';
@@ -68,34 +68,32 @@ export default function Impressum() {
             </Stack>
           </Box>
           <Box my="5">
-            <Stack space="4">
+            <Stack space="5">
               <Text size="large" weight="bold">
-                {translate('responsibleProduct')}
+                {translate('realisationTitle')}
               </Text>
-              <Text>
-                {translate('supervision')}: Sonja Thiel (Badisches Landesmuseum
-                Karlsruhe), Etienne Posthumus (Universität Amsterdam)
-              </Text>
-              <Text>{translate('cooperation')}</Text>
-              <Inline space="1">
-                <Text>{translate('datalab')} </Text>
-                <Link
-                  href="https://www.datalab.landesmuseum.de"
-                  target="_blank"
-                >
-                  <Text css={{ textDecoration: 'underline' }}>
-                    www.datalab.landesmuseum.de
-                  </Text>
-                </Link>
-              </Inline>
-              <Inline space="1">
-                <Text>{translate('executedBy')}:</Text>
+              <Stack space="3">
+                <Text weight="bold">{translate('supervision')}:</Text>
+                <Text>Sonja Thiel (Badisches Landesmuseum Karlsruhe)</Text>
+                <Text>Etienne Posthumus (Universität Amsterdam)</Text>
+                <Text>{translate('cooperation')}</Text>
+                <Inline space="1">
+                  <Text>{translate('datalab')} </Text>
+                  <Link href="https://datalab.landesmuseum.de/" target="_blank">
+                    <Text css={{ textDecoration: 'underline' }}>
+                      www.datalab.landesmuseum.de
+                    </Text>
+                  </Link>
+                </Inline>
+              </Stack>
+              <Stack space="3">
+                <Text weight="bold">{translate('executedBy')}:</Text>
                 <Link href="https://3pc.de/" target="_blank">
                   <Text css={{ textDecoration: 'underline' }}>3pc GmbH</Text>
                 </Link>
-              </Inline>
-              <Inline space="1">
-                <Text>Code: </Text>
+              </Stack>
+              <Stack space="3">
+                <Text weight="bold">Code: </Text>
                 <Link
                   href="https://github.com/Badisches-Landesmuseum/xcurator"
                   target="_blank"
@@ -104,7 +102,7 @@ export default function Impressum() {
                     https://github.com/Badisches-Landesmuseum/xcurator
                   </Text>
                 </Link>
-              </Inline>
+              </Stack>
             </Stack>
           </Box>
           <Box my="4">
@@ -115,9 +113,6 @@ export default function Impressum() {
           <Box mb="8">
             <Stack space="6">
               <Text>{translate('disclaimer1')}</Text>
-              <Text>{translate('disclaimer2')}</Text>
-              <Text>{translate('disclaimer3')}</Text>
-              <Text>{translate('disclaimer4')}</Text>
               <Stack space="4">
                 <Text size="large" weight="bold">
                   {translate('copyrights')}
@@ -139,7 +134,22 @@ export default function Impressum() {
               <Text size="large" weight="bold">
                 {translate('moreInfos')}
               </Text>
-              <Text>{translate('moreInfosText')}</Text>
+              <Link
+                href="https://www.landesmuseum.de/datenschutz"
+                target="_blank"
+              >
+                <Text css={{ textDecoration: 'underline' }}>
+                  {translate('moreInfosText-1')}
+                </Text>
+              </Link>
+              <Link
+                href="https://www.landesmuseum.de/erklaerung-zur-barrierefreiheit"
+                target="_blank"
+              >
+                <Text css={{ textDecoration: 'underline' }}>
+                  {translate('moreInfosText-2')}
+                </Text>
+              </Link>
             </Stack>
           </Box>
           <Box>

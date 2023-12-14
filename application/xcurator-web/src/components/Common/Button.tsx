@@ -1,4 +1,4 @@
-import { styled } from '@3pc/layout-components-react';
+import { styled } from 'src/@3pc/layout-components-react';
 import Link from 'next/link';
 
 export const Button = styled('button', {
@@ -56,21 +56,18 @@ export const Button = styled('button', {
           borderColor: '$black100',
         },
       },
-      //TODO: remove this variant, used only in styles
-      outline: {
-        color: '$black',
+      icon: {
+        color: 'black',
         backgroundColor: 'transparent',
-        borderColor: '$black300',
+        border: 'none',
         '&:hover': {
-          backgroundColor: '$black50',
+          color: '$blueDark',
         },
         '&:active': {
-          backgroundColor: '$black100',
+          color: '$blueDark',
         },
         '&[disabled]': {
           color: '$black600',
-          backgroundColor: '$black100',
-          borderColor: '$black100',
         },
       },
       hero: {
@@ -110,30 +107,27 @@ export const Button = styled('button', {
         color: '$blue',
         backgroundColor: 'transparent',
         borderColor: 'transparent',
-        '&:hover': {
-          color: '$blue',
-          backgroundColor: '$black50',
-          borderColor: '$black50',
+        '&:hover:not([disabled])': {
+          color: '$blueDark',
+          borderColor: '$blueDark',
         },
-        '&:active': {
-          backgroundColor: '$black100',
-          borderColor: '$black100',
+        '&:active:not([disabled])': {
+          backgroundColor: '$blue100',
+          borderColor: '$blueDark',
         },
         '&[disabled]': {
           color: '$black600',
-          backgroundColor: '$black100',
-          borderColor: '$black100',
         },
       },
       'ghost-blue': {
         color: 'white',
         backgroundColor: 'transparent',
         borderColor: 'transparent',
-        '&:hover': {
+        '&:hover:not([disabled])': {
           backgroundColor: '$blue',
           borderColor: '$blue',
         },
-        '&:active': {
+        '&:active:not([disabled])': {
           color: '$blue200',
           backgroundColor: '$blueDark',
           borderColor: '$blue',

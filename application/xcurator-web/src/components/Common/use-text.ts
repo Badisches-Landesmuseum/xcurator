@@ -1,7 +1,7 @@
 import { createStyleObject } from '@capsizecss/core';
 import { StyledText } from './Text';
 import { fontMetrics, theme } from 'src/themes/theme';
-import { VariantProps, CSS } from '@3pc/layout-components-react';
+import { VariantProps, CSS } from 'src/@3pc/layout-components-react';
 
 const useText = (
   size: VariantProps<typeof StyledText>['size'],

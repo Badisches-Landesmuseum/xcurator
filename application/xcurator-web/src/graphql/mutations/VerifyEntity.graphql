@@ -1,0 +1,32 @@
+mutation verifyEntity(
+  $artefactId: String!
+  $artefactProperty: String!
+  $entityEndPosition: Int!
+  $entityStartPosition: Int!
+  $isCorrect: Boolean!
+  $language: Language!
+) {
+  verifyEntity(
+    where: {
+      artefactId: $artefactId
+      artefactProperty: $artefactProperty
+      entityEndPosition: $entityEndPosition
+      entityStartPosition: $entityStartPosition
+      isCorrect: $isCorrect
+      language: $language
+    }
+  ) {
+    endPosition
+    linkedData {
+      link {
+        id
+        url
+      }
+      source
+    }
+    literal
+    property
+    startPosition
+    type
+  }
+}

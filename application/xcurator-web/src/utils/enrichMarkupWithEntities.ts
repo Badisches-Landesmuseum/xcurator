@@ -8,14 +8,27 @@ const defaultWrap = (mark: EntityFragment) =>
     !Boolean(mark.linkedData) ? 'disabled' : ''
   } title="${
     Boolean(mark.linkedData) ? 'Open entity details' : ''
-  }" onclick="(function() { const event = new CustomEvent('entityDetails',{ detail:
-      { items: '${mark.linkedData.map(
-        ld => ld.source + ' ' + ld.link.id + ' ' + ld.link.url
-      )}'},
-});
+  }" onclick="(function() { const event = new CustomEvent('entityDetails',{ detail: ${entityToEvent(
+    mark
+  )} });
   window.dispatchEvent(event);})()"><span class="icon-wrapper">${AiSvg}</span>${
     mark.literal
   }</button></mark>`;
+
+function entityToEvent(entity: EntityFragment) {
+  return `{
+    links: [${entity.linkedData.map(
+      date => `{
+      source: '${date.source}',
+      id: '${date.link.id}',
+      url: '${date.link.url}',
+    }`
+    )}],
+    startPosition: ${entity.startPosition},
+    endPosition: ${entity.endPosition},
+    property: '${entity.property}',
+  }`;
+}
 
 export const enrichMarkupWithEntities = (
   htmlString: string | undefined | null,
