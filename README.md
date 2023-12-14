@@ -1,4 +1,4 @@
-# xcurator
+# xCurator
 
 
 ## System
