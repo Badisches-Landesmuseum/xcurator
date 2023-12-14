@@ -70,8 +70,8 @@ dependencies {
     implementation(files("$projectDir/libs/embeddings-grid-plain.jar"))
 
     // GraphQl (including common schemas)
-    implementation("de.3pc:graphql:8.1.1-dev.315")
-    dgsCodegen("de.3pc:graphql:8.1.1-dev.315")
+    implementation("de.3pc:graphql:8.2.0-dev.318")
+    dgsCodegen("de.3pc:graphql:8.2.0-dev.318")
     implementation("de.3pc:elasticsearch:8.11.1-dev.23")
 
     testImplementation("org.springframework.security:spring-security-test")

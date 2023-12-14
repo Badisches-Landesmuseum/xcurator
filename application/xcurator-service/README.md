@@ -5,18 +5,11 @@ Authors: Nadav Babai, Elyess Eleuch, Sören Räuchle @ 3pc GmbH
 Backend Service of the xCurator Application. This service provides the full API
 used by the xCurator production system. 
 
-### Tech-Stack
-
-- [Java OpenJDK 17](https://openjdk.org/)
-- [Spring Boot](https://spring.io/projects/spring-boot)
-- [Gradle Wrapper](https://gradle.org/)
-- More dependencies ```build.gradle```
-
-### API:
+## API:
 - GraphQL Endpoint: `/graphql`
 - Health Endpoint: `/manage/health`
 
-### Settings:
+## Settings:
 all settings are stored in the application.yml (location: [src/main/resources/application.yml](src/main/resources/application.yml))
 
 Environment Variables:
@@ -27,16 +20,15 @@ Environment Variables:
 
 Default Port: `8080`
 
-### Build, Run Test
+## Build, Run Test
 
 - Build: `gradlew clean build`
-- Run Unit Tests: `gradlew clean test`
+- Run Unit `Tests: gradlew clean test`
 - Run Integration Tests: `gradlew clean integrationTest`
-- Run End-to-End Tests: `gradlew clean e2eTest`
+- Run End-toEnd Tests: `gradlew clean e2eTest`
 - Run: `gradlew bootRun`
-- Build Docker Image:  `gradlew buildImage`
 
-### Architecture Dependencies:
+## Architecture Dependencies:
 - MongoDb, NoSQL Storage
 - Elasticsearch with installed and enabled [Elastiknn Plugin](https://alexklibisz.github.io/elastiknn/)
 - (optional) clip http service | text-to-vector api

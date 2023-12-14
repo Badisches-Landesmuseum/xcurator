@@ -5,7 +5,6 @@ import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.InputArgument;
 import de.dreipc.xcuratorservice.data.llm.LLM;
 import de.dreipc.xcuratorservice.data.llm.LLMTemplate;
-import de.dreipc.xcuratorservice.data.llm.LLMTemplateRepository;
 import dreipc.graphql.types.LLMTemplateInput;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -18,12 +17,9 @@ import org.springframework.stereotype.Component;
 @DgsComponent
 public class LLMMutationHandler {
 
-    private final LLMTemplateRepository repository;
+    private final MongoTemplate mongoTemplate;
 
-    private MongoTemplate mongoTemplate;
-
-    public LLMMutationHandler(LLMTemplateRepository repository, MongoTemplate mongoTemplate) {
-        this.repository = repository;
+    public LLMMutationHandler(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
 
@@ -33,11 +29,6 @@ public class LLMMutationHandler {
         if (where.getSystemTemplate().isBlank() || where.getUserTemplate().isBlank())
             throw new IllegalArgumentException(
                     "Empty input is not allowed! please add some input on user AND system template.");
-
-        if (!where.getSystemTemplate().contains("<USER_INPUT>")
-                || !where.getUserTemplate().contains("<USER_INPUT>"))
-            throw new IllegalArgumentException(
-                    "Required <USER_INPUT> tag not found. PLease add inside your definition.");
 
         var template = LLMTemplate.builder()
                 .id(LLM.MODUL_THOUGHT)
