@@ -1,8 +1,10 @@
 # xCurator
-
+The web app xCurator is a tool that enriches object datasets from museum databases, making them searchable and contextualized. 
+With a variety of AI technologies and an intuitive interface, it **empowers users** to explore museum collections and recognize connections. 
+The integrated editor allows users to assemble objects into **stories**.
 
 ## System
-The xcurator system is splitted into two parts. 
+The xcurator system is split into two parts. 
 1. **Data Enrichment**: This part of the system is responsible for importing, cleaning and enriching the data. 
 Yor need to run it if you want to `update` your data or `create` a new dataset for xcurator. 
 All the code and configs are located inside the [data-enrichment](./data-enrichment) directory if this repository.
