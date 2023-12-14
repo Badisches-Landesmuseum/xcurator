@@ -86,7 +86,7 @@ def main():
     artefact_corpus = artefact_corpus.merge(id_corpus, left_on="source_id", right_on="sourceInfo.id", how="left")
     artefact_corpus.drop(columns=["sourceInfo.id"], inplace=True)
 
-    artefact_corpus.drop(columns=["source_id", "image", "Unnamed: 0"], inplace=True)
+    artefact_corpus.drop(columns=["source_id", "image", "Unnamed: 0"], inplace=True, errors='ignore')
     artefact_corpus.to_json(output_directory / Path(f"xcurator_artefacts-full-data-{date_string}.json"), orient='records')
 
     with (output_directory / Path(f"xcurator_artefacts-full-data-{date_string}.json")).open('r', encoding='utf-8') as json_file:
