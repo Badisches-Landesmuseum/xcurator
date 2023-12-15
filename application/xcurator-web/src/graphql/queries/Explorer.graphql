@@ -1,0 +1,82 @@
+query SearchExplore($where: ExploreSearchInput!, $take: Int!) {
+  searchExplore(where: $where, take: $take) {
+    ...ExploreSearchResult
+  }
+}
+
+fragment ExploreSearchResult on ExploreSearchResult {
+  queryString
+  items {
+    ...ExploreGridItem
+  }
+  gridInfo {
+    rows
+    columns
+  }
+  bestMatch {
+    ...ExploreGridItem
+  }
+
+  facette {
+    colorFacette {
+      color
+      count
+    }
+    epochFacette {
+      epoch
+      count
+    }
+    materialFacette {
+      material
+      count
+    }
+    sourceFacette {
+      count
+      owner
+    }
+    locationFacette {
+      continent
+      countries {
+        name
+        count
+      }
+      totalCount
+    }
+  }
+}
+
+fragment ExploreGridItem on ExploreGridItem {
+  size {
+    width
+    height
+  }
+  item {
+    __typename
+    ... on Artefact {
+      ...ExploreArtefact
+    }
+    ... on Story {
+      ...ExploreStory
+    }
+  }
+}
+
+fragment ExploreArtefact on Artefact {
+  id
+  title
+  images {
+    width
+    height
+    url
+  }
+}
+
+fragment ExploreStory on Story {
+  id
+  title
+  previewImage {
+    url
+    width
+    height
+  }
+}

@@ -1,0 +1,4 @@
+fragment MeError on AuthError {
+  error
+  error_description
+}

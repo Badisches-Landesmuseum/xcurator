@@ -1,0 +1,62 @@
+[tool.poetry]
+name = "clip-http-service"
+version = "0.2.2" # placeholder | version is defined in git tags | command: poetry version
+description = "extracts clip text and visual embeddings."
+authors = ["Sören Räuchle <sraeuchle@3pc.de>"]
+license = "MIT"
+readme = "README.md"
+
+# https://pypi.org/project/poetry-dynamic-versioning/
+[tool.poetry-dynamic-versioning]
+enable = false
+vcs = 'git'
+style = "semver"
+pattern = '(?x)^v*((?P<epoch>\d+)!)?(?P<base>\d+(\.\d+)*)' # 0.0.0 || v0.0.0 (git tag)
+
+[tool.poetry.build]
+generate-setup-file = false
+
+[tool.poetry.dependencies]
+3pc-py-config = {path="./lib/3pc-py-config-1.1.1.tar.gz"}
+python="^3.10"
+uvicorn="0.24.0"
+fastapi="0.104.1"
+multilingual-clip="1.0.10"
+torch = { version = "2.1.1", source="pytorch-cpu" }
+overrides="7.4.0"
+
+[[tool.poetry.source]]
+name = "PyPI"
+priority = "default"
+
+[[tool.poetry.source]]
+name = 'pytorch-cpu'
+url = 'https://download.pytorch.org/whl/cpu'
+priority = "explicit"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^2.6"
+
+[tool.poetry.group.test.dependencies]
+pytest = "7.3.1"
+pytest-asyncio = "0.21.0"
+matplotlib = "3.7.1"
+
+#######################################
+#   COMMON Settings
+#######################################
+
+[build-system]
+requires = ["poetry-core", "poetry-dynamic-versioning"]
+build-backend = "poetry_dynamic_versioning.backend" # wrapper around poetry.core.masonry.api
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests"
+]
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"

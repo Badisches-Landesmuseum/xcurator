@@ -1,0 +1,5 @@
+query SuggestArtefacts($take: Int!, $where: SuggestRelatedArtefactsInput! ) {
+  suggestRelatedArtefacts(take: $take, where: $where) {
+    ...Artefact
+  }
+}

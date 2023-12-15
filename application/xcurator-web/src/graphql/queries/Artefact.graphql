@@ -1,0 +1,98 @@
+query GetArtefact($where: ArtefactUniqueInput!) {
+  artefact(where: $where) {
+    id
+    images {
+      ...Image
+    }
+    tags {
+      isUsingAI
+      type
+      literal
+    }
+    title
+    dateRange {
+      start
+      end
+      literal
+    }
+    description
+    keywords
+    persons {
+      name
+    }
+    sourceInfo {
+      language
+      collection
+      owner
+      id
+      url
+    }
+    entities {
+      ...Entity
+    }
+    materials
+    techniques
+    locations {
+      countryName
+      lat
+      lon
+      name
+    }
+    entities {
+      linkedData {
+        link {
+          url
+        }
+      }
+    }
+  }
+}
+
+fragment Artefact on Artefact {
+  id
+  title
+  description
+  keywords
+  sourceInfo {
+    url
+    language
+  }
+  images {
+    url
+    width
+    height
+    licence {
+      name
+      url
+    }
+  }
+  dateRange {
+    literal
+  }
+  locations {
+    name
+  }
+  persons {
+    name
+  }
+  tags {
+    isUsingAI
+    type
+    literal
+  }
+}
+
+fragment Entity on NamedEntity {
+  literal
+  startPosition
+  endPosition
+  type
+  property
+  linkedData {
+    link {
+      id
+      url
+    }
+    source
+  }
+}

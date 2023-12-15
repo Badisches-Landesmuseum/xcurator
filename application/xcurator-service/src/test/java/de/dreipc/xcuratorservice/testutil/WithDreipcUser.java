@@ -1,0 +1,15 @@
+package de.dreipc.xcuratorservice.testutil;
+
+import org.springframework.security.test.context.support.WithSecurityContext;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+@Retention(RetentionPolicy.RUNTIME)
+@WithSecurityContext(factory = WithMockDreipcUserSecurityContextFactory.class)
+public @interface WithDreipcUser {
+
+    String id();
+
+    String[] roles() default {"USER"};
+}

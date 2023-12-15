@@ -1,0 +1,8 @@
+fragment MeResponse on AuthResponse {
+  user {
+    ...Me
+  }
+  error {
+    ...MeError
+  }
+}

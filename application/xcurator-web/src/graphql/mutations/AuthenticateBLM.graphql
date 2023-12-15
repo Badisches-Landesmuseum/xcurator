@@ -1,0 +1,15 @@
+mutation AuthenticateBLM(
+  $access_token: String!
+  $refresh_token: String!
+  $expires_in: Int!
+  $blmUser: BLMUser!
+) {
+  authenticateBLM(
+    access_token: $access_token
+    refresh_token: $refresh_token
+    expires_in: $expires_in
+    blmUser: $blmUser
+  ) {
+    ...MeResponse
+  }
+}

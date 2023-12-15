@@ -1,0 +1,6 @@
+mutation setStoryIntroductionTemplate($where: LLMTemplateInput!) {
+    setStoryIntroductionTemplate(where: $where) {
+        userTemplate
+        systemTemplate
+  }
+}

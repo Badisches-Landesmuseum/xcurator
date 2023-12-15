@@ -1,0 +1,306 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "artefact-schema.json",
+  "title": "Artefact",
+  "description": "A artefact represents real world object in the context of museums, archives and  historical object",
+  "type": "object",
+  "properties": {
+    "_id": {
+      "description": "The unique identifier for a artefact",
+      "type": "ObjectId"
+    },
+    "dateRange": {
+      "description": "The time information about the artefact. e.g. created / destroyed ",
+      "type": "object",
+      "properties": {
+        "literal": {
+          "description": "Textual representation of the date range.",
+          "type": "string"
+        },
+        "start": {
+          "description": "start of the time range. (YYYY-mm-dd)",
+          "type": "string"
+        },
+        "end": {
+          "description": "enf of the time range. (YYYY-mm-dd)",
+          "type": "string"
+        }
+      }
+    },
+    "materials": {
+      "description": "The materials the artefact is made of.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "keywords": {
+      "description": "The keywords the artefact related to (human annotated).",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "techniques": {
+      "description": "The techniques used to produce the artefact.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "title": {
+      "description": "The title of the artefact sorted by language.",
+      "type": "object",
+      "properties": {
+        "de": {
+          "description": "The artefact title in the german language",
+          "type": "string"
+        },
+        "en": {
+          "description": "The artefact title in the english language",
+          "type": "string"
+        },
+        "nl": {
+          "description": "The artefact title in the dutch language",
+          "type": "string"
+        },
+        "required": [
+          "de",
+          "en",
+          "nl"
+        ]
+      }
+    },
+    "description": {
+      "description": "The description of the artefact sorted by language.",
+      "type": "object",
+      "properties": {
+        "de": {
+          "description": "The artefact description in the german language",
+          "type": "string"
+        },
+        "en": {
+          "description": "The artefact description in the english language",
+          "type": "string"
+        },
+        "nl": {
+          "description": "The artefact description in the dutch language",
+          "type": "string"
+        }
+      }
+    },
+    "embedding": {
+      "description": "The visual embedding (vector) of an artefact e.g. clip embedding",
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 640
+    },
+    "entities": {
+      "description": "The named and linked entities which are part of the title or description of the artefact sorted by language.",
+      "type": "object",
+      "properties": {
+        "de": {
+          "description": "The entities of the artefact textual data in the german language",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "./named-entity.json"
+          }
+        },
+        "en": {
+          "description": "The entities of the artefact textual data in the english language",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "./named-entity.json"
+          }
+        },
+        "nl": {
+          "description": "The entities of the artefact textual data in the dutch language",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "./named-entity.json"
+          }
+        }
+      }
+    },
+    "persons": {
+      "description": "Persons this artefact relates to. e.g. creators orr authors",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Persons full name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    },
+    "locations": {
+      "description": "Locations this artefact relates to. e.g. place of creation",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Location name",
+            "type": "string"
+          },
+          "continent": {
+            "description": "Continent name in uppercase, the artefact relates to.",
+            "type": "string"
+          },
+          "country": {
+            "description": "Country ISO 3166 Code in uppercase, the artefact relates to.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    },
+    "object-color": {
+      "description": "Colors of the artefact itself.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Name of the color",
+            "type": "string"
+          },
+          "hex": {
+            "description": "Hex RGB color value",
+            "type": "string"
+          },
+          "count": {
+            "description": "pixel count of the color on the segmented artefact image.",
+            "type": "integer"
+          },
+          "ratio": {
+            "description": "ratio of the amount of pixel color on the segmented artefact image in relation to all pixels.",
+            "type": "number"
+          },
+          "hsv": {
+            "description": "hue saturation value (hsv) value of the color",
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "minItems": 3
+          },
+          "rgb": {
+            "description": "red green blue (rgb) value of the color",
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "minItems": 3
+          }
+        },
+        "required": [
+          "name",
+          "hex",
+          "count",
+          "ratio",
+          "hsv",
+          "rgb"
+        ]
+      }
+    },
+    "sourceInfo": {
+      "description": "Informations about the (data) source the artefact is imported from.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "artefact identifier in the imported data source",
+          "type": "string"
+        },
+        "collection": {
+          "description": "collection name this artefact relates to",
+          "type": "string"
+        },
+        "owner": {
+          "description": "name of the artefact source owner",
+          "type": "string"
+        },
+        "language": {
+          "description": "the primary language of the source and source language of the dataset texts.",
+          "type": "string"
+        },
+        "url": {
+          "description": "HTTP URL to the source website of the artefact.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "collection",
+        "owner",
+        "language",
+        "url"
+      ]
+    },
+    "images": {
+      "description": "Images of the artefact.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "description": "IIIF URL of the artefact Image",
+            "type": "string"
+          },
+          "width": {
+            "description": "(max) width in pixels of the image",
+            "type": "integer"
+          },
+          "height": {
+            "description": "(max) height in pixels of the image",
+            "type": "integer"
+          },
+          "photographer": {
+            "description": "Person name of the photographer",
+            "type": "string"
+          },
+          "licence": {
+            "description": "Licence infomation about the image.",
+            "type": "object",
+            "properties": {
+              "url": {
+                "description": "HTTP URL link to a licence website ending with a language suffix.",
+                "type": "string"
+              },
+              "name": {
+                "description": "Licence name",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "name"
+            ]
+          }
+        },
+        "required": [
+          "url",
+          "width",
+          "height",
+          "licence"
+        ]
+      },
+      "minItems": 1
+    }
+  }
+}

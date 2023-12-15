@@ -1,0 +1,6 @@
+query ConclusionTemplate {
+    conclusionTemplate {
+        systemTemplate
+        userTemplate
+    }
+}

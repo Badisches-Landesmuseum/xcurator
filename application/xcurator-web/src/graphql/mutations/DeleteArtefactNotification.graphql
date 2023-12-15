@@ -1,0 +1,3 @@
+mutation DeleteArtefactNotification($delete: DeleteArtefactNotificationInput!) {
+    deleteArtefactNotification(delete: $delete)
+}

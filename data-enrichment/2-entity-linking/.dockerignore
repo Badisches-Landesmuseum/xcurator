@@ -1,0 +1,10 @@
+# Whitelist approach
+# Exclude everything: 
+*
+# Include as exceptions
+!/opt/conda
+!src
+!lib
+!model
+!pyproject.toml
+!poetry.lock

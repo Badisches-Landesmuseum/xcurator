@@ -1,0 +1,5 @@
+query getSimilarArtefacts($where: ArtefactUniqueInput!, $take: Int!) {
+  searchSimilarArtefacts(take: $take, where: $where) {
+    ...Artefact
+  }
+}

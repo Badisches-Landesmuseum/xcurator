@@ -1,0 +1,7 @@
+fragment Me on User {
+  sub
+  preferred_username
+  name
+  email
+  roles
+}

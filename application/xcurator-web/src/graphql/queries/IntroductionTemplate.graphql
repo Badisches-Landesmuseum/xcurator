@@ -1,0 +1,6 @@
+query IntroductionTemplate {
+    introductionTemplate {
+        systemTemplate
+        userTemplate
+    }
+}

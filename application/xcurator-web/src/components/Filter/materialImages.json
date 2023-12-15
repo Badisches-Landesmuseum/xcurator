@@ -1,0 +1,46 @@
+[
+  {
+    "name": "GLASS",
+    "image": "Glas.jpg"
+  },
+  {
+    "name": "BRONZE",
+    "image": "Bronze.jpg"
+  },
+  {
+    "name": "SILVER",
+    "image": "Silber.jpg"
+  },
+  {
+    "name": "PHOTO_LAYER",
+    "image": "FotografischeSchicht.jpg"
+  },
+  {
+    "name": "WOOD",
+    "image": "Holz.jpg"
+  },
+  {
+    "name": "PHOTO_PAPER",
+    "image": "Fotopapier.jpg"
+  },
+  {
+    "name": "CERAMICS",
+    "image": "Keramik.jpg"
+  },
+  {
+    "name": "PORCELAIN",
+    "image": "Porzellan.jpg"
+  },
+  {
+    "name": "PE_PAPER",
+    "image": "PEPapier.jpg"
+  },
+  {
+    "name": "IRON",
+    "image": "Eisen.jpg"
+  },
+  {
+    "name": "MOVIE",
+    "image": "Film.jpg"
+  }
+]

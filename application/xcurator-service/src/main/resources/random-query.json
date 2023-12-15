@@ -1,0 +1,44 @@
+{
+  "queryStrings": [
+    {
+      "de": "Weltkultur",
+      "en": "Global culture",
+      "nl": "Wereldcultuur"
+    },
+    {
+      "de": "Demokratie",
+      "en": "Democracy",
+      "nl": "Democratie"
+    },
+    {
+      "de": "Natur",
+      "en": "Natur",
+      "nl": "Natuur"
+    },
+    {
+      "de": "Mensch-Maschine",
+      "en": "Man-machine",
+      "nl": "Mens-machine"
+    },
+    {
+      "de": "Katzen und Hunde",
+      "en": "Cats and dogs",
+      "nl": "Katten en honden"
+    },
+    {
+      "de": "Ägypten",
+      "en": "Egypt",
+      "nl": "Egypte"
+    },
+    {
+      "de": "Krieg und Frieden",
+      "en": "War and peace",
+      "nl": "Oorlog en vrede"
+    },
+    {
+      "de": "Revolution",
+      "en": "Revolution",
+      "nl": "Revolutie"
+    }
+  ]
+}

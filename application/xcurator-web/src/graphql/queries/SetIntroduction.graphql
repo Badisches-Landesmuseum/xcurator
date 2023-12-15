@@ -1,0 +1,6 @@
+mutation SetIntroduction($where: StoryIntroductionInput!) {
+	setStoryIntroduction(where: $where) {
+		id
+    introduction
+	}
+}

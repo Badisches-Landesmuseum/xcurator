@@ -1,0 +1,6 @@
+mutation SetConclusion($where: StoryConclusionInput!) {
+	setStoryConclusion(where: $where) {
+		id
+    conclusion
+	}
+}

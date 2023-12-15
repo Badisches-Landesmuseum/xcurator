@@ -1,0 +1,5 @@
+query Stories($language: Language!, $orderBy: StoryOrderByInput ) {
+  stories(language: $language, orderBy: $orderBy) {
+    ...Story
+  }
+}

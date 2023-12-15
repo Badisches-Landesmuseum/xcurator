@@ -1,0 +1,10 @@
+query ReportedArtefact ($where: ArtefactNotificationUniqueInput!, $language: Language!) {
+    reportedArtefact(where: $where, language: $language) {
+        artefact {
+            ...Artefact
+        }
+        id
+        message
+        isRead
+    }
+}
