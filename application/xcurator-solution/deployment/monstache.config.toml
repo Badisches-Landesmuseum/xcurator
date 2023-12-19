@@ -1,0 +1,38 @@
+# See documentation at:
+# https://rwynn.github.io/monstache-site/config/
+# https://rwynn.github.io/monstache-site/advanced/
+
+verbose = true
+stats = true # STATS in log every 30 seconds
+
+# https://rwynn.github.io/monstache-site/advanced/#namespaces
+change-stream-namespaces = ["xcurator.story", "xcurator.artefact"]
+
+resume = true # default false
+resume-strategy = 0 # default 0, use timestamps
+# Optionally use below for FULL re-sync upon restart. Disable again after use.
+#direct-read-namespaces = ["xcurator.story", "xcurator.artefact"]
+# Replay is currently deprecated in favor of direct-read-namespaces. Replay may be removed in a future release.
+# When resume and replay are both true, monstache replays all events from the beginning of the MongoDB oplog, syncs them to Elasticsearch and also writes the timestamps of processed events to monstache.monstache.
+##replay = true
+
+prune-invalid-json = false # default false; drop fields with +Infinity, -Infinity, NaN, or invalid dates, repvend indexer infinite loop
+# https://rwynn.github.io/monstache-site/config/#index-as-update
+index-as-update = false # default false; overwrite document on update, safer
+dropped-collections = false # default true; do not delete indexes, preserve index mapping in case collection is dropped
+
+# https://rwynn.github.io/monstache-site/advanced/#http-server
+enable-http-server = true # use for healthcheck
+
+# Soft delete
+# https://rwynn.github.io/monstache-site/advanced/#dropping
+[[script]]
+namespace = "xcurator.story"
+script = """
+module.exports = function(doc) {
+    if (!!doc.isDeleted) {
+        return false;
+    }
+    return true;
+}
+"""

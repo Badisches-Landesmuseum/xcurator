@@ -1,0 +1,10 @@
+
+# Mac
+.DS_Store
+
+# WebStorm
+.idea/
+
+# Docker Compose
+*-backup
+/deployment/json/xcurator-artefact-enrichment.json

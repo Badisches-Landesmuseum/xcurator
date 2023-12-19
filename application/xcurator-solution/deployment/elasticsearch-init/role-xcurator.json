@@ -1,0 +1,25 @@
+{
+  "cluster": ["all"],
+  "indices": [
+    {
+      "names": [
+        "xcurator.*"
+      ],
+      "privileges": [
+        "all"
+      ],
+      "allow_restricted_indices": false
+    }
+  ],
+  "applications": [
+    {
+      "application": "kibana-.kibana",
+      "privileges": [
+        "space_all"
+      ],
+      "resources": [
+        "space:default"
+      ]
+    }
+  ]
+}

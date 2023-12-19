@@ -1,0 +1,4 @@
+{
+  "type": "fs",
+  "settings": { "location": "/es-backup", "compress": true }
+}

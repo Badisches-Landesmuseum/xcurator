@@ -1,0 +1,531 @@
+### General structure of solution
+# BLM:
+# - Frontend (xcurator-web) + blm config
+# - BLM IDP
+
+# AP:
+# - Frontend (xcurator-web) + ap config
+# - Keycloak (realm: xcurator(-ap?))
+
+# Shared / Common:
+# - API Gateway (graphql-gateway)
+# - xCurator Service
+# - Clip HTTP Service
+# - MongoDB
+# - Elastic Search 8.x inkl. the Plugin Elatiknn + Kibana (optional)
+# - Monstache to sync Mongo>ES
+# - Redis
+
+### Resources, see `docker stats --no-stream --format "table {{.Name}}\t{{.MemUsage}}" | sort -k 2 -r`
+### Idle usage below. Startup and under load usage will be higher.
+# NAME                             MEM USAGE
+# deployment-clip-http-service-1   6.511GiB
+# deployment-mongo-1               1.73GiB
+# deployment-xcurator-service-1    1.51GiB
+# deployment-elasticsearch-1       1.361GiB
+# deployment-keycloak-1            462.5MiB
+# deployment-kibana-1              444.6MiB
+# deployment-xcurator-web-blm-1    406.1MiB
+# deployment-monstache-1           198.6MiB
+# deployment-xcurator-web-ap-1     176.6MiB
+# deployment-gateway-1             88.46MiB
+# deployment-postgres-1            51.12MiB
+# deployment-mongo-express-1       36.81MiB
+# deployment-redis-commander-1     35.12MiB
+# deployment-dozzle-1              11.39MiB
+# deployment-nginx-1               10.16MiB
+# deployment-redis-1               10.06MiB
+# deployment-pgweb-1               9.426MiB
+# deployment-mongo-backup-1        8.668MiB
+# deployment-postgres-backup-1     5.891MiB
+
+# Estimated requirements: 20Gb RAM, 4 CPU, 100Gb disk space
+
+version: '3'
+
+x-service_defaults: &service_defaults
+  restart: unless-stopped
+  networks:
+    - xcurator-network
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "100m"
+
+x-healthcheck_defaults: &healthcheck_defaults
+  # https://docs.docker.com/compose/compose-file/compose-file-v3/#healthcheck
+  # https://docs.docker.com/engine/reference/builder/#healthcheck
+  interval: 5s
+  timeout: 2s
+  retries: 20
+  start_period: 60s # if a health check succeeds during the start period, the container is considered started
+
+x-backup_defaults: &backup_defaults
+  # https://github.com/tiredofit/docker-db-backup
+  DB_DUMP_FREQ: 1440
+  DB_DUMP_BEGIN: 0300
+  DB_CLEANUP_TIME: 10080
+  MD5: 'true'
+  COMPRESSION: GZ
+  CONTAINER_ENABLE_MONITORING: 'false'
+
+x-redis_config: &redis_config
+  REDIS_HOST: redis
+  REDIS_PORT: 6379
+  REDIS_PASSWORD: ${REDIS_PASSWORD}
+
+services:
+  ######################## MONGO ########################
+  mongo:
+    << : *service_defaults
+    # https://hub.docker.com/r/bitnami/mongodb
+    image: ${MONGO_IMAGE}
+    ports: ["27017:27017"]
+    hostname: mongo-rs0
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - mongo-data:/bitnami/mongodb
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    environment:
+      # Create on first run
+      MONGODB_DATABASE: ${MONGODB_DATABASE}
+      MONGODB_USERNAME: ${MONGODB_USERNAME}
+      MONGODB_PASSWORD: ${MONGODB_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGODB_DATABASE} # use for /docker-entrypoint-initdb.d
+      MONGODB_ROOT_PASSWORD: ${MONGODB_ROOT_PASSWORD}
+      MONGODB_REPLICA_SET_MODE: primary
+      MONGODB_REPLICA_SET_NAME: rs0
+      MONGODB_REPLICA_SET_KEY: replicaKey123
+      MONGODB_EXTRA_FLAGS: '--setParameter maxSessions=1000'
+      MONGODB_SYSTEM_LOG_VERBOSITY: 0 # https://hub.docker.com/r/bitnami/mongodb
+    healthcheck:
+      << : *healthcheck_defaults
+      test: ['CMD-SHELL', 'mongosh --eval "db.adminCommand(\"ping\")" mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@mongo:27017/${MONGODB_DATABASE}?replicaSet=rs0' ]
+
+  mongo-backup:
+    << : *service_defaults
+    profiles: ['backup']
+    image: ${DBBACKUP_IMAGE}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./mongo-backup:/backup
+    environment:
+      DB_TYPE: mongo
+      DB_HOST: mongo
+      DB_AUTH: ${MONGODB_DATABASE}
+      DB_NAME: ${MONGODB_DATABASE}
+      DB_USER: ${MONGODB_USERNAME}
+      DB_PASS: ${MONGODB_PASSWORD}
+      #MONGO_CUSTOM_URL: mongodb+srv://username:password@cluster.id.mongodb.net
+      << : *backup_defaults
+    depends_on: { mongo: { condition: service_healthy }}
+
+  mongo-express:
+    << : *service_defaults
+    profiles: ['adminui']
+    image: ${MONGOEXPRESS_IMAGE}
+    ports: ["9081:8081"]
+    environment:
+      # https://github.com/mongo-express/mongo-express
+      - ME_CONFIG_SITE_BASEURL=/mongo-express
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=false
+      - ME_CONFIG_MONGODB_URL=mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@mongo:27017/${MONGODB_DATABASE}?replicaSet=rs0
+      #- ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+      #- ME_CONFIG_MONGODB_URL=mongodb://root:secret@mongo:27017/admin?replicaSet=rs0
+    depends_on: { mongo: { condition: service_healthy }}
+
+  # https://shantanoo-desai.github.io/posts/technology/seeding-mongodb-docker-compose/
+  mongo-import:
+    << : *service_defaults
+    profiles: ['import']
+    image: ${MONGO_IMAGE}
+    restart: "no"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./json/xcurator-artefact-enrichment.json:/import.json
+    command:
+      # https://www.mongodb.com/docs/database-tools/mongoimport/
+      - mongoimport
+      - --uri=mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@mongo:27017/${MONGODB_DATABASE}?replicaSet=rs0
+      - --collection=artefact
+      #- --mode=upsert
+      #- --upsertFields=sourceInfo.id
+      - --file=/import.json
+      - --jsonArray
+      #- --stopOnError
+      - --drop
+    depends_on: { monstache: { condition: service_healthy }} # this line adds 'mongo' log during import process, may be spammy
+
+  ######################## ELASTICSEARCH ########################
+  elasticsearch:
+    << : *service_defaults
+    # https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-docker.html
+    image: ${ELASTIC_IMAGE}
+    ports: ["9200:9200"]
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - es-data:/usr/share/elasticsearch/data
+      - ./es-backup:/es-backup
+    ulimits:
+      memlock: # https://opster.com/guides/elasticsearch/how-tos/elasticsearch-memlock/
+        soft: -1
+        hard: -1
+      nofile: # https://www.elastic.co/guide/en/elasticsearch/reference/current/file-descriptors.html
+        soft: 65536
+        hard: 65536
+    environment:
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - discovery.type=single-node
+      - xpack.security.enabled=true
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - path.repo=/es-backup # mandatory for snapshots
+      - bootstrap.memory_lock=true # https://www.elastic.co/guide/en/elasticsearch/reference/current/_memory_lock_check.html
+      # - node.name=elastic-search
+      # - cluster.name=es-docker-cluster
+      # - cluster.initial_master_nodes=elastic-search
+      # - http.cors.enabled=true
+      # - http.cors.allow-origin=http://localhost:1358,http://127.0.0.1:1358,http://172.25.1.202:1358
+      # - http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
+      # - http.cors.allow-credentials=true
+    healthcheck:
+      << : *healthcheck_defaults
+      test: ["CMD-SHELL", "curl -u elastic:$ELASTIC_PASSWORD --silent --fail localhost:9200/_cat/health | grep -E 'yellow|green'"]
+
+  # create Elastic Snapshot&Repository
+  elasticsearch-init:
+    << : *service_defaults
+    restart: "no"
+    # https://hub.docker.com/r/curlimages/curl
+    image: alpine/curl
+    # https://github.com/elastic/cloud-on-k8s/issues/3159
+    # https://stackoverflow.com/questions/70322031/does-docker-compose-support-init-container
+    command:
+      - /bin/sh
+      - -c
+      - |
+        chown -R 1000:0 /es-backup # make folder for ES snapshots *writable*. Docker Compose creates/mounts a root-owned folder in non-root docker image. See https://github.com/docker/compose/issues/3270
+        curl -v -u elastic:$ELASTIC_PASSWORD -X PUT http://elasticsearch:9200/xcurator.artefact -H 'Content-Type: application/json' -d @/elasticsearch-init/elastic-mapping-artefact.json
+        curl -v -u elastic:$ELASTIC_PASSWORD -X PUT http://elasticsearch:9200/xcurator.story    -H 'Content-Type: application/json' -d @/elasticsearch-init/elastic-mapping-story.json
+        curl -v -u elastic:$ELASTIC_PASSWORD -X PUT http://elasticsearch:9200/_snapshot/fs_backup?pretty -H 'Content-Type: application/json' -d @/elasticsearch-init/fs_backup.json
+        curl -v -u elastic:$ELASTIC_PASSWORD -X PUT http://elasticsearch:9200/_slm/policy/daily-snapshots -H 'Content-Type: application/json' -d @/elasticsearch-init/daily-snapshots.json
+        curl -v -u elastic:$ELASTIC_PASSWORD -X PUT http://elasticsearch:9200/_security/user/kibana_system/_password -H "Content-Type: application/json" -d '{"password":"'$KIBANA_SYSTEM_PASSWORD'"}'
+        curl -v -u elastic:$ELASTIC_PASSWORD -X PUT http://elasticsearch:9200/_security/role/xcurator -H 'Content-Type: application/json' -d @/elasticsearch-init/role-xcurator.json
+        curl -v -u elastic:$ELASTIC_PASSWORD -X PUT http://elasticsearch:9200/_security/user/xcurator -H "Content-Type: application/json" -d '{"username":"xcurator","password":"'$ELASTIC_XCURATOR_PASSWORD'","roles":["xcurator"]}'
+    volumes:
+      - ./es-backup:/es-backup
+      - ./elasticsearch-init:/elasticsearch-init
+    depends_on: { elasticsearch: { condition: service_healthy }}
+
+  kibana:
+    << : *service_defaults
+    image: ${KIBANA_IMAGE}
+    profiles: ['adminui']
+    ports: ["5601:5601"]
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - ELASTICSEARCH_USERNAME=kibana_system
+      - ELASTICSEARCH_PASSWORD=${KIBANA_SYSTEM_PASSWORD}
+      # https://www.elastic.co/guide/en/kibana/current/settings.html
+      - SERVER_BASEPATH=/kibana
+      - SERVER_REWRITEBASEPATH=true
+    healthcheck:
+      << : *healthcheck_defaults
+      test: [ "CMD-SHELL", "curl -L -u elastic:$ELASTIC_PASSWORD http://localhost:5601/kibana/api/status | grep 'All services are available'", ]
+    depends_on: { elasticsearch: { condition: service_healthy }}
+
+  # More info also here: https://gitlab.3pc.de/3pc-innovation/monstache-helm
+  # https://github.com/rwynn/monstache/blob/master/docker/test/docker-compose.test.yml
+  monstache:
+    << : *service_defaults
+    image: ${MONSTACHE_IMAGE}
+    ports: ["9084:8080"]
+    command: -f /app/monstache.config.toml
+    environment:
+      MONSTACHE_ES_URLS: http://elasticsearch:9200
+      MONSTACHE_ES_USER: elastic
+      MONSTACHE_ES_PASS: ${ELASTIC_PASSWORD}
+      MONSTACHE_MONGO_URL: mongodb://root:${MONGODB_ROOT_PASSWORD}@mongo:27017/${MONGODB_DATABASE}?authSource=admin # must authorize against admin
+    volumes:
+      # https://rwynn.github.io/monstache-site/config/#configuration
+      - ./monstache.config.toml:/app/monstache.config.toml
+    healthcheck:
+      << : *healthcheck_defaults
+      test: "wget -q -O - http://localhost:8080/healthz"
+    depends_on: { mongo: { condition: service_healthy }, elasticsearch-init: { condition: service_started }}
+
+######################## REDIS ########################
+  redis:
+    << : *service_defaults
+    image: ${REDIS_IMAGE}
+    ports: ["6379:6379"]
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - redis-data:/bitnami/redis
+    environment:
+      - ALLOW_EMPTY_PASSWORD=no
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_NODES=redis
+    healthcheck:
+      << : *healthcheck_defaults
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ] # test write operation
+
+  redis-commander:
+    << : *service_defaults
+    image: ${REDISCOMMAMDER_IMAGE}
+    profiles: ['adminui']
+    ports: ["9082:8081"]
+    environment:
+      << : *redis_config
+    depends_on: { redis: { condition: service_healthy }}
+
+######################## KEYCLOAK ########################
+  keycloak:
+    # Official container: https://github.com/keycloak/keycloak/tree/main/quarkus/container + https://www.keycloak.org/server/containers
+    << : *service_defaults
+    image: ${KEYCLOAK_IMAGE}
+    ports: ["8083:8080"]
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      # Official: https://www.keycloak.org/server/importExport
+      # TODO: https://github.com/bitnami/containers/issues/1046
+      - ./keycloak-realm.json:/opt/keycloak/data/import/realm.json
+    environment:
+      # Keycloak - application variables https://www.keycloak.org/server/all-config
+      KC_LOG_LEVEL: info
+      KC_DB: postgres
+      KC_DB_URL_HOST: postgres
+      KC_DB_URL_DATABASE: ${POSTGRESQL_DATABASE}
+      KC_DB_USERNAME: ${POSTGRESQL_USERNAME}
+      KC_DB_PASSWORD: ${POSTGRESQL_PASSWORD}
+
+      # Quay official image options. Will not import realm UNLESS in start-dev, whic is insecure!
+      # Keycloak Quay container supported variables https://www.keycloak.org/server/containers
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_INITIAL_PASSWORD}
+
+      # https://github.com/bitnami/containers/tree/main/bitnami/keycloak
+      #KEYCLOAK_EXTRA_ARGS: "-Dkeycloak.import=/realm.json -Dkeycloak.profile.feature.upload_scripts=enabled"
+      #KEYCLOAK_EXTRA_ARGS: "--import-realm"
+
+      KC_HTTP_ENABLED: ${KC_HTTP_ENABLED}
+    command: 
+      - start # `start-dev` This mode should be strictly avoided in production environments because it has insecure defaults.
+      - --hostname-strict=false
+      - --hostname-url=${HTTP_SCHEME}://${HOST_AP}/keycloak/auth
+      - --hostname-admin-url=${HTTP_SCHEME}://${HOST_AP}/keycloak/auth
+      - --http-relative-path=/keycloak/auth # compatibility keycloak < 17.0 https://github.com/keycloak/keycloak/issues/10615
+      #- --hostname-strict-https=false
+      #- --hostname-debug=true # https://github.com/keycloak/keycloak/issues/14666
+      #- --hostname-path=/keycloak
+      #- --hostname-url=https://keycloak.${HOST}/auth
+      - --proxy edge # https://www.keycloak.org/server/reverseproxy
+      - --import-realm # Import realm issue: https://github.com/keycloak/keycloak/issues/9261 + https://github.com/keycloak/keycloak/pull/10754
+      # TODO 2023-08-30 15:26:21,748 ERROR [org.keycloak.authentication.requiredactions.VerifyEmail] (executor-thread-13) Failed to send verification email: org.keycloak.email.EmailException: org.keycloak.email.EmailException: Please provide a valid address
+    depends_on: { postgres: { condition: service_healthy }}
+
+  postgres:
+    << : *service_defaults
+    image: ${POSTGRES_IMAGE}
+    ports: ["5432:5432"]
+    environment:
+      # https://docs.bitnami.com/general/infrastructure/postgresql/
+      POSTGRESQL_DATABASE: ${POSTGRESQL_DATABASE}
+      POSTGRESQL_USERNAME: ${POSTGRESQL_USERNAME}
+      POSTGRESQL_PASSWORD: ${POSTGRESQL_PASSWORD}
+      POSTGRESQL_POSTGRES_PASSWORD: ${POSTGRESQL_POSTGRES_PASSWORD}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - postgres-data:/bitnami/postgresql
+    healthcheck:
+      << : *healthcheck_defaults
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRESQL_USERNAME} -d ${POSTGRESQL_DATABASE}" ]
+
+  pgweb:
+    << : *service_defaults
+    image: ${PGWEB_IMAGE}
+    ports: ["9083:8081"]
+    environment:
+      - DATABASE_URL=postgres://${POSTGRESQL_USERNAME}:${POSTGRESQL_PASSWORD}@postgres:5432/${POSTGRESQL_DATABASE}?sslmode=disable
+    depends_on: { postgres: { condition: service_healthy }}
+
+  postgres-backup:
+    << : *service_defaults
+    profiles: ['backup']
+    image: ${DBBACKUP_IMAGE}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./postgres-backup:/backup
+    environment:
+      DB_TYPE: pgsql
+      DB_HOST: postgres
+      DB_NAME: ${POSTGRESQL_DATABASE}
+      DB_USER: postgres # using admin user to avoid: ERROR:  permission denied for table pg_authid
+      DB_PASS: ${POSTGRESQL_POSTGRES_PASSWORD}
+      SPLIT_DB: 'true'
+      EXTRA_DUMP_OPTS: "--clean"
+      << : *backup_defaults
+    depends_on: { postgres: { condition: service_healthy }}
+
+######################## XCURATOR ########################
+  clip-http-service:
+    << : *service_defaults
+    image: ${XCURATOR_CLIP_HTTP_SERVICE_IMAGE}
+    #ports: ["8062:8080"]
+    deploy:
+      resources:
+        limits:
+          memory: 12000M
+    healthcheck:
+      << : *healthcheck_defaults
+      test: ["CMD-SHELL", 'cat /proc/1/net/tcp | grep 1F90 # 1F90 = 8080 in HEX'] # no curl in image
+
+  xcurator-service:
+    << : *service_defaults
+    image: ${XCURATOR_SERVICE_IMAGE}
+    ports: ["8060:8080"]
+    environment:
+      << : *redis_config
+      MONGO_HOST: mongo
+      MONGO_DATABASE: ${MONGODB_DATABASE}
+      MONGO_USERNAME: ${MONGODB_USERNAME}
+      MONGO_PASSWORD: ${MONGODB_PASSWORD}
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_USERNAME: xcurator
+      ELASTICSEARCH_PASSWORD: ${ELASTIC_XCURATOR_PASSWORD}
+      JAVA_OPTS_ADDITIONAL: ''
+      CLIP_HTTP_URL: http://clip-http-service:8080/text/embedding
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      XCURATOR_VECTOR_MIN_SCORE: ${XCURATOR_VECTOR_MIN_SCORE}
+    healthcheck:
+      << : *healthcheck_defaults
+      test: ["CMD-SHELL", 'cat /proc/1/net/tcp | grep 1F90 # 1F90 = 8080 in HEX'] # no curl in image
+    depends_on: { monstache: { condition: service_healthy }, clip-http-service: { condition: service_healthy }}
+
+  gateway:
+    << : *service_defaults
+    image: ${XCURATOR_GATEWAY_IMAGE}
+    ports: ["8071:8080"]
+    environment:
+      # See https://gitlab.3pc.de/q8r/service/base-layer/graphql-gateway-service#environment-variables
+      << : *redis_config
+      GRAPHQL_ENDPOINT_LIST: xcurator-service http://xcurator-service:8080/graphql # for local development of xcurator-service use (without commiting) following: http://localhost:????/graphql
+
+      GATEWAY_MAX_DEPTH: 6
+      KEYCLOAK_DISABLED: false
+
+      # Authentication. Many variables may be same for a frontend (such as xcurator-web)
+      AUTH_HOST: http://keycloak:8080/keycloak # no trailing /, otherwise "error in secret or public key callback: Not Found"
+      AUTH_REALM: ${AUTH_REALM}
+      # This is for keycloak
+      KEYCLOAK_AUTH_CLIENT_SECRET:  ${KEYCLOAK_AUTH_CLIENT_SECRET}
+      KEYCLOAK_AUTH_CLIENT_ID:      ${NEXT_PUBLIC_KEYCLOAK_ID}
+      AUTH_APPLICATION_CLIENT_NAME: ${NEXT_PUBLIC_KEYCLOAK_ID} # mostly used for roles
+      # This is for BLM IDP (needed only for xcurator-solution - if you re deploying gateway somewhere else you don't need this)
+      BLM_AUTH_CLIENT_ID:     ${NEXT_PUBLIC_BLM_CLIENT_ID}
+      BLM_AUTH_CLIENT_SECRET: ${NEXT_BLM_SECRET}
+      BLM_AUTH_JWK_LINK: ${BLM_AUTH_JWK_LINK}
+      BLM_AUTH_USER_INFO: ${BLM_AUTH_USER_INFO}
+      BLM_AUTH_HOST: ${BLM_AUTH_HOST}
+
+      AUTH_SECRET:     ${NEXTAUTH_SECRET}  # ALERT: check this, most probably it is not needed 
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET} # To decrypt the tokens of the nextjs app, it has to be the same like in the frontend application
+      SESSION_SECRET:  ${SESSION_SECRET} #
+      GATEWAY_CORS_DISABLED: true
+    healthcheck:
+      << : *healthcheck_defaults
+      test: ["CMD-SHELL", "netstat -lnpt | grep 8080"] # no curl in image
+    depends_on: { xcurator-service: { condition: service_healthy }}
+
+  xcurator-web-ap:
+    << : *service_defaults
+    image: ${XCURATOR_WEB_IMAGE}
+    ports: ["8081:3000"]
+    environment:
+      # Variable to determine which IDP to use, "AP | BLM"
+      NEXT_PUBLIC_HOST: AP
+      NEXT_PUBLIC_GATEWAY_API: ${HTTP_SCHEME}://${HOST_AP}/api-gateway/graphql
+      NEXT_PUBLIC_GATEWAY_API_SOCKET: wss://${HOST_AP}/api-gateway/
+      NEXTAUTH_URL: ${HTTP_SCHEME}://${HOST_AP}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+      # AP IDP, Keycloak
+      NEXT_KEYCLOAK_SECRET: ${NEXT_KEYCLOAK_SECRET}
+      NEXT_PUBLIC_KEYCLOAK_ISSUER: ${NEXT_PUBLIC_KEYCLOAK_ISSUER}
+      NEXT_PUBLIC_KEYCLOAK_ID: ${NEXT_PUBLIC_KEYCLOAK_ID}
+      NEXT_PUBLIC_GOOGLE_ANALYTICS_ID_AP: ${NEXT_PUBLIC_GOOGLE_ANALYTICS_ID_AP}
+      NEXT_PUBLIC_USERCENTRICS_ID: ${NEXT_PUBLIC_USERCENTRICS_ID}
+    healthcheck:
+      << : *healthcheck_defaults
+      test: ["CMD-SHELL", "netstat -lnpt | grep 3000"] # no curl in image
+    depends_on: { gateway: { condition: service_healthy }}
+
+  xcurator-web-blm:
+    << : *service_defaults
+    image: ${XCURATOR_WEB_IMAGE}
+    ports: ["8082:3000"]
+    environment:
+      # Variable to determine which IDP to use, "AP | BLM"
+      NEXT_PUBLIC_HOST: BLM
+      NEXT_PUBLIC_GATEWAY_API: ${HTTP_SCHEME}://${HOST_BLM}/api-gateway/graphql
+      NEXT_PUBLIC_GATEWAY_API_SOCKET: wss://${HOST_AP}/api-gateway/
+      NEXTAUTH_URL: ${HTTP_SCHEME}://${HOST_BLM}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+      # BLM IDP, external
+      NEXT_PUBLIC_BLM_ISSUER: ${NEXT_PUBLIC_BLM_ISSUER}
+      NEXT_PUBLIC_BLM_REQUEST_TOKEN: ${NEXT_PUBLIC_BLM_REQUEST_TOKEN}
+      NEXT_PUBLIC_BLM_PROFILE: ${NEXT_PUBLIC_BLM_PROFILE}
+      NEXT_BLM_SECRET: ${NEXT_BLM_SECRET}
+      NEXT_PUBLIC_BLM_CLIENT_ID: ${NEXT_PUBLIC_BLM_CLIENT_ID}
+      NEXT_PUBLIC_BLM_AUTHORIZATION: ${NEXT_PUBLIC_BLM_AUTHORIZATION}
+      NEXT_PUBLIC_BLM_JWKS: ${NEXT_PUBLIC_BLM_JWKS}
+      NEXT_PUBLIC_GOOGLE_ANALYTICS_ID_BLM: ${NEXT_PUBLIC_GOOGLE_ANALYTICS_ID_BLM}
+      NEXT_PUBLIC_USERCENTRICS_ID: ${NEXT_PUBLIC_USERCENTRICS_ID}
+    healthcheck:
+      << : *healthcheck_defaults
+      test: ["CMD-SHELL", "netstat -lnpt | grep 3000"] # no curl in image
+    depends_on: { gateway: { condition: service_healthy }}
+
+######################## STAGING-ONLY ########################
+  nginx:
+    << : *service_defaults
+    profiles: ['nginx']
+    image: ${NGINX_IMAGE}
+    environment:
+      HOST_AP: ${HOST_AP}
+      HOST_BLM: ${HOST_BLM}
+      HOST_ADMIN: ${HOST_ADMIN}
+      HTTP_SCHEME: ${HTTP_SCHEME}
+    volumes:
+      - ./nginx/default.conf.template:/etc/nginx/templates/default.conf.template
+      - ./nginx/.htpasswd:/etc/nginx/.htpasswd
+    ports:
+      - "80:80"
+    depends_on: { xcurator-web-ap: { condition: service_healthy }, xcurator-web-blm: { condition: service_healthy }, gateway: { condition: service_healthy }}
+
+######################## ADMIN (apart service-related) ########################
+
+  dozzle:
+    << : *service_defaults
+    profiles: ['adminui']
+    image: ${DOZZLE_IMAGE}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "9085:8080"
+    environment:
+      DOZZLE_BASE: /logs
+      DOZZLE_NO_ANALYTICS: "true"
+
+volumes:
+  mongo-data:
+    driver: local
+  es-data:
+    driver: local
+  redis-data:
+    driver: local
+  postgres-data:
+    driver: local
+  pgadmin-data:
+    driver: local
+
+networks:
+  xcurator-network:

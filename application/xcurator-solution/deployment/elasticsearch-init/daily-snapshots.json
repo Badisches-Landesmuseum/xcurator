@@ -1,0 +1,10 @@
+{
+  "schedule": "0 0 18 * * ?",
+  "name": "<daily-snap-{now/d}>", 
+  "repository": "fs_backup",
+  "config": {
+    "indices": "*",
+    "include_global_state": true
+  },
+  "retention": { "expire_after": "7d", "min_count": 5, "max_count": 5 }
+}
