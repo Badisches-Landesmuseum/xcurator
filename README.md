@@ -6,8 +6,8 @@ The integrated editor allows users to assemble objects into **stories**.
 ## System
 The xcurator system is split into two parts. 
 1. **Data Enrichment**: This part of the system is responsible for importing, cleaning and enriching the data. 
-Yor need to run it if you want to `update` your data or `create` a new dataset for xcurator. 
-All the code and configs are located inside the [data-enrichment](./data-enrichment) directory if this repository.
+You need to run it if you want to `update` your data or `create` a new dataset for xcurator. 
+All the code and configs are located inside the [data-enrichment](./data-enrichment) directory of this repository.
 </br></br>More info: [data-enrichment/README](data-enrichment/README.md)
 2. **Web-Application**: This part of the system contains all the code and configs, which are necessary to `build`, `run` and `deploy` the application.
    </br></br>More info: [application/README](application/README.md)
